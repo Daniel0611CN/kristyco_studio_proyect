@@ -1,0 +1,16 @@
+.f1 {
+  font-family: "Chopin", sans-serif;
+  font-weight: 600;
+}
+
+section {
+  color: #F4E9DF;
+}
+
+.container {
+  height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}/*# sourceMappingURL=inicio-sesion.css.map */

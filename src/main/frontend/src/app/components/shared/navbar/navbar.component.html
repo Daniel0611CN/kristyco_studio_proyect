@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand p-0" href="index.html">
+      <img src="img/prueba.png" alt="logo" class="img-fluid" style="width: 125px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item" routerLinkActive="nav-underline">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Inicio</a>
+        </li>
+        <li class="nav-item" routerLinkActive="nav-underline">
+          <a class="nav-link" routerLink="/colecciones" routerLinkActive="active">Colecciones</a>
+        </li>
+        <li class="nav-item" routerLinkActive="nav-underline">
+          <a class="nav-link" routerLink="/sobre-mi" routerLinkActive="active">Sobre
+            Mí</a>
+        </li>
+        <li class="nav-item" routerLinkActive="nav-underline">
+          <a class="nav-link" routerLink="/contacto" routerLinkActive="active">Contacto</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="true">
+            <i class="fa-solid fa-right-to-bracket"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/register" routerLinkActive="active">Registrarse</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-secondary" routerLink="/login" routerLinkActive="active">Iniciar
+                Sesión</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown d-none">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="true">
+            <i class="fa-solid fa-user"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Configuración</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

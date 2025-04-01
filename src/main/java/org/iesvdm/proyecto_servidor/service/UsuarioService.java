@@ -1,0 +1,65 @@
+package org.iesvdm.proyecto_servidor.service;
+
+import jakarta.transaction.Transactional;
+import org.iesvdm.proyecto_servidor.domain.Pedido;
+import org.iesvdm.proyecto_servidor.domain.Usuario;
+import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
+import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
+import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class UsuarioService {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public List<Usuario> all() { return this.usuarioRepository.findAll(); }
+
+    @Transactional
+    public Usuario saveOrGetIfExists(Usuario usuario) {
+        if (usuario == null) throw new IllegalArgumentException("El usuario no puede ser null");
+
+        return usuario.getId() == null ?
+                usuarioRepository.save(usuario) :
+                usuarioRepository.findById(usuario.getId())
+                        .orElseThrow(() -> new EntityNotFoundException(usuario.getId(), Usuario.class));
+    }
+
+    public Usuario one(Long id) {
+        return this.usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
+    }
+
+    public Usuario oneEmail(String email) {
+        return this.usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con email " + email));
+    }
+
+    public Usuario replace(Long id, Usuario usuario) {
+        return this.usuarioRepository.findById(id).map( p -> {
+                    if (id.equals(usuario.getId())) return this.usuarioRepository.save(usuario);
+                    else throw new NotCouplingIdException(id, usuario.getId(), Usuario.class);
+                }
+        ).orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
+    }
+
+    public void delete(Long id) {
+        this.usuarioRepository.findById(id).map(p -> {
+                    this.usuarioRepository.delete(p);
+                    return p;
+                })
+                .orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
+    }
+
+    public void changePassword(Long id, String pswd) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id " + id));
+        usuario.setPassword(pswd);
+        usuarioRepository.save(usuario);
+    }
+
+}

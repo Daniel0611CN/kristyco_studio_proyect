@@ -1,0 +1,47 @@
+package org.iesvdm.proyecto_servidor.controller;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.proyecto_servidor.domain.Categoria;
+import org.iesvdm.proyecto_servidor.service.CategoriaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@Slf4j
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/v1/api/categorias")
+@AllArgsConstructor
+public class CategoriaController {
+
+    private final CategoriaService categoriaService;
+
+    @GetMapping({"", "/"})
+    public List<Categoria> all() {
+        return this.categoriaService.all();
+    }
+
+    @PostMapping({"", "/"})
+    public Categoria newCategoria(@RequestBody Categoria categoria) {
+        return this.categoriaService.saveOrGetIfExists(categoria);
+    }
+
+    @GetMapping("/{id}")
+    public Categoria one(@PathVariable("id") Long id) {
+        return this.categoriaService.one(id);
+    }
+
+    @PutMapping("/{id}")
+    public Categoria replaceCategoria(@PathVariable("id") Long id, @RequestBody Categoria categoria) {
+        return this.categoriaService.replace(id, categoria);
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteCategoria(@PathVariable("id") Long id) {
+        this.categoriaService.delete(id);
+    }
+
+}

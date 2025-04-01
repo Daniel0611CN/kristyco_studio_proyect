@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "SophiaMorgant";
+  src: url("../scss/fonts/SophiaMorgant.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Celestine";
+  src: url("../scss/fonts/Celestine.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "JosefinSans";
+  src: url("../scss/fonts/JosefinSans.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "JuliusSansOne";
+  src: url("../scss/fonts/JuliusSansOne.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../scss/fonts/Raleway.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Chopin";
+  src: url("../scss/fonts/Chopin.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+.f1 {
+  font-family: "Chopin", sans-serif;
+}/*# sourceMappingURL=listado-invitaciones.css.map */

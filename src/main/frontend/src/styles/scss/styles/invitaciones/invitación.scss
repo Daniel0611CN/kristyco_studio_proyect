@@ -1,0 +1,55 @@
+@import "../../bootstrap";
+
+.f1 {
+  font-family: "SophiaMorgant", sans-serif;
+}
+
+.f2 {
+  font-family: "Raleway", sans-serif;
+}
+
+.n {
+  i {
+    font-size: 30px;
+  }
+}
+
+body {
+  background: $melocoton;
+
+  .s1 {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    div {
+      font-size: 3.5rem;
+      font-weight: 400;
+    }
+
+    @include tablet {
+      grid-template-columns: 1fr auto 1fr;
+
+      div {
+        grid-column: 1 / 4;
+      }
+
+      .ss1 {
+        grid-column: 1 / 2;
+      }
+
+      .ss2 {
+        grid-column: 2 / 3;
+      }
+
+      .ss3 {
+        grid-column: 3 / 4;
+      }
+    }
+
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
