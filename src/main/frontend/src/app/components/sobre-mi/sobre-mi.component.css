@@ -11907,38 +11907,35 @@ textarea.form-control-lg {
   font-family: "SophiaMorgant", sans-serif;
 }
 
-body main {
-  display: grid;
-  grid-template-rows: auto auto auto;
-  overflow-x: hidden;
-}
-body main .aux {
+.aux {
   min-height: 90vh;
 }
-body main .aux2 {
+
+.aux2 {
   min-height: 100vh;
 }
-body main .aux2 p {
+.aux2 p {
   font-size: 0.85rem;
   max-width: 300px;
 }
 @media only screen and (min-width: 768px) {
-  body main .aux2 p {
+  .aux2 p {
     font-size: 1rem;
     max-width: none;
   }
 }
-body main .container-fluid, body main .container-sm, body main .container-md, body main .container-lg, body main .container-xl, body main .container-xxl {
+
+.container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-body div {
+
+div {
   font-size: 2.5rem;
-  font-weight: 400;
 }
 @media only screen and (min-width: 768px) {
-  body div {
+  div {
     font-size: 3rem;
   }
 }

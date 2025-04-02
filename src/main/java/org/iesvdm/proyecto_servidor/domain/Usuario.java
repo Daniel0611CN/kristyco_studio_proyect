@@ -2,8 +2,12 @@ package org.iesvdm.proyecto_servidor.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -20,6 +24,7 @@ public class Usuario {
     @EqualsAndHashCode.Include
     private Long id;
 
+    @NotBlank
     @Column(length = 15, nullable = false)
     private String nombre;
 
@@ -38,8 +43,12 @@ public class Usuario {
     @Column(nullable = false)
     private String direccion;
 
-    @Column(length = 32, nullable = false)
+    @Column(nullable = false)
     private String password;
+
+//    private LocalDateTime lastLogin;
+//    private String lastToken;
+//    private Boolean habilitado = true;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
@@ -47,17 +56,23 @@ public class Usuario {
     //@JsonIgnore
     private Set<Pedido> pedidos = new HashSet<>();
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Builder.Default
     @ToString.Exclude
     private Set<Rol> roles = new HashSet<>();
 
-    public Usuario(String nombre, String email, String password) {
+    public Usuario(String username, String apellido1, String apellido2, String email, Long telefono, String direccion, String password) {
 
-        this.nombre = nombre;
+        this.nombre = username;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
         this.email = email;
+        this.telefono = telefono;
+        this.direccion = direccion;
         this.password = password;
 
     }
-
 }

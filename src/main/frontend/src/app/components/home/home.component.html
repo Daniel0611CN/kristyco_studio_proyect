@@ -1,16 +1,11 @@
-<section class="container d-flex flex-column align-items-center justify-content-center text-center">
-  <div class="col-xl-4 col-12 f1">Bienvenidos a</div>
-  <div class="col-12 f2">Kristy&Co Studio</div>
-</section>
-<section class="container text-center">
-  <h1 class="col-md-6 col-12 mx-auto mt-5 mb-5">Cree en tu día, nosotros lo creamos</h1>
-  <img src="img/principal.png" alt="logo" class="img-fluid" style="width: 300px;">
-  <p class="col-md-6 col-12 mx-auto mt-5 mb-5">
-    Bienvenidos a Kristy & Co Studio
-    Diseños con Alma, Creados con Amor
-    En Kristy & Co Studio, nos gusta contar historias de amor a través del diseño
-    y la creatividad. Creamos invitaciones de boda y papelería complementaria con
-    acabados handmade. Cada una de nuestras colecciones está diseñada para reflejar
-    la sencillez y esencia de cada pareja.
-  </p>
-</section>
+<div class="s1">
+  <section class="container d-flex flex-column align-items-center justify-content-center text-center fw-light mb-5">
+    <div class="col-xl-4 col-12 f1">{{ title }}</div>
+    <div class="col-12 f2">{{ span }}</div>
+  </section>
+  <section class="container text-center mb-5">
+    <h1 class="col-md-6 col-12 mx-auto mb-5 fw-light">{{ subtitle }}</h1>
+    <img src="img/principal.png" alt="logo" class="img-fluid mx-auto w-25">
+    <p class="col-md-6 col-12 mx-auto mt-5 mb-5">{{ text }}</p>
+  </section>
+</div>

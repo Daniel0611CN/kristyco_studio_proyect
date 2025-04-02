@@ -38,14 +38,7 @@
   font-family: "SophiaMorgant", sans-serif;
 }
 
-body div {
-  font-size: 3rem;
-  font-weight: 400;
-}
-body section p {
-  font-weight: 300;
-}
-body section i {
+section i {
   font-size: 2rem;
   padding: 10px;
 }

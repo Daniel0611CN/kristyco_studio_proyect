@@ -78,9 +78,12 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new DTOMessageResponse("Error: Email ya en uso!"));
         }
 
-        // Create new user's account
         Usuario user = new Usuario(registerRequest.getUsername(),
+                registerRequest.getApellido1(),
+                registerRequest.getApellido2(),
                 registerRequest.getEmail(),
+                registerRequest.getTelefono(),
+                registerRequest.getDireccion(),
                 encoder.encode(registerRequest.getPassword()));
 
         Set<String> strRoles = registerRequest.getRoles();

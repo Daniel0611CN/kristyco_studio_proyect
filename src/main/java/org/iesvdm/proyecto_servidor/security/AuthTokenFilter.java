@@ -53,9 +53,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             long currentTime = new Date().getTime();
             long creationTime = (Long) creationUsername[0];
 
-            if ( currentTime - creationTime < 36000000) {
-                //Tiempo de vida de un token de autenticacion
-
+            if ( currentTime - creationTime < 3600000) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername((String)creationUsername[1]);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

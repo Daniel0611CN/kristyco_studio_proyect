@@ -1,8 +1,7 @@
-package org.iesvdm.miproyecto.controller;
+package org.iesvdm.proyecto_servidor.controller;
 
 
-import org.iesvdm.miproyecto.domain.MessageResponse;
-import org.springframework.stereotype.Controller;
+import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class PruebaController {
 
     @GetMapping({"","/"})
-    public MessageResponse prueba() {
+    public DTOMessageResponse prueba() {
 
-        return new MessageResponse("Prueba security con éxito");
+        return new DTOMessageResponse("Prueba security con éxito");
 
     }
 
     @GetMapping("/solo-admin")
-    public MessageResponse pruebaSoloAdmin() {
+    public DTOMessageResponse pruebaSoloAdmin() {
 
-        return new MessageResponse("Prueba security solo-admin con éxito");
+        return new DTOMessageResponse("Prueba security solo-admin con éxito");
 
     }
 

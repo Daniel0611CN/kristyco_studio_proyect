@@ -9,7 +9,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class DTORegister {
     private String username;
-    private String password;
+    private String apellido1;
+    private String apellido2;
     private String email;
+    private Long telefono;
+    private String direccion;
+    private String password;
     private Set<String> roles;
 }

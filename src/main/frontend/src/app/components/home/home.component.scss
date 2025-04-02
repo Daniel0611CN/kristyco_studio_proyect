@@ -1,5 +1,11 @@
 @import "../../../styles/scss/fonts";
 
+// Asegura que el contenedor raíz tenga altura completa
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 .f1 {
   font-family: "SophiaMorgant", sans-serif;
 }
@@ -8,17 +14,25 @@
   font-family: "Chopin", sans-serif;
 }
 
-section {
+.s1 {
   display: grid;
-  grid-template-rows: auto 90vh auto;
+  grid-template-rows: 1fr 1fr; // Dos filas que ocupan el espacio disponible por igual
+  min-height: 100vh; // Ocupa al menos el alto de la ventana
+  height: 100%; // Se adapta al contenedor padre (body/html)
+}
+
+// Asegura que las secciones llenen su fila en la cuadrícula
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Centra verticalmente el contenido
+  align-items: center; // Centra horizontalmente el contenido
 
   div {
     font-size: 5rem;
-    font-weight: 400;
   }
 
   h1 {
     font-size: 3.5rem;
-    font-weight: 400;
   }
 }

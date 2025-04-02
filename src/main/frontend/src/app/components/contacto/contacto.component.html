@@ -1,31 +1,11 @@
 <section class="container text-center mt-5 pt-5">
-  <h2 class="mt-5">¿Tienes dudas? !Estamos aquí para ayudaros¡</h2>
-  <p class="mt-5 pt-5">
-    Planificar cada detalle de vuestra boda puede generar muchas dudas y preguntas, por eso
-    <br>
-    estamos comprometidos a resolverlas y guiaros en el camino. Ya sea para más información sobre
-    <br>
-    nuestras colecciones, materiales, inspiración o proceso de diseño, estamos disponibles para vosotros.
-    <br><br><br><br>
-    Contáctanos para agendar una reunión para conocerte y ayudarte a crear la papelería de tus
-    <br>
-    sueños a través de nuestro correo electrónico, teléfono o redes sociales.
-    <br>
-    Juntos, podemos hacer que cada detalle de tu boda sea tan especial
-    <br>
-    como siempre lo imaginaste.
-    <br><br><br>
-
-    Kristy & Co Studio: Diseños con alma, creados con amor.
-  </p>
+  <h2 class="mt-5">{{ title }}</h2>
+  <p class="mt-5 pt-5 fw-ligther" [innerHTML]="finalText"></p>
   <ul class="d-flex list-unstyled justify-content-center mt-5 pt-5">
-    <li><a href="#"><i class="fa-solid fa-phone"></i></a></li>
-    <li><a href="mailto:kristycostudio@gmail.com"><i class="fa-solid fa-envelope"></i></a></li>
-    <li>
-      <a
-        href="https://api.whatsapp.com/send?phone=34684749656&text=Hola%20Cristina,%20me%20gustaria%20concertar%20una%20llamada%20contigo%20para%20que%20me%20expliques%20el%20proceso%20completo."><i
-          class="fa-brands fa-whatsapp"></i></a>
+    <li *ngFor="let link of links; let i = index">
+      <a [href]="link.link">
+        <i [ngClass]="links[i].label"></i>
+      </a>
     </li>
-    <li><a href="https://www.instagram.com/kristyco_studio/"><i class="fa-brands fa-instagram"></i></a></li>
   </ul>
 </section>

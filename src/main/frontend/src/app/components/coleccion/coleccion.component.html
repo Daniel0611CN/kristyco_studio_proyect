@@ -1,38 +1,18 @@
-<section class="container text-center mt-5">
-  <div class="col-md-6 mx-auto d-flex flex-column flex-xl-row justify-content-around align-items-center mt-5">
-    <div class="d-inline-block f1">COLECCIÓN</div>
-    <div class="d-inline-block f2">"Aire"</div>
+<nav class="navbar navbar-expand-lg bg-light py-2 border-top border-secondary">
+  <div class="container text-center d-flex justify-content-center align-items-center">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngFor="let item of subnavItems">
+        <a class="nav-link f3 fw-bold text-secondary" [routerLink]="item.link" routerLinkActive="active">{{
+          item.label}}</a>
+      </li>
+    </ul>
   </div>
-  <p class="col-md-8 mx-auto mt-5 pt-5">
-    DEFINICIÓN
-    <br><br>
-    El aire es esencial para la vida en el planeta y transparente a simple vista.
-    <br><br>
-    CONCEPTO
-    <br><br>
-    El concepto de esta primera colección es la de tener presente siempre los elementos esenciales de la vida,
-    que puedas parar un momento, respirar y mirar al cielo, dejarte volar, dejarte soñar! Todo esto te permite
-    una tranquilidad en el proceso de tu boda desde lo más básico sabiendo apreciar cada instante.
-    <br><br>
-    STORYTELLING
-    <br><br>
-    Colección inspirada en el movimiento, en el ligero aleteo de una mariposa, en la hierba de los campos donde
-    la suave brisa la hace bailar, en el sonido de tu respiración, llena de amor, que se convierte en música,
-    tu música, tu calma, tu aire.
-    <br><br>
-    BENEFICIOS
-    <br><br>
-    La Colección ”Aire” es amplia como para permitirte combinar entre tipografías, color así como el texto a
-    elegir
-    entre invitaciones con los mismos elementos, dándole también tu toque personal.
-  </p>
-</section>
-<section class="container text-center d-flex justify-content-center align-items-center">
-  <ul class="list-unstyled">
-    <li><a href="invitaciones/invitación-sueños-al-viento.html" class="f3 text-decoration-none">Invitaciones</a>
-    </li>
-    <li><a href="#" class="f3 text-decoration-none">Acabados</a></li>
-    <li><a href="#" class="f3 text-decoration-none">Detalles</a></li>
-    <li><a href="#" class="f3 text-decoration-none">Regalos</a></li>
-  </ul>
+</nav>
+
+<section class="container text-center mt-5 mb-5">
+  <div class="col-md-6 mx-auto d-flex flex-column flex-xl-row justify-content-around align-items-center mt-5 fw-light">
+    <div class="d-inline-block f1">{{ title }}</div>
+    <div class="d-inline-block f2">{{ subtitle }}</div>
+  </div>
+  <p class="col-md-8 mx-auto mt-5 pt-5" [innerHTML]="finalText"></p>
 </section>

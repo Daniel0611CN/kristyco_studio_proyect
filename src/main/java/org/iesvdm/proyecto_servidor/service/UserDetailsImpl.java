@@ -64,6 +64,12 @@ public class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
     public Long getId() {
         return id;
     }
@@ -86,11 +92,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public Long getTelefono() {
         return telefono;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
     }
 
     @Override

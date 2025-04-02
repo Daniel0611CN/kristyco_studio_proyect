@@ -4,43 +4,32 @@
   font-family: "SophiaMorgant", sans-serif;
 }
 
-body {
+.aux {
+  min-height: 90vh;
+}
 
-  main {
-    display: grid;
-    grid-template-rows: auto auto auto;
-    overflow-x: hidden;
+.aux2 {
+  min-height: 100vh;
 
-    .aux {
-      min-height: 90vh;
-    }
-
-    .aux2 {
-      min-height: 100vh;
-
-      p {
-        font-size: 0.85rem;
-        max-width: 300px;
-        @include tablet {
-          font-size: 1rem;
-          max-width: none;
-        }
-      }
-    }
-
-    .container-fluid {
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-  }
-
-  div {
-    font-size: 2.5rem;
-    font-weight: 400;
+  p {
+    font-size: 0.85rem;
+    max-width: 300px;
     @include tablet {
-      font-size: 3rem;
+      font-size: 1rem;
+      max-width: none;
     }
+  }
+}
+
+.container-fluid {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+div {
+  font-size: 2.5rem;
+  @include tablet {
+    font-size: 3rem;
   }
 }

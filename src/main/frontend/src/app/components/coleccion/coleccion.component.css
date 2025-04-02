@@ -11918,34 +11918,7 @@ textarea.form-control-lg {
 body {
   background: #f3d8cd;
 }
-body div {
+
+section div {
   font-size: 3.5rem;
-  font-weight: 400;
-}
-body main {
-  display: grid;
-  grid-template-rows: 90vh 100vh;
-}
-body main p {
-  font-weight: 400;
-  font-size: 14px;
-  text-align: center;
-}
-body main section section ul {
-  align-content: start;
-}
-body main section section ul li {
-  padding-bottom: 8px;
-  padding-top: 8px;
-}
-body main section section ul li a {
-  display: flex;
-  align-items: start;
-  font-size: 20px;
-}
-body main section ul li {
-  padding: 10px;
-}
-body main section ul li a {
-  font-size: 1.8rem;
 }

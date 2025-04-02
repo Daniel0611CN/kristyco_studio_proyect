@@ -14,47 +14,12 @@
 
 body {
   background: $melocoton;
+}
+
+section {
 
   div {
     font-size: 3.5rem;
-    font-weight: 400;
   }
 
-  main {
-    display: grid;
-    grid-template-rows: 90vh 100vh;
-
-
-    p {
-      font-weight: 400;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    section section {
-      ul {
-        align-content: start;
-
-        li {
-          padding-bottom: 8px;
-          padding-top: 8px;
-
-          a {
-            display: flex;
-            align-items: start;
-            font-size: 20px;
-          }
-        }
-      }
-    }
-
-    section ul li {
-      padding: 10px;
-
-      a {
-        font-size: 1.8rem;
-      }
-    }
-
-  }
 }
