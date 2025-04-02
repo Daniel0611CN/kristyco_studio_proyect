@@ -27,6 +27,7 @@ export class NavbarComponent {
     { label: 'Cerrar Sesión', link: '/login' }
   ]
   dropdownAdminItems: Enlaces[] = [
+    { label: 'Administrador', link: '/admin' },
     { label: 'Listado de Colecciones', link: '/listado/colecciones' },
     { label: 'Listado de Invitaciones', link: '/listado/invitaciones' },
     { label: 'Listado de Pedidos', link: '/listado/pedidos' }

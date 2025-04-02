@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      this.roles = this.storageService.getUser().roles;
-      const targetRoute = this.roles.includes(ERol.ROL_ADMIN) ? '/admin' : '/home';
     }
   }
 

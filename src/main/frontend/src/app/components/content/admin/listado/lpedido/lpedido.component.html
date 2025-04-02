@@ -1,1 +1,27 @@
-<p>lpedido works!</p>
+<div class="text-center fs-2 p-5">Listado de Pedidos</div>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columnas">{{ col.label }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data; let i = index">
+        <td *ngFor="let col of columnas">{{ row[col.key] }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-primary" (click)="cambiarPagina(currentPage - 1)" [disabled]="currentPage === 0">
+      Anterior
+    </button>
+    <span>Página {{ currentPage + 1 }} de {{ totalElements / pageSize }}</span>
+    <button class="btn btn-primary" (click)="cambiarPagina(currentPage + 1)"
+      [disabled]="(currentPage + 1) * pageSize >= totalElements">
+      Siguiente
+    </button>
+  </div>
+</div>

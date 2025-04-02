@@ -66,10 +66,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                             .requestMatchers("/api/auth/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "api/v1/**").hasAuthority("ROL_ADMIN")
-                            .requestMatchers(HttpMethod.PUT, "api/v1/**").hasAuthority("ROL_ADMIN")
-                            .requestMatchers(HttpMethod.DELETE, "api/v1/**").hasAuthority("ROL_ADMIN")
-                            .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
+                            .requestMatchers(HttpMethod.POST, "v1/api/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "v1/api/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "v1/api/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.GET, "v1/api/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
                             .anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider())
