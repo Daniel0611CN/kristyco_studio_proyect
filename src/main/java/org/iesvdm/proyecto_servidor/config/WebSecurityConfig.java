@@ -59,24 +59,25 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults())
+        return http.cors(Customizer.withDefaults())
                 .csrf((csrf) -> csrf.disable())
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(unauthorizedHandler) )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                             .requestMatchers("/api/auth/**").permitAll()
-                            .requestMatchers("/api/v1/prueba/solo-admin").hasAnyAuthority("ROL_ADMIN")
-                            .requestMatchers("/api/v1/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
+                            .requestMatchers(HttpMethod.POST, "api/v1/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "api/v1/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "api/v1/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
                             .anyRequest().authenticated();
-                } );
-        http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                })
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .build();
 
         //https://stackoverflow.com/questions/59302026/spring-security-why-adding-the-jwt-filter-before-usernamepasswordauthenticatio
         //http.addFilterAfter(authenticationJwtTokenFilter(), ExceptionTranslationFilter.class);
-
-        return http.build();
     }
 
 }

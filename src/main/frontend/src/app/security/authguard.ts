@@ -16,10 +16,11 @@ export const canActivateAdmin: CanActivateFn = (
   }
 
   const user = storageService.getUser();
-  if (user?.rol === ERol.ROL_ADMIN) {
-    router.navigate(['/perfil']);
-    return false;
+  if (user?.roles?.includes(ERol.ROL_ADMIN)) {
+    return true;
   }
 
-  return true;
+  router.navigate(['/home']);
+  return false;
+
 };

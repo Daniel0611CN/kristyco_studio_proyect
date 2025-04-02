@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Enlaces } from '../../../models/interfaces/enlace.interface';
+import { StorageService } from '../../../services/storage/storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,10 +12,6 @@ import { Enlaces } from '../../../models/interfaces/enlace.interface';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
-  @Input({ required: true }) isLoggedIn!: boolean;
-  @Input({ required: true }) logout!: () => void;
-
   navItems: Enlaces[] = [
     { label: 'Inicio', link: '/home' },
     { label: 'Colecciones', link: '/colecciones' },
@@ -24,8 +22,24 @@ export class NavbarComponent {
     { label: 'Registrarse', link: '/register' },
     { label: 'Iniciar Sesión', link: '/login' },
   ]
-  dropdownLoginItems: Enlaces[] = [
+  dropdownConfigItems: Enlaces[] = [
     { label: 'Configuración', link: '/perfil' },
     { label: 'Cerrar Sesión', link: '/login' }
   ]
+  dropdownAdminItems: Enlaces[] = [
+    { label: 'Listado de Colecciones', link: '/listado/colecciones' },
+    { label: 'Listado de Invitaciones', link: '/listado/invitaciones' },
+    { label: 'Listado de Pedidos', link: '/listado/pedidos' }
+  ];
+
+  constructor(protected storageService: StorageService, private router: Router) {}
+
+  isLoggedIn(): boolean {
+    return this.storageService.isLoggedIn();
+  }
+
+  logout(): void {
+    this.storageService.clean();
+    this.router.navigateByUrl('/login');
+  }
 }

@@ -8,6 +8,10 @@ import { ContactoComponent } from './components/content/contacto/contacto.compon
 import { LoginComponent } from './components/form/login/login.component';
 import { RegisterComponent } from './components/form/register/register.component';
 import { InvitacionComponent } from './components/content/invitacion/invitacion.component';
+import { AdminComponent } from './components/content/admin/admin.component';
+import { LcoleccionComponent } from './components/content/admin/listado/lcoleccion/lcoleccion.component';
+import { LinvitacionComponent } from './components/content/admin/listado/linvitacion/linvitacion.component';
+import { LpedidoComponent } from './components/content/admin/listado/lpedido/lpedido.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, title: 'Inicio' },
@@ -16,8 +20,12 @@ export const routes: Routes = [
   { path: 'contacto', component: ContactoComponent, title: 'Contacto' },
   { path: 'login', component: LoginComponent, title: 'Inicio de Sesión' },
   { path: 'register', component: RegisterComponent, title: 'Registro' },
-  { path: 'perfil', component: PerfilComponent, title: 'Perfil', canActivate: [canActivateAdmin] },
+  { path: 'perfil', component: PerfilComponent, title: 'Perfil' },
   { path: 'invitaciones', component: InvitacionComponent, title: 'Invitaciones' },
+  { path: 'admin', component: AdminComponent, title: 'Admin', canActivate: [canActivateAdmin] },
+  { path: 'listado/colecciones', component: LcoleccionComponent, title: 'Listado Colecciones', canActivate: [canActivateAdmin] },
+  { path: 'listado/invitaciones', component: LinvitacionComponent, title: 'Listado Invitaciones', canActivate: [canActivateAdmin] },
+  { path: 'listado/pedidos', component: LpedidoComponent, title: 'Listado Pedidos', canActivate: [canActivateAdmin] },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];

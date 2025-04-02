@@ -3,6 +3,18 @@
     <a class="navbar-brand p-0" [routerLink]="navItems[0].link" routerLinkActive="active">
       <img src="img/icon.png" alt="logo" class="img-fluid" style="width: 125px;">
     </a>
+    <li class="nav-item dropdown list-unstyled"
+      *ngIf="isLoggedIn() && storageService.getUser()?.roles?.includes('ROL_ADMIN')">
+      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="nav-item" *ngFor="let item of dropdownAdminItems; let isLast=last">
+          <a class="dropdown-item text-secondary" [routerLink]="item.link" routerLinkActive="active">{{item.label}}</a>
+          <hr *ngIf="!isLast" class="dropdown-divider">
+        </li>
+      </ul>
+    </li>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,11 +22,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item" *ngFor="let item of navItems" routerLinkActive="nav-underline">
-          <a class="nav-link f3 fw-bold text-secondary" [routerLink]="item.link" routerLinkActive="active fw-medium">{{
-            item.label
-            }}</a>
+          <a class="nav-link f3 fw-bold text-secondary" [routerLink]="item.link" routerLinkActive="active fw-medium">
+            {{ item.label }}
+          </a>
         </li>
-        <li class="nav-item dropdown" *ngIf="!isLoggedIn">
+        <li class="nav-item dropdown" *ngIf="!isLoggedIn()">
           <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
             aria-expanded="true">
             <i class="fa-solid fa-right-to-bracket"></i>
@@ -27,20 +39,23 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown" *ngIf="isLoggedIn">
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
           <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
             aria-expanded="true">
             <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu">
             <li class="nav-item">
-              <a class="dropdown-item text-secondary" [routerLink]="dropdownLoginItems[0].link"
-                routerLinkActive="active">{{dropdownLoginItems[0].label}}</a>
+              <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[0].link"
+                routerLinkActive="active">
+                {{dropdownConfigItems[0].label}}
+              </a>
             </li>
             <hr class="dropdown-divider">
             <li class="nav-item">
-              <a class="dropdown-item text-secondary" [routerLink]="dropdownLoginItems[1].link"
-                (click)="logout()">{{dropdownLoginItems[1].label}}</a>
+              <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[1].link" (click)="logout()">
+                {{dropdownConfigItems[1].label}}
+              </a>
             </li>
           </ul>
         </li>

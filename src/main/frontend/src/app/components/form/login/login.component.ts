@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      this.router.navigateByUrl('home').then(() => {console.log('Ya logueado, cargando home.')});
+      this.roles = this.storageService.getUser().roles;
+      const targetRoute = this.roles.includes(ERol.ROL_ADMIN) ? '/admin' : '/home';
     }
   }
 
@@ -44,10 +45,8 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().roles;
-        const targetRoute = this.roles.includes(ERol.ROL_ADMIN) ? '/perfil' : '/home';
-        this.router.navigate([targetRoute]).then(() => {
-          this.reloadPage();
-        });
+        const targetRoute = this.roles.includes(ERol.ROL_ADMIN) ? '/admin' : '/home';
+        this.router.navigate([targetRoute]);
       },
       error: err => {
         this.errorMessage = err.error.message;
