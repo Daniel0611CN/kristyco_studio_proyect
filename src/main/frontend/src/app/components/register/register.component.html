@@ -94,8 +94,8 @@
       <div class="row mb-3">
         <div class="col-6">
           <div class="form-group">
-            <label for="rol" class="form-label">Rol</label>
-            <select id="rol" class="form-control" name="rol" [(ngModel)]="form.rol" required #rol="ngModel"
+            <label for="rol" class="form-label" hidden>Rol</label>
+            <select id="rol" class="form-control" name="rol" hidden [(ngModel)]="rol" required #rol="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && rol.errors }">
               <option value="user">Usuario</option>
               <option value="admin">Administrador</option>

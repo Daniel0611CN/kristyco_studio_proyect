@@ -25,6 +25,7 @@ export class RegisterComponent {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  rol: string = 'user';
 
   constructor(private authService: AuthService,
               private router: Router) { }
