@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Invitacion } from '../../models/enums/rol.enum';
+import { Invitacion } from '../../../models/interfaces/invitacion.interface';
 
 @Component({
   selector: 'app-invitacion',

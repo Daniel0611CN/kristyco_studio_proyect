@@ -7,16 +7,6 @@ section {
   color: #F4E9DF;
 }
 
-.container {
-  height: 100vh;
-}
-
 * {
   box-sizing: border-box;
-}
-
-.login-section {
-  height: calc(100vh - 70px);
-  margin-top: 70px; /* Compensar la altura del navbar fijo */
-  overflow: hidden;
 }
