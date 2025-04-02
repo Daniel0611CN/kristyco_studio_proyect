@@ -1,6 +1,6 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { Enlaces } from '../../util/app.interfaces';
+import { Enlaces } from '../../models/enums/rol.enum';
 
 @Component({
   selector: 'app-contacto',

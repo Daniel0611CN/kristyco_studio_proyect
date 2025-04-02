@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Enlaces } from '../../../util/app.interfaces';
+import { Enlaces } from '../../../models/interfaces/enlace.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +10,7 @@ import { Enlaces } from '../../../util/app.interfaces';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
   @Input({ required: true }) isLoggedIn!: boolean;
   @Input({ required: true }) logout!: () => void;
 

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -19,13 +19,12 @@ export class RegisterComponent {
     telefono: null,
     direccion: null,
     password: null,
-    rol: null
+    rol: 'User'
   };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
-  rol: string = 'user';
 
   constructor(private authService: AuthService,
               private router: Router) { }

@@ -19,9 +19,7 @@ export class AppComponent {
   logout() {
     this.storageService.clean();
     this.isLoggedIn = false;
-    this.router.navigate(['/login']).then(
-      () => {console.log('Logout OK, cargando login...')}
-    )
+    this.router.navigate(['/login']);
   }
 
   ngOnInit(): void {

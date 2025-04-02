@@ -46,10 +46,6 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
-//    private LocalDateTime lastLogin;
-//    private String lastToken;
-//    private Boolean habilitado = true;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude

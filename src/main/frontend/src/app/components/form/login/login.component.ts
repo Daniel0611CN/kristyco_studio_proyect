@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { StorageService } from '../../services/storage/storage.service';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule y NgForm
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth/auth.service';
+import { StorageService } from '../../../services/storage/storage.service';
+import { ERol } from '../../../models/enums/rol.enum';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      this.router.navigateByUrl('index').then(() => {console.log('Ya logueado, cargando index.')});
+      this.router.navigateByUrl('home').then(() => {console.log('Ya logueado, cargando home.')});
     }
   }
 
@@ -40,15 +41,13 @@ export class LoginComponent implements OnInit {
       next: data => {
         this.storageService.clean();
         this.storageService.saveUser(data);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        console.log('isLoggedIn = '+ this.isLoggedIn);
         this.roles = this.storageService.getUser().roles;
-        this.reloadPage();
-        // this.router.navigate(['index']).then(
-        //   () => {console.log('Login OK, cargando index.')}
-        // )
+        const targetRoute = this.roles.includes(ERol.ROL_ADMIN) ? '/perfil' : '/home';
+        this.router.navigate([targetRoute]).then(() => {
+          this.reloadPage();
+        });
       },
       error: err => {
         this.errorMessage = err.error.message;
