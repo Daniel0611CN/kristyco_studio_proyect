@@ -19,7 +19,7 @@ import java.util.Set;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/v1/api/usuarios")
+@RequestMapping("/api/v1/usuarios")
 @AllArgsConstructor
 public class UsuarioController {
 
