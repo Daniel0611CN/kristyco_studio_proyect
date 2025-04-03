@@ -7,7 +7,7 @@ import { StorageService } from '../storage/storage.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiAuthUrl = "http://localhost:8080/api/auth/";
+  private apiAuthUrl = "http://localhost:8080/api/v1/auth/";
 
   httpOptions = {
     headers: new HttpHeaders({
