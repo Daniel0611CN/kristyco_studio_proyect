@@ -12,7 +12,7 @@ export class PedidoService {
 
   private obtenerToken(): string {
     const token = localStorage.getItem('token');
-    console.log('Token obtenido:', token); // Verifica si el token se obtiene
+    console.log('Token obtenido:', token);
     return token || '';
   }
 
@@ -33,7 +33,7 @@ export class PedidoService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Asegurar que el token se envía
+        'Authorization': `Bearer ${token}`
       }),
       params
     };
