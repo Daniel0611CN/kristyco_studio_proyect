@@ -1,26 +1,29 @@
 package org.iesvdm.proyecto_servidor.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
-
-import javax.crypto.Cipher;
+import java.nio.charset.StandardCharsets;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
+import javax.crypto.Cipher;
 
 @Component
 public class EncryptionUtil {
 
-    private String key = "6w9z$C&F)J@NcRfU";
-    private String initVector = "Xn2r5u8x/A?D(G+K";
-    private String algo = "AES/CBC/PKCS5PADDING";
+    @Value("${encryption.key}")
+    private String key;
+    @Value("${encryption.initVector}")
+    private String initVector;
+    @Value("${encryption.algorithm}")
+    private String algorithm;
 
     public String encrypt(String value) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
 
-            Cipher cipher = Cipher.getInstance(algo);
+            Cipher cipher = Cipher.getInstance(algorithm);
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 
             byte[] encrypted = cipher.doFinal(value.getBytes());
@@ -36,7 +39,7 @@ public class EncryptionUtil {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
 
-            Cipher cipher = Cipher.getInstance(algo);
+            Cipher cipher = Cipher.getInstance(algorithm);
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
 
             byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
