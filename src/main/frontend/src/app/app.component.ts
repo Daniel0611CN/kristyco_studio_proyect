@@ -14,7 +14,7 @@ export class AppComponent {
 
   isLoggedIn  = false;
 
-  constructor( private storageService: StorageService, private router: Router) {}
+  constructor(private storageService: StorageService, private router: Router) {}
 
   logout() {
     this.storageService.clean();
