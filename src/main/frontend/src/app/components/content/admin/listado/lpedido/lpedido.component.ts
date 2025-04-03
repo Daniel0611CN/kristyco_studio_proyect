@@ -15,7 +15,7 @@ export class LpedidoComponent implements OnInit {
   columnas: { key: string, label: string }[] = [
     { key: 'id', label: 'ID' },
     { key: 'total', label: 'Total' },
-    { key: 'coste_envio', label: 'Coste de Envío' },
+    { key: 'costeEnvio', label: 'Coste de Envío' },
     { key: 'fecha', label: 'Fecha' },
     { key: 'direccion', label: 'Dirección' },
     { key: 'estado', label: 'Estado' }

@@ -8,6 +8,7 @@ import org.iesvdm.proyecto_servidor.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Value("${time.token}")
+    private long tiempoToken;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -53,7 +57,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             long currentTime = new Date().getTime();
             long creationTime = (Long) creationUsername[0];
 
-            if ( currentTime - creationTime < 3600000) {
+            if ( currentTime - creationTime < tiempoToken) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername((String)creationUsername[1]);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
