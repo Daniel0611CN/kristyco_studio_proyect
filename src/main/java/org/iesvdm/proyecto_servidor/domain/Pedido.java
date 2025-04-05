@@ -49,6 +49,7 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     @ToString.Exclude
+    @JsonIgnore
     private Usuario usuario;
 
     @ManyToMany

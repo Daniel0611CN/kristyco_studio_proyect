@@ -1,12 +1,10 @@
-import { EstadoPedido } from "../enums/estado.pedido.enum";
+// import { EstadoPedido } from "../enums/estado.pedido.enum";
 
-export interface Pedido {
-  id: number;
-  total: number;
-  coste_envio: number;
-  fecha: Date;
-  direccion: string;
-  estado: EstadoPedido;
-  // pago_id: number;
-  // usuario_id: number;
-}
+// export interface Pedido {
+//   id: number;
+//   total: number;
+//   coste_envio: number;
+//   fecha: Date;
+//   direccion: string;
+//   estado: string;
+// }

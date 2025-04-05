@@ -4,8 +4,6 @@ import org.iesvdm.proyecto_servidor.domain.*;
 import org.iesvdm.proyecto_servidor.enums.EstadoPago;
 import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.enums.MetodoPago;
-import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
-import org.iesvdm.proyecto_servidor.service.PagoService;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
 import org.iesvdm.proyecto_servidor.service.ProductoService;
 import org.junit.jupiter.api.Test;
@@ -13,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @SpringBootTest
 class ProyectoServidorApplicationTests {
@@ -350,7 +346,7 @@ class ProyectoServidorApplicationTests {
             ///// PAGOS /////
 
         Pedido p1 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Río Guadalquivir, 17")
                 .total(BigDecimal.valueOf(47.85))
                 .costeEnvio(BigDecimal.valueOf(35))
@@ -366,7 +362,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p1);
 
         Pedido p2 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Río Guadiana, 2")
                 .total(BigDecimal.valueOf(20.25))
                 .costeEnvio(BigDecimal.valueOf(10))
@@ -382,7 +378,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p2);
 
         Pedido p3 = Pedido.builder()
-                .estado(EstadoPedido.EN_CAMINO)
+                .estado(EstadoPedido.En_Camino)
                 .direccion("Avenida del Sol, 5")
                 .total(BigDecimal.valueOf(35.5))
                 .costeEnvio(BigDecimal.valueOf(15))
@@ -398,7 +394,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p3);
 
         Pedido p4 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Luna, 12")
                 .total(BigDecimal.valueOf(28.75))
                 .costeEnvio(BigDecimal.valueOf(12))
@@ -414,7 +410,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p4);
 
         Pedido p5 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Plaza Mayor, 3")
                 .total(BigDecimal.valueOf(47.85))
                 .costeEnvio(BigDecimal.valueOf(35))
@@ -430,7 +426,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p5);
 
         Pedido p6 = Pedido.builder()
-                .estado(EstadoPedido.EN_CAMINO)
+                .estado(EstadoPedido.En_Camino)
                 .direccion("Calle Estrella, 8")
                 .total(BigDecimal.valueOf(15.9))
                 .costeEnvio(BigDecimal.valueOf(8))
@@ -446,7 +442,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p6);
 
         Pedido p7 = Pedido.builder()
-                .estado(EstadoPedido.ENTREGADO)
+                .estado(EstadoPedido.Entregado)
                 .direccion("Calle Olmo, 25")
                 .total(BigDecimal.valueOf(42.3))
                 .costeEnvio(BigDecimal.valueOf(18))
@@ -462,7 +458,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p7);
 
         Pedido p8 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Avenida Paz, 14")
                 .total(BigDecimal.valueOf(25.6))
                 .costeEnvio(BigDecimal.valueOf(10))
@@ -478,7 +474,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p8);
 
         Pedido p9 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Río Tajo, 7")
                 .total(BigDecimal.valueOf(55.45))
                 .costeEnvio(BigDecimal.valueOf(25))
@@ -494,7 +490,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p9);
 
         Pedido p10 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Río Ebro, 9")
                 .total(BigDecimal.valueOf(33.15))
                 .costeEnvio(BigDecimal.valueOf(15))
@@ -510,7 +506,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p10);
 
         Pedido p11 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Río Duero, 11")
                 .total(BigDecimal.valueOf(19.8))
                 .costeEnvio(BigDecimal.valueOf(9))
@@ -526,7 +522,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p11);
 
         Pedido p12 = Pedido.builder()
-                .estado(EstadoPedido.EN_CAMINO)
+                .estado(EstadoPedido.En_Camino)
                 .direccion("Calle Río Miño, 4")
                 .total(BigDecimal.valueOf(48.9))
                 .costeEnvio(BigDecimal.valueOf(22))
@@ -542,7 +538,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p12);
 
         Pedido p13 = Pedido.builder()
-                .estado(EstadoPedido.ENTREGADO)
+                .estado(EstadoPedido.Entregado)
                 .direccion("Avenida Libertad, 20")
                 .total(BigDecimal.valueOf(37.25))
                 .costeEnvio(BigDecimal.valueOf(17))
@@ -558,7 +554,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p13);
 
         Pedido p14 = Pedido.builder()
-                .estado(EstadoPedido.ENTREGADO)
+                .estado(EstadoPedido.Entregado)
                 .direccion("Calle Río Segura, 6")
                 .total(BigDecimal.valueOf(29.4))
                 .costeEnvio(BigDecimal.valueOf(13))
@@ -574,7 +570,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p14);
 
         Pedido p15 = Pedido.builder()
-                .estado(EstadoPedido.EN_CAMINO)
+                .estado(EstadoPedido.En_Camino)
                 .direccion("Calle Río Júcar, 15")
                 .total(BigDecimal.valueOf(62.1))
                 .costeEnvio(BigDecimal.valueOf(30))
@@ -590,7 +586,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p15);
 
         Pedido p16 = Pedido.builder()
-                .estado(EstadoPedido.ENTREGADO)
+                .estado(EstadoPedido.Entregado)
                 .direccion("Calle Río Turia, 18")
                 .total(BigDecimal.valueOf(23.95))
                 .costeEnvio(BigDecimal.valueOf(11))
@@ -606,7 +602,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p16);
 
         Pedido p17 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Plaza España, 1")
                 .total(BigDecimal.valueOf(50.7))
                 .costeEnvio(BigDecimal.valueOf(23))
@@ -622,7 +618,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p17);
 
         Pedido p18 = Pedido.builder()
-                .estado(EstadoPedido.EN_CAMINO)
+                .estado(EstadoPedido.En_Camino)
                 .direccion("Calle Río Pisuerga, 22")
                 .total(BigDecimal.valueOf(31.85))
                 .costeEnvio(BigDecimal.valueOf(14))
@@ -638,7 +634,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p18);
 
         Pedido p19 = Pedido.builder()
-                .estado(EstadoPedido.ENTREGADO)
+                .estado(EstadoPedido.Entregado)
                 .direccion("Avenida Castilla, 30")
                 .total(BigDecimal.valueOf(44.6))
                 .costeEnvio(BigDecimal.valueOf(19))
@@ -654,7 +650,7 @@ class ProyectoServidorApplicationTests {
         pedidoService.save(p19);
 
         Pedido p20 = Pedido.builder()
-                .estado(EstadoPedido.PENDIENTE)
+                .estado(EstadoPedido.Pendiente)
                 .direccion("Calle Río Genil, 13")
                 .total(BigDecimal.valueOf(27.35))
                 .costeEnvio(BigDecimal.valueOf(12))

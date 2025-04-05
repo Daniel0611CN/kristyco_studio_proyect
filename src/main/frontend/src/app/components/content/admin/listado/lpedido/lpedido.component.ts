@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { PedidoService } from '../../../../../services/pedido/pedido.service';
-import { Pedido } from '../../../../../models/interfaces/pedido.interface';
 import { CommonModule } from '@angular/common';
+import { EstadoPedido } from '../../../../../models/enums/estado.pedido.enum';
 
 @Component({
   selector: 'app-lpedido',
@@ -11,6 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './lpedido.component.css'
 })
 export class LpedidoComponent implements OnInit {
+  public EstadoPedido = EstadoPedido;
   title: string = 'Listado de Pedidos';
   columnas: { key: string, label: string }[] = [
     { key: 'id', label: 'ID' },
@@ -27,48 +27,30 @@ export class LpedidoComponent implements OnInit {
 
   constructor(private pedidoService: PedidoService) {} // Quitamos ActivatedRoute si no lo usas
 
+  get totalPages(): number {
+    return Math.ceil(this.totalElements / this.pageSize);
+  }
+
   ngOnInit(): void {
     this.listarPedidos();
   }
 
-  // private listarPedidos() {
-  //   this.pedidoService.all(this.currentPage, this.pageSize).subscribe({
-  //     next: (response: any) => {
-  //       this.data = response.content;
-  //       this.totalElements = response.totalElements;
-  //       console.log('Pedidos obtenidos:', this.data);
-  //     },
-  //     error: (err) => {
-  //       console.error('Error al obtener los pedidos:', err);
-  //     }
-  //   });
-  // }
-
+  cambiarPagina(nuevaPagina: number): void {
+    if (nuevaPagina >= 0 && nuevaPagina < this.totalPages) {
+      this.currentPage = nuevaPagina;
+      this.listarPedidos();
+    }
+  }
   private listarPedidos() {
     this.pedidoService.all(this.currentPage, this.pageSize).subscribe({
       next: (response: any) => {
-        if (response && response.content) {
-          this.data = response.content;
-          this.totalElements = response.totalElements;
-          console.log('Pedidos obtenidos:', this.data);
-        } else {
-          console.error('Respuesta inesperada:', response);
-        }
+        this.data = response.content;
+        this.totalElements = response.totalElements;
       },
       error: (err) => {
         console.error('Error al obtener los pedidos:', err);
       }
     });
-  }
-
-
-
-  // Método para cambiar de página
-  cambiarPagina(nuevaPagina: number) {
-    if (nuevaPagina >= 0 && nuevaPagina < Math.ceil(this.totalElements / this.pageSize)) {
-      this.currentPage = nuevaPagina;
-      this.listarPedidos();
-    }
   }
 
 }

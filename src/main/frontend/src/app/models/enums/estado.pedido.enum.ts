@@ -1,3 +1,3 @@
 export enum EstadoPedido {
-  CANCELADO = 'CANCELADO', ENTREGADO = 'ENTREGADO', EN_CAMINO = 'EN_CAMINO', PENDIENTE = 'PENDIENTE'
+  Cancelado = 'Cancelado', Entregado = 'Entregado', En_Camino = 'En Camino', Pendiente = 'Pendiente'
 }
