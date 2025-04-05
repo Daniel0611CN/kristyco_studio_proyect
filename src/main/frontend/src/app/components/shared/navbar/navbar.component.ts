@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Enlaces } from '../../../models/interfaces/enlace.interface';
 import { StorageService } from '../../../services/storage/storage.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -23,10 +22,11 @@ export class NavbarComponent {
     { label: 'Iniciar Sesión', link: '/login' },
   ]
   dropdownConfigItems: Enlaces[] = [
+    { label: 'Administración', link: '/admin' },
     { label: 'Configuración', link: '/perfil' },
     { label: 'Cerrar Sesión', link: '/login' }
   ]
-  dropdownAdminItems: Enlaces[] = [
+  adminItems: Enlaces[] = [
     { label: 'Administrador', link: '/admin' },
     { label: 'Listado de Colecciones', link: '/listado/colecciones' },
     { label: 'Listado de Invitaciones', link: '/listado/invitaciones' },
@@ -37,6 +37,15 @@ export class NavbarComponent {
 
   isLoggedIn(): boolean {
     return this.storageService.isLoggedIn();
+  }
+
+  isAdminRoute(): boolean {
+    const url = this.router.url;
+    const isAdmin = this.adminItems.some(item => url.startsWith(item.link));
+
+    return this.isLoggedIn() &&
+           this.storageService.getUser()?.roles?.includes('ROL_ADMIN') &&
+           isAdmin;
   }
 
   logout(): void {

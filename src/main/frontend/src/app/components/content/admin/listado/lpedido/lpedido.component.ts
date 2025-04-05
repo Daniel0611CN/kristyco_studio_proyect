@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from '../../../../../services/pedido/pedido.service';
 import { CommonModule } from '@angular/common';
-import { EstadoPedido } from '../../../../../models/enums/estado.pedido.enum';
 
 @Component({
   selector: 'app-lpedido',
@@ -10,7 +9,6 @@ import { EstadoPedido } from '../../../../../models/enums/estado.pedido.enum';
   styleUrl: './lpedido.component.css'
 })
 export class LpedidoComponent implements OnInit {
-  public EstadoPedido = EstadoPedido;
   title: string = 'Listado de Pedidos';
   columnas: { key: string, label: string }[] = [
     { key: 'id', label: 'ID' },
@@ -25,7 +23,7 @@ export class LpedidoComponent implements OnInit {
   currentPage: number = 0;
   pageSize: number = 10;
 
-  constructor(private pedidoService: PedidoService) {} // Quitamos ActivatedRoute si no lo usas
+  constructor(private pedidoService: PedidoService) {}
 
   get totalPages(): number {
     return Math.ceil(this.totalElements / this.pageSize);
@@ -41,6 +39,7 @@ export class LpedidoComponent implements OnInit {
       this.listarPedidos();
     }
   }
+
   private listarPedidos() {
     this.pedidoService.all(this.currentPage, this.pageSize).subscribe({
       next: (response: any) => {

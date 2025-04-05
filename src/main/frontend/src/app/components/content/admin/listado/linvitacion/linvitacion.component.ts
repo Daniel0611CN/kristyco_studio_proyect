@@ -1,11 +1,53 @@
 import { Component } from '@angular/core';
+import { InvitacionService } from '../../../../../services/invitacion/invitacion.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-linvitacion',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './linvitacion.component.html',
   styleUrl: './linvitacion.component.css'
 })
 export class LinvitacionComponent {
+  title: string = 'Listado de Invitaciones';
+  columnas: { key: string, label: string }[] = [
+    { key: 'id', label: 'ID' },
+    { key: 'nombre', label: 'Nombre' },
+    { key: 'descripcion', label: 'Descripción' },
+    { key: 'precio', label: 'Precio' },
+    { key: 'stock', label: 'Stock' }
+  ];
+  data: any[] = [];
+  totalElements: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 10;
 
+  constructor(private invitacionService: InvitacionService) {}
+
+  get totalPages(): number {
+    return Math.ceil(this.totalElements / this.pageSize);
+  }
+
+  ngOnInit(): void {
+    this.listarPedidos();
+  }
+
+  cambiarPagina(nuevaPagina: number): void {
+    if (nuevaPagina >= 0 && nuevaPagina < this.totalPages) {
+      this.currentPage = nuevaPagina;
+      this.listarPedidos();
+    }
+  }
+
+  private listarPedidos() {
+    this.invitacionService.all(this.currentPage, this.pageSize).subscribe({
+      next: (response: any) => {
+        this.data = response.content;
+        this.totalElements = response.totalElements;
+      },
+      error: (err) => {
+        console.error('Error al obtener las invitaciones:', err);
+      }
+    });
+  }
 }
