@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from '../../../../../services/pedido/pedido.service';
 import { CommonModule } from '@angular/common';
+import { EstadoPedidoPipe } from '../../../../../pipes/estado.pedido.pipe';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lpedido',
-  imports: [CommonModule],
+  imports: [CommonModule, EstadoPedidoPipe],
   templateUrl: './lpedido.component.html',
   styleUrl: './lpedido.component.css'
 })
@@ -49,6 +51,15 @@ export class LpedidoComponent implements OnInit {
       error: (err) => {
         console.error('Error al obtener los pedidos:', err);
       }
+    });
+  }
+
+  prueba(message: string, title: string = '¡Éxito!') {
+    return Swal.fire({
+      title: title,
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
     });
   }
 

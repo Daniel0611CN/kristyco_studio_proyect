@@ -1,10 +1,15 @@
 package org.iesvdm.proyecto_servidor.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum EstadoPedido {
 
-    Pendiente,
-    En_Camino,
-    Entregado,
-    Cancelado
+    PENDIENTE,
+    EN_CAMINO,
+    ENTREGADO,
+    CANCELADO;
 
 }

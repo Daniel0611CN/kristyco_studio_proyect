@@ -10,7 +10,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of data; let i = index">
-        <td *ngFor="let col of columnas">{{ row[col.key] }}</td>
+        <td *ngFor="let col of columnas">
+          <ng-container *ngIf="col.key === 'estado'; else defaultValue">{{ row[col.key] | estadoPedidoPipe
+            }}</ng-container>
+          <ng-template #defaultValue>{{ row[col.key] }}</ng-template>
+        </td>
         <td>
           <button class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModalVer">
             <i class="fa-solid fa-eye text-secondary fs-5"></i>
@@ -45,46 +49,42 @@
       </div>
       <div class="modal-body">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">#</span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-            aria-describedby="basic-addon1">
+          <input type="number" min="0" step="0.1" class="form-control" placeholder="Total">
+          <span class="input-group-text">€</span>
         </div>
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-            aria-describedby="basic-addon2">
-          <span class="input-group-text" id="basic-addon2">example.com</span>
+          <input type="number" min="0" step="0.1" class="form-control" placeholder="Coste de Envío">
+          <span class="input-group-text">€</span>
         </div>
 
-        <div class="mb-3">
-          <label for="basic-url" class="form-label">Your vanity URL</label>
-          <div class="input-group">
-            <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
-          </div>
-          <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
+        <!-- preguntar al profe si mejor ponerlo como number o no -->
+
+        <div class="input-group mb-3">
+          <input type="date" class="form-control" readonly>
+        </div>
+
+        <!-- <div class="input-group mb-3">
+          <span class="input-group-text"></span>
+          <input type="text" class="form-control" placeholder="Dirección">
+        </div> -->
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">C/ nº</span>
+          <input type="text" class="form-control" placeholder="Dirección" readonly>
         </div>
 
         <div class="input-group mb-3">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-          <span class="input-group-text">.00</span>
-        </div>
-
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-          <span class="input-group-text">#</span>
-          <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-text">With textarea</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
+          <select class="form-select" aria-label="Default select example">
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="EN_CAMINO">En Camino</option>
+            <option value="ENTREGADO">Entregado</option>
+            <option value="CANCELADO">Cancelado</option>
+          </select>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
@@ -99,13 +99,13 @@
         <h1 class="modal-title fs-5" id="exampleModalLabelCompletar">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body text-light">
+        ¿Está seguro de que quiere archivar este pedido?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Archivar</button>
       </div>
+      <!-- (click)="prueba('Acción Realizada Correctamente', '¡Éxito!')" -->
     </div>
   </div>
 </div>
