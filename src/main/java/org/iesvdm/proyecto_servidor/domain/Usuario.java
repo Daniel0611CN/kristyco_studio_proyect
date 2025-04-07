@@ -1,6 +1,7 @@
 package org.iesvdm.proyecto_servidor.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -49,7 +50,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
-    //@JsonIgnore
+    @JsonIgnore
     private Set<Pedido> pedidos = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)

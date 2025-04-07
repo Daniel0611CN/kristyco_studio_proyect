@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @Builder.Default
-    //@JsonIgnore
+    @JsonIgnore
     private Set<Producto> productosCategoria = new HashSet<>();
 
 }

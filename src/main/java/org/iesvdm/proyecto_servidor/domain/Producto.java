@@ -36,13 +36,11 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     @ToString.Exclude
-    @JsonIgnore
     private Categoria categoria;
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id", nullable = false)
     @ToString.Exclude
-    @JsonIgnore
     private Proveedor proveedor;
 
     @ManyToMany(mappedBy = "productos", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

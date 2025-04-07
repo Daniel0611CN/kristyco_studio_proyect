@@ -40,7 +40,7 @@ public class Proveedor {
 
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
     @Builder.Default
-    //@JsonIgnore
+    @JsonIgnore
     private Set<Producto> productosProveedor = new HashSet<>();
 
 }

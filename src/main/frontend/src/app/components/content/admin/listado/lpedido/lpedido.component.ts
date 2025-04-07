@@ -46,6 +46,7 @@ export class LpedidoComponent implements OnInit {
     this.pedidoService.all(this.currentPage, this.pageSize).subscribe({
       next: (response: any) => {
         this.data = response.content;
+        console.log(this.data);
         this.totalElements = response.totalElements;
       },
       error: (err) => {

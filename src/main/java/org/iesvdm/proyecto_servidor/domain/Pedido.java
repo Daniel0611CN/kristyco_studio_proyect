@@ -44,19 +44,16 @@ public class Pedido {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pago_id", nullable = false)
     @ToString.Exclude
-    @JsonIgnore
     private Pago pago;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     @ToString.Exclude
-    @JsonIgnore
     private Usuario usuario;
 
     @ManyToMany
     @Builder.Default
     @ToString.Exclude
-    @JsonIgnore
     private Set<Producto> productos = new HashSet<>();
 
 }

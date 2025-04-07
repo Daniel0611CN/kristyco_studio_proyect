@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.iesvdm.proyecto_servidor.enums.EstadoPago;
 import org.iesvdm.proyecto_servidor.enums.MetodoPago;
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ public class Pago {
     private EstadoPago estado;
 
     @OneToOne
-    //@JsonIgnore
+    @JsonIgnore
     private Pedido pedido;
 
 }
