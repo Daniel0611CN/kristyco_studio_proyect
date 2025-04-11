@@ -51,7 +51,6 @@ $rose: #dda39d;
 $salmon: #e9c0a9;
 $melocoton: #f3d8cd;
 
-// Personalización de colores para el tema
 $primary: $beige;
 $secondary: $brown;
 $success: $rose;
@@ -74,25 +73,68 @@ $body-text-align: center;
 $body-color: $secondary;
 $body-bg: $primary;
 
-$link-color: $brown;
-$link-hover-decoration: underline;
+$link-color: $secondary;
 
 $headings-font-family: "SophiaMorgant", sans-serif;
 $headings-line-height: 1.6;
 $h1-font-size: $font-size-base * 4.5;
 $h2-font-size: $font-size-base * 2;
 
-$bg-primary-rgb: $beige;
+.bg-primary {
+  background-color: $beige !important;
+}
+
+.bg-secondary {
+  background-color: $brown !important;
+}
+
+.bg-success {
+  background-color: $rose !important;
+}
+
+.bg-info {
+  background-color: $gray-light !important;
+}
+
+.bg-warning {
+  background-color: $salmon !important;
+}
+
+.bg-danger {
+  background-color: $melocoton !important;
+}
+
+.text-primary {
+  color: $beige !important;
+}
+
+.text-secondary {
+  color: $brown !important;
+}
+
+.text-success {
+  color: $rose !important;
+}
+
+.text-info {
+  color: $gray-light !important;
+}
+
+.text-warning {
+  color: $salmon !important;
+}
+
+.text-danger {
+  color: $melocoton !important;
+}
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables-dark";
 @import "../../node_modules/bootstrap/scss/maps";
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/root";
-@import "../../node_modules/bootstrap/scss/utilities";
 @import "../../node_modules/bootstrap/scss/root";
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
 @import "../../node_modules/bootstrap/scss/buttons";
 @import "../../node_modules/bootstrap/scss/helpers";
-@import "../../node_modules/bootstrap/scss/utilities/api";
