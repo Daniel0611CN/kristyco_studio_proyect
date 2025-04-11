@@ -9,10 +9,13 @@
   </div>
 </nav>
 
-<section class="container text-center mt-5 mb-5">
-  <div class="col-md-6 mx-auto d-flex flex-column flex-xl-row justify-content-around align-items-center mt-5 fw-light">
-    <div class="d-inline-block f1">{{ title }}</div>
-    <div class="d-inline-block f2">{{ subtitle }}</div>
-  </div>
-  <p class="col-md-8 mx-auto mt-5 pt-5" [innerHTML]="finalText"></p>
-</section>
+<div class="aux p-2">
+  <section class="container text-center mt-5 mb-5">
+    <div
+      class="col-md-6 mx-auto d-flex flex-column flex-xl-row justify-content-around align-items-center mt-5 fw-light">
+      <div class="d-inline-block f1">{{ title }}</div>
+      <div class="d-inline-block f2">{{ subtitle }}</div>
+    </div>
+    <p class="col-md-8 mx-auto mt-5 pt-5" [innerHTML]="finalText"></p>
+  </section>
+</div>
