@@ -16,17 +16,16 @@ html, body {
 
 .s1 {
   display: grid;
-  grid-template-rows: 1fr 1fr; // Dos filas que ocupan el espacio disponible por igual
-  min-height: 100vh; // Ocupa al menos el alto de la ventana
-  height: 100%; // Se adapta al contenedor padre (body/html)
+  grid-template-rows: 1fr 1fr;
+  min-height: 100vh;
+  height: 100%;
 }
 
-// Asegura que las secciones llenen su fila en la cuadrícula
 section {
   display: flex;
   flex-direction: column;
-  justify-content: center; // Centra verticalmente el contenido
-  align-items: center; // Centra horizontalmente el contenido
+  justify-content: center;
+  align-items: center;
 
   div {
     font-size: 5rem;
