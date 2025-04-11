@@ -1,0 +1,98 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: "Celestine";
+  src: url("/fonts/Celestine.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Chopin";
+  src: url("/fonts/Chopin.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JosefinSans";
+  src: url("/fonts/JosefinSans.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SophiaMorgant";
+  src: url("/fonts/SophiaMorgant.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JuliusSansOne";
+  src: url("/fonts/JuliusSansOne.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/Raleway.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$font-family-base: "Raleway", sans-serif;
+
+$beige: #f4e9df;
+$brown: #b0817e;
+$gray-light: #707070;
+$rose: #dda39d;
+$salmon: #e9c0a9;
+$melocoton: #f3d8cd;
+
+// Personalización de colores para el tema
+$primary: $beige;
+$secondary: $brown;
+$success: $rose;
+$info: $gray-light;
+$warning: $salmon;
+$danger: $melocoton;
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark
+);
+
+$body-text-align: center;
+$body-color: $secondary;
+$body-bg: $primary;
+
+$link-color: $brown;
+$link-hover-decoration: underline;
+
+$headings-font-family: "SophiaMorgant", sans-serif;
+$headings-line-height: 1.6;
+$h1-font-size: $font-size-base * 4.5;
+$h2-font-size: $font-size-base * 2;
+
+$bg-primary-rgb: $beige;
+
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/helpers";
+@import "../../node_modules/bootstrap/scss/utilities/api";

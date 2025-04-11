@@ -32,12 +32,12 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "src/styles/scss/bootstrap.css",
-              "src/styles/scss/fonts.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "src/styles/custom-bootstrap.scss",
+              "src/styles.css"
             ],
             "scripts": [
-              "src/scripts/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
