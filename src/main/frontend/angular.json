@@ -33,8 +33,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/styles/scss/bootstrap.css",
-              "src/styles/scss/fonts.css"
+              "src/styles/scss/bootstrap.css"
             ],
             "scripts": [
               "src/scripts/bootstrap.bundle.min.js"
