@@ -1,0 +1,1073 @@
+<main>
+    <div class="container d-flex align-items-start mt-5">
+        <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                data-bs-target="#exampleModal1">
+            Crear
+        </button>
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                <div class="modal-content text-bg-light bg-transparent border-0">
+                    <div class="modal-header rounded-top-4" style="background: #b0706f;">
+                        <div class="modal-title fs-3 f1" id="exampleModalLabel1">Crear Colección
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background: #b0706f;">
+                        <form class="was-validated"
+                              style="color: #333;">
+                            <div class="mb-3">
+                                <label for="nombre1" class="form-label">Nombre</label>
+                                <input type="text" class="form-control text-black" id="nombre1"
+                                       placeholder="Ingrese el nombre" required>
+                                <div class="invalid-feedback" style="color: black;">El nombre es
+                                    obligatorio.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="descripcion1" class="form-label">Descripción</label>
+                                <textarea class="form-control text-dark" id="descripcion1"
+                                          rows="3" placeholder="Ingrese la descripción" required></textarea>
+                                <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                                    descripción.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer rounded-bottom-4" style="background: #b0706f;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="container table table-bordered border-info table-striped mt-5">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr>
+            <th scope="row">1</th>
+            <td>Colección Aire</td>
+            <td>Colección de invitaciones relacionadas con elementos como el viento y el aire.</td>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal11">
+                        Editar
+                    </button>
+
+                    <div class="modal fade" id="exampleModal11" tabindex="-1" aria-labelledby="exampleModalLabel11"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                            <div class="modal-content text-bg-light bg-transparent border-0">
+                                <div class="modal-header" style="background: #b0706f;">
+                                    <div class="modal-title fs-3 f1" id="exampleModalLabel11">Editar Colección</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="background: #b0706f;">
+                                    <form class="was-validated"
+                                          style="color: #333;">
+                                        <div class="mb-3">
+                                            <label for="nombre11" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control text-black" id="nombre11"
+                                                   value="Colección Aire" required>
+                                            <div class="invalid-feedback" style="color: black;">El nombre es
+                                                obligatorio.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="descripcion11" class="form-label">Descripción</label>
+                                            <textarea class="form-control text-dark" id="descripcion11"
+                                                      rows="3"
+                                                      required>Colección de invitaciones relacionadas con elementos como el viento y el aire.</textarea>
+                                            <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                                                descripción.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" style="background: #b0706f;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal12">
+                        Eliminar
+                    </button>
+
+                    <div class="modal fade" id="exampleModal12" tabindex="-1" aria-labelledby="exampleModalLabel12"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                            <div class="modal-content text-bg-light bg-transparent border-0">
+                                <div class="modal-header" style="background: #b0706f;">
+                                    <div class="modal-title fs-3 f1" id="exampleModalLabel12">Eliminar Colección</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="background: #b0706f;">
+                                    ¿Estás seguro de que quieres eliminar la colección?
+                                </div>
+                                <div class="modal-footer" style="background: #b0706f;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Colección Aqua</td>
+            <td>Colección de invitaciones relacionadas con elementos del mar.</td>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal21">
+                        Editar
+                    </button>
+
+                    <div class="modal fade" id="exampleModal21" tabindex="-1" aria-labelledby="exampleModalLabel21"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                            <div class="modal-content text-bg-light bg-transparent border-0">
+                                <div class="modal-header" style="background: #b0706f;">
+                                    <div class="modal-title fs-3 f1" id="exampleModalLabel21">Editar Colección</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="background: #b0706f;">
+                                    <form class="was-validated"
+                                          style="color: #333;">
+                                        <div class="mb-3">
+                                            <label for="nombre21" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control text-black" id="nombre21"
+                                                   value="Colección Aqua" required>
+                                            <div class="invalid-feedback" style="color: black;">El nombre es
+                                                obligatorio.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="descripcion21" class="form-label">Descripción</label>
+                                            <textarea class="form-control text-dark" id="descripcion21"
+                                                      rows="3"
+                                                      required>Colección de invitaciones relacionadas con elementos del mar.</textarea>
+                                            <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                                                descripción.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" style="background: #b0706f;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal22">
+                        Eliminar
+                    </button>
+
+                    <div class="modal fade" id="exampleModal22" tabindex="-1" aria-labelledby="exampleModalLabel22"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                            <div class="modal-content text-bg-light bg-transparent border-0">
+                                <div class="modal-header" style="background: #b0706f;">
+                                    <div class="modal-title fs-3 f1" id="exampleModalLabel22">Eliminar Colección</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="background: #b0706f;">
+                                    ¿Estás seguro de que quieres eliminar la colección?
+                                </div>
+                                <div class="modal-footer" style="background: #b0706f;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Colección Stella</td>
+            <td>Colección de invitaciones relacionadas con elementos del universo.</td>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal31">
+                        Editar
+                    </button>
+
+                    <div class="modal fade" id="exampleModal31" tabindex="-1" aria-labelledby="exampleModalLabel31"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                            <div class="modal-content text-bg-light bg-transparent border-0">
+                                <div class="modal-header" style="background: #b0706f;">
+                                    <div class="modal-title fs-3 f1" id="exampleModalLabel31">Editar Colección</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="background: #b0706f;">
+                                    <form class="was-validated"
+                                          style="color: #333;">
+                                        <div class="mb-3">
+                                            <label for="nombre31" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control text-black" id="nombre31"
+                                                   value="Colección Stella" required>
+                                            <div class="invalid-feedback" style="color: black;">El nombre es
+                                                obligatorio.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="descripcion31" class="form-label">Descripción</label>
+                                            <textarea class="form-control text-dark" id="descripcion31"
+                                                      rows="3"
+                                                      required>Colección de invitaciones relacionadas con elementos del universo.</textarea>
+                                            <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                                                descripción.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" style="background: #b0706f;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal32">
+                        Eliminar
+                    </button>
+
+                    <div class="modal fade" id="exampleModal32" tabindex="-1" aria-labelledby="exampleModalLabel32"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+                            <div class="modal-content text-bg-light bg-transparent border-0">
+                                <div class="modal-header" style="background: #b0706f;">
+                                    <div class="modal-title fs-3 f1" id="exampleModalLabel32">Eliminar Colección</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="background: #b0706f;">
+                                    ¿Estás seguro de que quieres eliminar la colección?
+                                </div>
+                                <div class="modal-footer" style="background: #b0706f;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-5">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">3</a>
+            </li>
+            <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</main> <!-- Colecciones -->
+<main>
+  <div class="container d-flex align-items-start mt-5">
+    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+            data-bs-target="#exampleModal1">
+      Crear
+    </button>
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+        <div class="modal-content text-bg-light bg-transparent border-0">
+          <div class="modal-header rounded-top-4" style="background: #b0706f;">
+            <div class="modal-title fs-3 f1" id="exampleModalLabel1">Crear Invitación
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="background: #b0706f;">
+            <form class="was-validated"
+                  style="color: #333;">
+              <div class="mb-3">
+                <label for="nombre1" class="form-label">Nombre</label>
+                <input type="text" class="form-control text-black" id="nombre1"
+                       placeholder="Ingrese el nombre" required>
+                <div class="invalid-feedback" style="color: black;">El nombre es
+                  obligatorio.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="descripcion1" class="form-label">Descripción</label>
+                <textarea class="form-control text-dark" id="descripcion1"
+                          rows="3" placeholder="Ingrese la descripción" required></textarea>
+                <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                  descripción.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="precio1" class="form-label">Precio</label>
+                <input type="number" class="form-control text-dark" id="precio1"
+                       placeholder="Ingrese el precio" min="0.01" step="0.01" required>
+                <div class="invalid-feedback" style="color: black;">Ingrese un precio válido
+                  mayor a 0.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="stock1" class="form-label">Stock</label>
+                <input type="number" class="form-control text-dark" id="stock1"
+                       placeholder="Ingrese la cantidad en stock" min="1" required>
+                <div class="invalid-feedback" style="color: black;">Ingrese una cantidad
+                  válida
+                  en stock.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <button class="btn btn-primary w-100" type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer rounded-bottom-4" style="background: #b0706f;">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="container table table-bordered border-info table-striped mt-5">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <tr>
+      <th scope="row">1</th>
+      <td>Invitación 1</td>
+      <td>Estilo 1 de Invitaciones - Colección Aire</td>
+      <td>5.00</td>
+      <td>20</td>
+      <td>
+        <div class="d-flex justify-content-around">
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal11">
+            Editar
+          </button>
+
+          <div class="modal fade" id="exampleModal11" tabindex="-1" aria-labelledby="exampleModalLabel11"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel11">Editar Invitación</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  <form class="was-validated"
+                        style="color: #333;">
+                    <div class="mb-3">
+                      <label for="nombre11" class="form-label">Nombre</label>
+                      <input type="text" class="form-control text-black" id="nombre11"
+                             value="Invitación 1" required>
+                      <div class="invalid-feedback" style="color: black;">El nombre es
+                        obligatorio.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="descripcion11" class="form-label">Descripción</label>
+                      <textarea class="form-control text-dark" id="descripcion11"
+                                rows="3"
+                                required>Estilo 1 de Invitaciones - Colección Aire</textarea>
+                      <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                        descripción.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="precio11" class="form-label">Precio</label>
+                      <input type="number" class="form-control text-dark" id="precio11"
+                             min="0.01" value="5.00" step="0.01" required>
+                      <div class="invalid-feedback" style="color: black;">Ingrese un precio válido
+                        mayor a 0.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="stock11" class="form-label">Stock</label>
+                      <input type="number" class="form-control text-dark" id="stock11" min="1"
+                             value="20" required>
+                      <div class="invalid-feedback" style="color: black;">Ingrese una cantidad
+                        válida
+                        en stock.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal12">
+            Eliminar
+          </button>
+
+          <div class="modal fade" id="exampleModal12" tabindex="-1" aria-labelledby="exampleModalLabel12"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel12">Eliminar Invitación</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  ¿Estás seguro de que quieres eliminar la invitación?
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Invitación 2</td>
+      <td>Estilo 2 de Invitaciones - Colección Aqua</td>
+      <td>3.50</td>
+      <td>10</td>
+      <td>
+        <div class="d-flex justify-content-around">
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal21">
+            Editar
+          </button>
+
+          <div class="modal fade" id="exampleModal21" tabindex="-1" aria-labelledby="exampleModalLabel21"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel21">Editar Invitación</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  <form class="was-validated"
+                        style="color: #333;">
+                    <div class="mb-3">
+                      <label for="nombre21" class="form-label">Nombre</label>
+                      <input type="text" class="form-control text-black" id="nombre21"
+                             value="Invitación 2" required>
+                      <div class="invalid-feedback" style="color: black;">El nombre es
+                        obligatorio.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="descripcion21" class="form-label">Descripción</label>
+                      <textarea class="form-control text-dark" id="descripcion21"
+                                rows="3"
+                                required>Estilo 2 de Invitaciones - Colección Aqua</textarea>
+                      <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                        descripción.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="precio21" class="form-label">Precio</label>
+                      <input type="number" class="form-control text-dark" id="precio21"
+                             min="0.01" value="3.50" step="0.01" required>
+                      <div class="invalid-feedback" style="color: black;">Ingrese un precio válido
+                        mayor a 0.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="stock21" class="form-label">Stock</label>
+                      <input type="number" class="form-control text-dark" id="stock21" min="1"
+                             value="10" required>
+                      <div class="invalid-feedback" style="color: black;">Ingrese una cantidad
+                        válida
+                        en stock.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal22">
+            Eliminar
+          </button>
+
+          <div class="modal fade" id="exampleModal22" tabindex="-1" aria-labelledby="exampleModalLabel22"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel22">Eliminar Invitación</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  ¿Estás seguro de que quieres eliminar la invitación?
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Invitación 3</td>
+      <td>Estilo 3 de Invitaciones - Colección Stella</td>
+      <td>10.00</td>
+      <td>5</td>
+      <td>
+        <div class="d-flex justify-content-around">
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal31">
+            Editar
+          </button>
+          <div class="modal fade" id="exampleModal31" tabindex="-1" aria-labelledby="exampleModalLabel31"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel31">Editar</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  <form class="was-validated"
+                        style="color: #333;">
+                    <div class="mb-3">
+                      <label for="nombre31" class="form-label">Nombre</label>
+                      <input type="text" class="form-control text-black" id="nombre31"
+                             value="Invitación 3" required>
+                      <div class="invalid-feedback" style="color: black;">El nombre es
+                        obligatorio.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="descripcion31" class="form-label">Descripción</label>
+                      <textarea class="form-control text-dark" id="descripcion31"
+                                rows="3"
+                                required>Estilo 3 de Invitaciones - Colección Stella</textarea>
+                      <div class="invalid-feedback" style="color: black;">Debe ingresar una
+                        descripción.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="precio31" class="form-label">Precio</label>
+                      <input type="number" class="form-control text-dark" id="precio31"
+                             min="0.01" value="10.00" step="0.01" required>
+                      <div class="invalid-feedback" style="color: black;">Ingrese un precio válido
+                        mayor a 0.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="stock31" class="form-label">Stock</label>
+                      <input type="number" class="form-control text-dark" id="stock31" min="1"
+                             value="5" required>
+                      <div class="invalid-feedback" style="color: black;">Ingrese una cantidad
+                        válida
+                        en stock.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal32">
+            Eliminar
+          </button>
+
+          <div class="modal fade" id="exampleModal32" tabindex="-1" aria-labelledby="exampleModalLabel32"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel32">Modal title</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  ¿Estás seguro de que quieres eliminar la invitación?
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-5">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">2</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">3</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</main> <!-- Invitaciones -->
+<main>
+  <div class="container d-flex align-items-start mt-5">
+    <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+            data-bs-target="#exampleModal1">
+      Crear
+    </button>
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+        <div class="modal-content text-bg-light bg-transparent border-0">
+          <div class="modal-header rounded-top-4" style="background: #b0706f;">
+            <div class="modal-title fs-3 f1" id="exampleModalLabel1">Crear Pedido
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="background: #b0706f;">
+            <form class="needs-validation" novalidate style="color: #333;">
+              <div class="mb-3">
+                <label for="dirección1" class="form-label">Dirección</label>
+                <input type="text" class="form-control text-black" id="dirección1"
+                       placeholder="Introduzca una dirección" required>
+                <div class="invalid-feedback" style="color: black;">Dirección no válida.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="fecha1" class="form-label">Fecha</label>
+                <input type="date" class="form-control text-black" id="fecha1"
+                       required>
+              </div>
+
+              <div class="mb-3">
+                <label for="estado1" class="form-label">Estado
+                  <select class="form-control text-dark" id="estado1" required>
+                    <option value="PENDIENTE">PENDIENTE</option>
+                    <option value="EN_CAMINO">EN_CAMINO</option>
+                    <option value="ENTREGADO">ENTREGADO</option>
+                    <option value="CANCELADO">CANCELADO</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="mb-3 has-validation">
+                <label for="costeEnvío1" class="form-label">Coste Envío</label>
+                <input type="number" class="form-control text-dark" id="costeEnvío1"
+                       placeholder="Introduzca el coste de envío" min="1" required>
+                <div class="invalid-feedback" style="color: black;">Coste de envío no válido.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="total1" class="form-label">Total</label>
+                <input type="text" class="form-control text-dark"
+                       placeholder="Introduzca el total" id="total1" min="1" required>
+                <div class="invalid-feedback" style="color: black;">Total no válido.</div>
+              </div>
+
+              <div class="mb-3">
+                <button class="btn btn-primary w-100" type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer rounded-bottom-4" style="background: #b0706f;">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="container table table-bordered border-info table-striped mt-5">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Dirección</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Coste Envío</th>
+      <th scope="col">Total</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <tr>
+      <th scope="row">1</th>
+      <td>Calle Río Guadalquivir, 17</td>
+      <td>2025-03-03</td>
+      <td>PENDIENTE</td>
+      <td>35</td>
+      <td>47.85</td>
+      <td>
+        <div class="d-flex justify-content-around">
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal11">
+            Editar
+          </button>
+
+          <div class="modal fade" id="exampleModal11" tabindex="-1" aria-labelledby="exampleModalLabel11"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel11">Editar Pedido</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  <form class="was-validated"
+                        style="color: #333;">
+                    <div class="mb-3">
+                      <label for="direccion11" class="form-label">Dirección</label>
+                      <input type="text" class="form-control text-black" id="direccion11"
+                             value="Calle Río Guadalquivir, 17"
+                             placeholder="Introduzca una dirección" required>
+                      <div class="invalid-feedback" style="color: black;">Dirección no válida.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="fecha11" class="form-label">Fecha</label>
+                      <input type="date" class="form-control text-dark" id="fecha11"
+                             required value="2025-03-03">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="estado11" class="form-label">Estado
+                        <select class="form-control text-dark" id="estado11" required>
+                          <option value="PENDIENTE">PENDIENTE</option>
+                          <option value="EN_CAMINO">EN_CAMINO</option>
+                          <option value="ENTREGADO">ENTREGADO</option>
+                          <option value="CANCELADO">CANCELADO</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="costeEnvio11" class="form-label">Coste Envio</label>
+                      <input type="number" class="form-control text-dark" id="costeEnvio11"
+                             min="1" value="35" placeholder="Introduzca el coste de envío"
+                             required>
+                      <div class="invalid-feedback" style="color: black;">Coste de envío no
+                        válido.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="total11" class="form-label">Total</label>
+                      <input type="text" class="form-control text-dark" id="total11"
+                             min="1" value="47.85" placeholder="Introduzca el total" required>
+                      <div class="invalid-feedback" style="color: black;">Coste total no válido.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal12">
+            Eliminar
+          </button>
+
+          <div class="modal fade" id="exampleModal12" tabindex="-1" aria-labelledby="exampleModalLabel12"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel12">Eliminar Pedido</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  ¿Estás seguro de que quieres eliminar el pedido?
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Calle Río Guadiana, 2</td>
+      <td>2025-03-03</td>
+      <td>PENDIENTE</td>
+      <td>10</td>
+      <td>20.25</td>
+      <td>
+        <div class="d-flex justify-content-around">
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal21">
+            Editar
+          </button>
+
+          <div class="modal fade" id="exampleModal21" tabindex="-1" aria-labelledby="exampleModalLabel21"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel21">Editar Pedido</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  <form class="was-validated"
+                        style="color: #333;">
+                    <div class="mb-3">
+                      <label for="direccion21" class="form-label">Dirección</label>
+                      <input type="text" class="form-control text-black" id="direccion21"
+                             value="Calle Río Guadiana, 2" required>
+                      <div class="invalid-feedback" style="color: black;">La dirección es
+                        obligatoria.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="fecha21" class="form-label">Fecha</label>
+                      <input type="date" class="form-control text-dark" id="fecha21"
+                             required value="2025-03-03">
+                      <div class="invalid-feedback" style="color: black;">Introduzca una
+                        fecha.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="estado21" class="form-label">Estado
+                        <select class="form-select text-dark" id="estado21" required>
+                          <option value="PENDIENTE">PENDIENTE</option>
+                          <option value="EN_CAMINO">EN_CAMINO</option>
+                          <option value="ENTREGADO">ENTREGADO</option>
+                          <option value="CANCELADO">CANCELADO</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="costeEnvio21" class="form-label">Coste Envio</label>
+                      <input type="number" class="form-control text-dark" id="costeEnvio21"
+                             min="1"
+                             value="10" required>
+                      <div class="invalid-feedback" style="color: black;">Introduzca un valor
+                        válido.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="total21" class="form-label">Total</label>
+                      <input type="text" class="form-control text-dark" id="total21"
+                             min="1" value="20.25" required>
+                      <div class="invalid-feedback" style="color: black;">Introduzca un valor
+                        válido.
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <button class="btn btn-primary w-100" type="submit">Enviar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="border-info btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal22">
+            Eliminar
+          </button>
+
+          <div class="modal fade" id="exampleModal22" tabindex="-1" aria-labelledby="exampleModalLabel22"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content text-bg-light bg-transparent border-0">
+                <div class="modal-header" style="background: #b0706f;">
+                  <div class="modal-title fs-3 f1" id="exampleModalLabel22">Eliminar Invitación</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                          aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #b0706f;">
+                  ¿Estás seguro de que quieres eliminar el pedido?
+                </div>
+                <div class="modal-footer" style="background: #b0706f;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-5">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">2</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">3</a>
+      </li>
+      <li class="page-item"><a class="page-link bg-success border-info border-1" style="color: #646464;" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</main> <!-- Pedidos -->
+<script>
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
