@@ -1,45 +1,54 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Invitacion } from '../../../models/interfaces/invitacion.interface';
+import { CommonModule, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-invitacion',
-  imports: [],
+  imports: [CommonModule, NgClass],
   templateUrl: './invitacion.component.html',
   styleUrl: './invitacion.component.css'
 })
 export class InvitacionComponent {
 
-  invitacion_alas_de_cristal: Invitacion[] = [
+  invitaciones = [
+    { id: 1, src: '../../img/4.jpg', title: 'Alas de Cristal' },
+    { id: 2, src: '../../img/5.jpg', title: 'Brisa de Fiesta' },
+    { id: 3, src: '../../img/6.jpg', title: 'Vuelo de Amor' }
+  ];
 
-  ]
+  currentPage = 0;
+  itemsPerPage = 2;
+  totalPages = Math.ceil(this.invitaciones.length / this.itemsPerPage);
 
-  invitacion_brisa_de_fiesta: Invitacion[] = [
+  get currentItems() {
+    const start = this.currentPage * this.itemsPerPage;
+    return this.invitaciones.slice(start, start + this.itemsPerPage);
+  }
 
-  ]
+  // Nuevo getter para el título
+  get currentTitle(): string {
+    return this.currentItems.length > 0 ? this.currentItems[0].title : 'Invitación';
+  }
 
-  invitacion_caricia_de_pluma: Invitacion[] = [
+  ngOnInit() {
+    this.updateItemsPerPage();
+  }
 
-  ]
+  updateItemsPerPage() {
+    this.itemsPerPage = this.invitaciones.length === 3 ? 3 : 2;
+    this.totalPages = Math.ceil(this.invitaciones.length / this.itemsPerPage);
+  }
 
-  invitacion_sueños_al_viento: Invitacion[] = [
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+    }
+  }
 
-  ]
-
-  invitacion_susurro_de_mariposa: Invitacion[] = [
-
-  ]
-
-  invitacion_vuelo_de_amor: Invitacion[] = [
-
-  ]
-
-  invitaciones: {invitacion: Invitacion[], tipoInvitacion: string}[] = [
-    { invitacion: this.invitacion_alas_de_cristal, tipoInvitacion: 'doble' },
-    { invitacion: this.invitacion_brisa_de_fiesta, tipoInvitacion: 'doble' },
-    { invitacion: this.invitacion_caricia_de_pluma, tipoInvitacion: 'doble' },
-    { invitacion: this.invitacion_sueños_al_viento, tipoInvitacion: 'doble' },
-    { invitacion: this.invitacion_susurro_de_mariposa, tipoInvitacion: 'doble' },
-    { invitacion: this.invitacion_vuelo_de_amor, tipoInvitacion: 'doble' }
-  ]
+  previousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
+  }
 
 }

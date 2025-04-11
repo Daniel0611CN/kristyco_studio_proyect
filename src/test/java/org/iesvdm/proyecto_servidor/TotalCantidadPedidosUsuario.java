@@ -10,10 +10,11 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 @SpringBootTest
-public class MostrarCantidadProductosTotalesEnPedidosDeUsuario {
+public class TotalCantidadPedidosUsuario {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
     @Autowired
     private ProductoRepository productoRepository;
 

@@ -13,10 +13,11 @@ import java.util.Objects;
 import java.util.List;
 
 @SpringBootTest
-public class MontoTotalPorUsuario {
+public class TotalMontoPorUsuario {
 
     @Autowired
     private PagoRepository pagoRepository;
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 

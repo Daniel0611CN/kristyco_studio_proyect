@@ -3,6 +3,7 @@ package org.iesvdm.proyecto_servidor.domain;
 import com.fasterxml.jackson.annotation.*;
 import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -27,7 +28,7 @@ public class Pedido {
 
     @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime fecha = LocalDateTime.now();
+    private LocalDate fecha = LocalDate.now();
 
     @Enumerated(EnumType.STRING)
     private EstadoPedido estado;

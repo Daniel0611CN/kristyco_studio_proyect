@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class CrearRoles {
+public class TestRoles {
 
     @Autowired
     private RolRepository rolRepository;
 
     @Test
-    void crearRoles() {
+    void createRol() {
         if (rolRepository.findByRol(TipoRol.ROL_ADMIN).isEmpty()) {
             rolRepository.save(new Rol(null, TipoRol.ROL_ADMIN));
         }

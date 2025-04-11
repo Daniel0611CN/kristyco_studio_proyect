@@ -1,3 +1,162 @@
+<!-- <div class="text-center fs-2 p-5">Listado de Pedidos</div>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columnas">{{ col.label }}</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data; let i = index">
+        <td *ngFor="let col of columnas">
+          <ng-container *ngIf="col.key === 'estado'; else defaultValue">{{ row[col.key] | estadoPedidoPipe
+            }}</ng-container>
+          <ng-template #defaultValue>{{ row[col.key] }}</ng-template>
+        </td>
+        <td>
+          <button class="bg-transparent border-0" data-bs-toggle="modal" (click)="prepararEdicion(row)"
+            data-bs-target="#exampleModalVer">
+            <i class="fa-solid fa-eye text-secondary fs-5"></i>
+          </button>
+          <button class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModalCompletar">
+            <i class="fa-solid fa-check text-secondary fs-5"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-primary" (click)="cambiarPagina(currentPage - 1)" [disabled]="currentPage === 0">
+      Anterior
+    </button>
+    <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+    <button class="btn btn-primary" (click)="cambiarPagina(currentPage + 1)"
+      [disabled]="(currentPage + 1) * pageSize >= totalElements">
+      Siguiente
+    </button>
+  </div>
+</div>
+
+Modal Ver
+<div class="modal fade" id="exampleModalVer" tabindex="-1" aria-labelledby="exampleModalLabelVer" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title text-light fs-5" id="exampleModalLabelVer">Ver / Editar Pedido</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="guardarCambios()" *ngIf="selectedItem">
+          <div class="mb-2">
+            <div class="container text-light text-start row p-0">
+              <label for="labelTotal" class="col">{{ form[0].label }}</label>
+              <label for="labelEnvio" class="col ms-2">{{ form[1].label }}</label>
+            </div>
+            <div class="input-group">
+              <input type="number" min="0" step="0.1" class="form-control" value="0" aria-label="labelTotal">
+              <span class="input-group-text me-1 rounded-end-2">{{ form[0].span }}</span>
+              <input type="{{ form[0].type }}" min="0" step="0.1" class="form-control ms-1 rounded-start-2" value="0"
+                aria-label="labelEnvio">
+              <span class="input-group-text">{{ form[0].span }}</span>
+            </div>
+          </div>
+
+          preguntar al profe si mejor ponerlo como number o no
+
+          <div *ngFor="let value of form">
+            <div *ngIf="value == form[2] || value == form[3]">
+              <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">{{ value.label }}</label>
+              <div class="input-group mb-2 p-0">
+                <input type="{{ value.type }}" class="form-control" placeholder="{{ value.placeholder }}" readonly>
+                <span *ngIf="value == form[3]" class="input-group-text">C/ nº</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Estado de Envío</label>
+            <div class="input-group mb-2">
+              <select class="form-select">
+                <option *ngFor="let aux of form[4]" [value]="aux.options.option">{{ aux.options.label }}</option>
+              </select>
+              <select [(ngModel)]="model">
+                <option *ngFor="let item of list" [value]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="d-flex justify-content-start text-light mb-1" id="labelTotal"></label>
+            <div class="input-group mb-2">
+              <span class="input-group-text">&#64;</span>
+              <input type="text" class="form-control" placeholder="Usuario" value="{{ selectedItem.usuario?.nombre + ' ' + selectedItem.usuario?.apellido1 + ' ' +
+              selectedItem.usuario?.apellido2 }}" readonly>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <div class="container text-light text-start row p-0">
+              <label class="col" id="labelTotal">Estado del Pago</label>
+              <label class="col ms-2" id="labelEnvio">Método de Pago</label>
+            </div>
+            <div class="input-group">
+              <select class="form-select" disabled>
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="COMPLETADO">Completado</option>
+                <option value="CANCELADO">Cancelado</option>
+              </select>
+              <span class="input-group-text me-1 rounded-end-2">€</span>
+              <select class="form-select ms-1 rounded-start-2" disabled>
+                <option value="EFECTIVO">Efectivo</option>
+                <option value="TARJETA">Tarjeta</option>
+                <option value="BIZUM">Bizum</option>
+              </select>
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="col" id="labelTotal">Productos Seleccionados</label>
+            <div class="input-group">
+              <select class="form-select" multiple>
+                <option>One</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar Cambios</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+Modal Completar
+<div class="modal fade" id="exampleModalCompletar" tabindex="-1" aria-labelledby="exampleModalLabelCompletar"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabelCompletar">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-light">
+        ¿Está seguro de que quiere archivar este pedido?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Archivar</button>
+      </div>
+      (click)="prueba('Acción Realizada Correctamente', '¡Éxito!')"
+    </div>
+  </div>
+</div> -->
+
+
 <div class="text-center fs-2 p-5">Listado de Pedidos</div>
 
 <div class="container">
@@ -16,7 +175,8 @@
           <ng-template #defaultValue>{{ row[col.key] }}</ng-template>
         </td>
         <td>
-          <button class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModalVer">
+          <button class="bg-transparent border-0" data-bs-toggle="modal" (click)="prepararEdicion(row)"
+            data-bs-target="#exampleModalVer">
             <i class="fa-solid fa-eye text-secondary fs-5"></i>
           </button>
           <button class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModalCompletar">
@@ -48,91 +208,168 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <!-- <form (ngSubmit)="guardarCambios()" *ngIf="selectedItem">
+          <div class="mb-2">
+            <div class="container text-light text-start row p-0">
+              <label for="labelTotal" class="col">{{ form[0].label }}</label>
+              <label for="labelEnvio" class="col ms-2">{{ form[1].label }}</label>
+            </div>
+            <div class="input-group">
+              <input type="number" min="0" step="0.1" class="form-control" value="0" aria-label="labelTotal">
+              <span class="input-group-text me-1 rounded-end-2">{{ form[0].span }}</span>
+              <input type="{{ form[0].type }}" min="0" step="0.1" class="form-control ms-1 rounded-start-2" value="0"
+                aria-label="labelEnvio">
+              <span class="input-group-text">{{ form[0].span }}</span>
+            </div>
+          </div>
 
-        <div>
-          <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Usuario</label>
-          <div class="input-group mb-2">
-            <span class="input-group-text">&#64;</span>
-            <input type="text" class="form-control" placeholder="Usuario" readonly>
+          <div *ngFor="let value of form">
+            <div *ngIf="value == form[2] || value == form[3]">
+              <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">{{ value.label }}</label>
+              <div class="input-group mb-2 p-0">
+                <input type="{{ value.type }}" class="form-control" placeholder="{{ value.placeholder }}" readonly>
+                <span *ngIf="value == form[3]" class="input-group-text">C/ nº</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="mb-2">
-          <div class="container text-light text-start row p-0">
-            <label class="col" id="labelTotal">Coste Total</label>
-            <label class="col ms-2" id="labelEnvio">Coste de Envío</label>
+          <div>
+            <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Estado de Envío</label>
+            <div class="input-group mb-2">
+              <select class="form-select">
+                <option *ngFor="let aux of form[4].options" [value]="aux.option">{{ aux.label }}</option>
+              </select>
+            </div>
           </div>
-          <div class="input-group">
-            <input type="number" min="0" step="0.1" class="form-control" value="0" aria-label="labelTotal">
-            <span class="input-group-text me-1 rounded-end-2">€</span>
-            <input type="number" min="0" step="0.1" class="form-control ms-1 rounded-start-2" value="0"
-              aria-label="labelEnvio">
-            <span class="input-group-text">€</span>
-          </div>
-        </div>
 
-        <!-- preguntar al profe si mejor ponerlo como number o no -->
+          <div>
+            <label class="d-flex justify-content-start text-light mb-1" id="labelTotal"></label>
+            <div class="input-group mb-2">
+              <span class="input-group-text">&#64;</span>
+              <input type="text" class="form-control" placeholder="Usuario"
+                value="{{ selectedItem.usuario?.nombre + ' ' + selectedItem.usuario?.apellido1 + ' ' + selectedItem.usuario?.apellido2 }}"
+                readonly>
+            </div>
+          </div>
 
-        <div>
-          <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Fecha de Registro</label>
-          <div class="input-group mb-2">
-            <input type="date" class="form-control" readonly>
+          <div class="mb-2">
+            <div class="container text-light text-start row p-0">
+              <label class="col" id="labelTotal">Estado del Pago</label>
+              <label class="col ms-2" id="labelEnvio">Método de Pago</label>
+            </div>
+            <div class="input-group">
+              <select class="form-select" disabled>
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="COMPLETADO">Completado</option>
+                <option value="CANCELADO">Cancelado</option>
+              </select>
+              <span class="input-group-text me-1 rounded-end-2">€</span>
+              <select class="form-select ms-1 rounded-start-2" disabled>
+                <option value="EFECTIVO">Efectivo</option>
+                <option value="TARJETA">Tarjeta</option>
+                <option value="BIZUM">Bizum</option>
+              </select>
+              <span class="input-group-text">€</span>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Dirección</label>
-          <div class="input-group mb-2">
-            <span class="input-group-text">C/ nº</span>
-            <input type="text" class="form-control" placeholder="Dirección" readonly>
+          <div>
+            <label class="col" id="labelTotal">Productos Seleccionados</label>
+            <div class="input-group">
+              <select class="form-select" multiple>
+                <option>One</option>
+              </select>
+            </div>
           </div>
-        </div>
+        </form> -->
 
-        <div>
-          <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Estado de Envío</label>
-          <div class="input-group mb-2">
-            <select class="form-select">
-              <option value="PENDIENTE">Pendiente</option>
-              <option value="EN_CAMINO">En Camino</option>
-              <option value="ENTREGADO">Entregado</option>
-              <option value="CANCELADO">Cancelado</option>
-            </select>
+        <form (ngSubmit)="guardarCambios('')" *ngIf="selectedItem">
+          <div class="mb-2">
+            <div class="container text-light text-start row p-0">
+              <label for="labelTotal" class="col">{{ total }}</label>
+              <label for="labelEnvio" class="col ms-2">{{ costeEnvio }}</label>
+            </div>
+            <div class="input-group">
+              <input type="{{ total.type }}" min="0" step="0.1" class="form-control"
+                [(ngModel)]="selectedItem[total.key]" name="total" aria-label="labelTotal">
+              <span class="input-group-text me-1 rounded-end-2">{{ total.span }}</span>
+              <input type="{{ costeEnvio.type }}" min="0" step="0.1" class="form-control ms-1 rounded-start-2"
+                [(ngModel)]="selectedItem[costeEnvio.key]" name="costeEnvio" aria-label="labelEnvio">
+              <span class="input-group-text">{{ costeEnvio.span }}</span>
+            </div>
           </div>
-        </div>
 
-        <div class="mb-2">
-          <div class="container text-light text-start row p-0">
-            <label class="col" id="labelTotal">Estado del Pago</label>
-            <label class="col ms-2" id="labelEnvio">Método de Pago</label>
+          <div *ngFor="let value of formNgFor">
+            <div>
+              <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">{{ value.label }}</label>
+              <div class="input-group mb-2 p-0">
+                <input type="{{ value.type }}" class="form-control" [(ngModel)]="selectedItem[value.key]"
+                  name="{{value.key}}" placeholder="{{ value.placeholder }}" readonly>
+                <span *ngIf="value == formNgFor[1]" class="input-group-text">C/ nº</span>
+              </div>
+            </div>
           </div>
-          <div class="input-group">
-            <select class="form-select" disabled>
-              <option value="PENDIENTE">Pendiente</option>
-              <option value="COMPLETADO">Completado</option>
-              <option value="CANCELADO">Cancelado</option>
-            </select>
-            <span class="input-group-text me-1 rounded-end-2">€</span>
-            <select class="form-select ms-1 rounded-start-2" disabled>
-              <option value="EFECTIVO">Efectivo</option>
-              <option value="TARJETA">Tarjeta</option>
-              <option value="BIZUM">Bizum</option>
-            </select>
-            <span class="input-group-text">€</span>
-          </div>
-        </div>
 
-        <div>
-          <label class="col" id="labelTotal">Productos Seleccionados</label>
-          <div class="input-group">
-            <select class="form-select" multiple>
-              <option>One</option>
-            </select>
+          <div>
+            <label class="d-flex justify-content-start text-light mb-1" id="labelTotal">Estado de Envío</label>
+            <div class="input-group mb-2">
+              <select class="form-select" [(ngModel)]="selectedItem.estado" name="estado">
+                <option *ngFor="let aux of estado.options" [value]="aux.option">{{ aux.label }}</option>
+              </select>
+            </div>
           </div>
-        </div>
+
+          <div>
+            <label class="d-flex justify-content-start text-light mb-1" id="labelTotal"></label>
+            <div class="input-group mb-2">
+              <span class="input-group-text">&#64;</span>
+              <input type="text" class="form-control"
+                [value]="selectedItem.usuario?.nombre + ' ' + selectedItem.usuario?.apellido1 + ' ' + selectedItem.usuario?.apellido2"
+                readonly name="usuario">
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <div class="container text-light text-start row p-0">
+              <label class="col" id="labelTotal">Estado del Pago</label>
+              <label class="col ms-2" id="labelEnvio">Método de Pago</label>
+            </div>
+            <div class="input-group">
+              <select class="form-select" [(ngModel)]="selectedItem.pago.estado" name="estadoPago" disabled>
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="COMPLETADO">Completado</option>
+                <option value="CANCELADO">Cancelado</option>
+              </select>
+              <span class="input-group-text me-1 rounded-end-2">€</span>
+              <select class="form-select ms-1 rounded-start-2" [(ngModel)]="selectedItem.pago.metodo" name="metodoPago"
+                disabled>
+                <option value="EFECTIVO">Efectivo</option>
+                <option value="TARJETA">Tarjeta</option>
+                <option value="BIZUM">Bizum</option>
+              </select>
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="col" id="labelTotal">Productos Seleccionados</label>
+            <div class="input-group">
+              <select class="form-select" multiple [(ngModel)]="selectedItem.productosSeleccionados"
+                name="productosSeleccionados">
+                <option *ngFor="let producto of selectedItem.productos" [value]="producto.id">{{ producto.nombre }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary"
+          (click)="guardarCambios('Los cambios se han guardado Correctamente')">Guardar
+          Cambios</button>
+        <button type="button" class="btn btn-primary" (click)="cancelarEdicion()"
+          data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
@@ -153,7 +390,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Archivar</button>
       </div>
-      <!-- (click)="prueba('Acción Realizada Correctamente', '¡Éxito!')" -->
     </div>
   </div>
 </div>

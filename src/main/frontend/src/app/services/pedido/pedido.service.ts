@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
+import { Pedido } from '../../models/interfaces/pedido.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class PedidoService {
       .set('size', size.toString());
   }
 
-  private buildHttpOptions(params: HttpParams): { headers: HttpHeaders, params: HttpParams } {
+  private buildHttpOptions(params?: HttpParams): { headers: HttpHeaders, params?: HttpParams } {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,4 +45,22 @@ export class PedidoService {
 
     return this.httpClient.get<any>(this.apiPedidoUrl, httpOptions);
   }
+
+  updatePedido(id: number, pedido: Pedido): Observable<any> {
+    if (!this.token) {
+      return new Observable(observer => {
+        observer.error('No hay token disponible.');
+        observer.complete();
+      });
+    }
+
+    const httpOptions = this.buildHttpOptions();
+
+    return this.httpClient.put<any>(
+      this.apiPedidoUrl + id,
+      pedido,
+      httpOptions
+    )
+  }
+
 }
