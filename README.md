@@ -1,7 +1,5 @@
 <h1 style="color: #dda39d; font-family: 'Sophia Morgant', serif; text-align: center;">Proyecto Kristy&Co Studio</h1>
 
-<hr>
-
 <div style="text-align: center; margin-bottom: 20px;">
     <h2 style="font-family: 'Sophia Morgant', serif; font-size: 1.8rem; margin: 0;">Índice</h2>
     <p style="font-family: 'Raleway', serif; color: #707070; font-size: 1rem; margin: 10px 0;">
@@ -28,8 +26,6 @@
     su pasión y dedicación, esta herramienta combina funcionalidad con un
     toque único e inigualable.
 </h3>
-
-<hr>
 
 <h3 style="font-family: 'Raleway', serif; font-weight: 600; color: #b0817e; text-align: center; font-size: 1.6rem; margin-bottom: 30px;">
     Tecnologías utilizadas
