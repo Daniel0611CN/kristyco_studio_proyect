@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor.repository;
 
-import org.iesvdm.proyecto_servidor.domain.Producto;
-import org.iesvdm.proyecto_servidor.domain.Proveedor;
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.domain.Proveedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

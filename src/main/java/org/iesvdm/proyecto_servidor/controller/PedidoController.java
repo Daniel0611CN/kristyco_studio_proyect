@@ -2,8 +2,8 @@ package org.iesvdm.proyecto_servidor.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.domain.Pedido;
-import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

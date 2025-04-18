@@ -1,4 +1,4 @@
-package org.iesvdm.proyecto_servidor.domain;
+package org.iesvdm.proyecto_servidor.model.domain;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;

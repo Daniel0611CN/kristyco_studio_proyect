@@ -1,10 +1,8 @@
-package org.iesvdm.proyecto_servidor.domain;
+package org.iesvdm.proyecto_servidor.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,7 +36,7 @@ public class Usuario {
     @Column(length = 45, unique = true, nullable = false)
     private String email;
 
-    @Column(precision = 9, unique = true)
+    @Column(precision = 9, unique = true, nullable = false)
     private Long telefono;
 
     @Column(nullable = false)

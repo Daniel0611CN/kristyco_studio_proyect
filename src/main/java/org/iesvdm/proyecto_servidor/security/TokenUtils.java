@@ -1,31 +1,32 @@
 package org.iesvdm.proyecto_servidor.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.antlr.v4.runtime.Token;
+import org.iesvdm.proyecto_servidor.model.record.TokenData;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
+import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import java.util.Date;
 
 @Component
+@AllArgsConstructor
 public class TokenUtils {
 
-    @Autowired
-    EncryptionUtil encryptionUtil;
+    private final EncryptionUtil encryptionUtil;
 
     private static final Logger logger = LoggerFactory.getLogger(TokenUtils.class);
 
     public String generateToken(Authentication authentication) {
-
-        return encryptionUtil.encrypt(new Date().getTime()+"#"+authentication.getName());
-
+        return encryptionUtil.encrypt(String.format("%d#%s", new Date().getTime(), authentication.getName()));
     }
 
-    public Object[] getTimeCreationUsername(String token) {
+    public TokenData parseTokenData(String token) {
         String decrypt = encryptionUtil.decrypt(token);
         int i = decrypt.indexOf("#");
-        return new Object[] {Long.parseLong(decrypt.substring(0, i)), decrypt.substring(i +1,decrypt.length())};
+        long timestamp = Long.parseLong(decrypt.substring(0, i));
+        String username = decrypt.substring(i + 1);
+        return new TokenData(timestamp, username);
     }
 
 }

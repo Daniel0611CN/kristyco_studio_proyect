@@ -1,10 +1,10 @@
 package org.iesvdm.proyecto_servidor.repository;
 
-import org.iesvdm.proyecto_servidor.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
-import org.iesvdm.proyecto_servidor.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

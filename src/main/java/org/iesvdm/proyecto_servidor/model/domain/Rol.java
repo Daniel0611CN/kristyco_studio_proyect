@@ -1,8 +1,8 @@
-package org.iesvdm.proyecto_servidor.domain;
+package org.iesvdm.proyecto_servidor.model.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.iesvdm.proyecto_servidor.enums.TipoRol;
+import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
 
 @Entity
 @Data

@@ -1,8 +1,13 @@
 package org.iesvdm.proyecto_servidor.service;
 
 import jakarta.transaction.Transactional;
-import org.iesvdm.proyecto_servidor.domain.*;
-import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.proyecto_servidor.model.domain.Pago;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.*;
@@ -15,7 +20,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Slf4j
 @Service
+@AllArgsConstructor
 public class PedidoService {
 
     @Autowired

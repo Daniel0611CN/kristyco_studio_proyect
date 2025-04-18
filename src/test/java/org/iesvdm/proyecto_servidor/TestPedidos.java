@@ -1,6 +1,6 @@
 package org.iesvdm.proyecto_servidor;
 
-import org.iesvdm.proyecto_servidor.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
 import org.iesvdm.proyecto_servidor.repository.PedidoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

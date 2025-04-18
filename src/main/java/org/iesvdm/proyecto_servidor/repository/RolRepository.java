@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor.repository;
 
-import org.iesvdm.proyecto_servidor.domain.Rol;
-import org.iesvdm.proyecto_servidor.enums.TipoRol;
+import org.iesvdm.proyecto_servidor.model.domain.Rol;
+import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

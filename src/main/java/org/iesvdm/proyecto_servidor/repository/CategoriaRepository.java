@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor.repository;
 
-import org.iesvdm.proyecto_servidor.domain.Categoria;
-import org.iesvdm.proyecto_servidor.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.domain.Categoria;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

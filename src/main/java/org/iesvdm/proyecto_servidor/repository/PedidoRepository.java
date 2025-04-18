@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor.repository;
 
-import org.iesvdm.proyecto_servidor.domain.Pedido;
-import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Repository

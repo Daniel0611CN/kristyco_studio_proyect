@@ -2,10 +2,8 @@ package org.iesvdm.proyecto_servidor.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.domain.Pedido;
-import org.iesvdm.proyecto_servidor.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.iesvdm.proyecto_servidor.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 //import org.springframework.security.access.AccessDeniedException;
 //import org.springframework.security.core.Authentication;
@@ -13,8 +11,6 @@ import org.springframework.http.HttpStatus;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")

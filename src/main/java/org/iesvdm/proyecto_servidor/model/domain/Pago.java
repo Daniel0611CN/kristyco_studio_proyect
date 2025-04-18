@@ -1,8 +1,8 @@
-package org.iesvdm.proyecto_servidor.domain;
+package org.iesvdm.proyecto_servidor.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.iesvdm.proyecto_servidor.enums.EstadoPago;
-import org.iesvdm.proyecto_servidor.enums.MetodoPago;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPago;
+import org.iesvdm.proyecto_servidor.model.enums.MetodoPago;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.math.BigDecimal;

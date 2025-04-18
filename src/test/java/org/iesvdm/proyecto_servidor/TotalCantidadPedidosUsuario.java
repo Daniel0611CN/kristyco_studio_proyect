@@ -1,6 +1,6 @@
 package org.iesvdm.proyecto_servidor;
 
-import org.iesvdm.proyecto_servidor.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
 import org.iesvdm.proyecto_servidor.repository.ProductoRepository;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

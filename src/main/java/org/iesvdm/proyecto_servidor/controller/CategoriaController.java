@@ -2,7 +2,7 @@ package org.iesvdm.proyecto_servidor.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.domain.Categoria;
+import org.iesvdm.proyecto_servidor.model.domain.Categoria;
 import org.iesvdm.proyecto_servidor.service.CategoriaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

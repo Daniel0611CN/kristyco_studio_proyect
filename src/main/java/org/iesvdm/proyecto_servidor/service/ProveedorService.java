@@ -1,24 +1,28 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import jakarta.transaction.Transactional;
-import org.iesvdm.proyecto_servidor.domain.Categoria;
-import org.iesvdm.proyecto_servidor.domain.Proveedor;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.ProveedorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.iesvdm.proyecto_servidor.model.domain.Proveedor;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
-public class ProveedorService {
+@AllArgsConstructor
+public class ProveedorService implements BasicServiceInterface<Proveedor> {
 
-    @Autowired
-    private ProveedorRepository proveedorRepository;
+    private final ProveedorRepository proveedorRepository;
 
-    public List<Proveedor> all() { return this.proveedorRepository.findAll(); }
+    @Override
+    public List<Proveedor> all() {
+        return this.proveedorRepository.findAll();
+    }
 
+    @Override
     @Transactional
     public Proveedor saveOrGetIfExists(Proveedor proveedor) {
         if (proveedor == null) throw new IllegalArgumentException("El proveedor no puede ser null");
@@ -29,11 +33,13 @@ public class ProveedorService {
                         .orElseThrow(() -> new EntityNotFoundException(proveedor.getId(), Proveedor.class));
     }
 
+    @Override
     public Proveedor one(Long id) {
         return this.proveedorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Proveedor.class));
     }
 
+    @Override
     public Proveedor replace(Long id, Proveedor proveedor) {
         return this.proveedorRepository.findById(id).map( p -> {
                     if (id.equals(proveedor.getId())) return this.proveedorRepository.save(proveedor);
@@ -42,6 +48,7 @@ public class ProveedorService {
         ).orElseThrow(() -> new EntityNotFoundException(id, Proveedor.class));
     }
 
+    @Override
     public void delete(Long id) {
         this.proveedorRepository.findById(id).map(p -> {
                     this.proveedorRepository.delete(p);

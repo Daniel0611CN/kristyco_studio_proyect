@@ -1,12 +1,12 @@
 package org.iesvdm.proyecto_servidor.service;
 
 import jakarta.transaction.Transactional;
-import org.iesvdm.proyecto_servidor.domain.*;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
-import org.iesvdm.proyecto_servidor.repository.CategoriaRepository;
+import org.iesvdm.proyecto_servidor.model.domain.Categoria;
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.domain.Proveedor;
 import org.iesvdm.proyecto_servidor.repository.ProductoRepository;
-import org.iesvdm.proyecto_servidor.repository.ProveedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

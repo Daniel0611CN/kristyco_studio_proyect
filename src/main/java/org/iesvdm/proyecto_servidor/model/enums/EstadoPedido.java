@@ -1,4 +1,4 @@
-package org.iesvdm.proyecto_servidor.enums;
+package org.iesvdm.proyecto_servidor.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

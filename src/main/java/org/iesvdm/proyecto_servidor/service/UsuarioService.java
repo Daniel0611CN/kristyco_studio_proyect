@@ -1,24 +1,28 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import jakarta.transaction.Transactional;
-import org.iesvdm.proyecto_servidor.domain.Pedido;
-import org.iesvdm.proyecto_servidor.domain.Usuario;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
-import java.util.Set;
 
+@Slf4j
 @Service
-public class UsuarioService {
+@AllArgsConstructor
+public class UsuarioService implements BasicServiceInterface<Usuario> {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public List<Usuario> all() { return this.usuarioRepository.findAll(); }
+    @Override
+    public List<Usuario> all() {
+        return this.usuarioRepository.findAll();
+    }
 
+    @Override
     @Transactional
     public Usuario saveOrGetIfExists(Usuario usuario) {
         if (usuario == null) throw new IllegalArgumentException("El usuario no puede ser null");
@@ -29,16 +33,13 @@ public class UsuarioService {
                         .orElseThrow(() -> new EntityNotFoundException(usuario.getId(), Usuario.class));
     }
 
+    @Override
     public Usuario one(Long id) {
         return this.usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
     }
 
-    public Usuario oneEmail(String email) {
-        return this.usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con email " + email));
-    }
-
+    @Override
     public Usuario replace(Long id, Usuario usuario) {
         return this.usuarioRepository.findById(id).map( p -> {
                     if (id.equals(usuario.getId())) return this.usuarioRepository.save(usuario);
@@ -47,12 +48,18 @@ public class UsuarioService {
         ).orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
     }
 
+    @Override
     public void delete(Long id) {
         this.usuarioRepository.findById(id).map(p -> {
                     this.usuarioRepository.delete(p);
                     return p;
                 })
                 .orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
+    }
+
+    public Usuario oneEmail(String email) {
+        return this.usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con email " + email));
     }
 
     public void changePassword(Long id, String pswd) {

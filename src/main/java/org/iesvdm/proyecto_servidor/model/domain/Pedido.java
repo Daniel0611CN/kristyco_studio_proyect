@@ -1,10 +1,10 @@
-package org.iesvdm.proyecto_servidor.domain;
+package org.iesvdm.proyecto_servidor.model.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;

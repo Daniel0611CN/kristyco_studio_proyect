@@ -1,9 +1,9 @@
 package org.iesvdm.proyecto_servidor;
 
-import org.iesvdm.proyecto_servidor.domain.*;
-import org.iesvdm.proyecto_servidor.enums.EstadoPago;
-import org.iesvdm.proyecto_servidor.enums.EstadoPedido;
-import org.iesvdm.proyecto_servidor.enums.MetodoPago;
+import org.iesvdm.proyecto_servidor.model.domain.*;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPago;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
+import org.iesvdm.proyecto_servidor.model.enums.MetodoPago;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
 import org.iesvdm.proyecto_servidor.service.ProductoService;
 import org.junit.jupiter.api.Test;

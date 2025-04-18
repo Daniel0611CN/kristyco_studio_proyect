@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.iesvdm.proyecto_servidor.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

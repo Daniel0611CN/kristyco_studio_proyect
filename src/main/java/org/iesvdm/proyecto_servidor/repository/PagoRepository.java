@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor.repository;
 
-import org.iesvdm.proyecto_servidor.domain.Pago;
-import org.iesvdm.proyecto_servidor.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.domain.Pago;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package org.iesvdm.proyecto_servidor;
 
-import org.iesvdm.proyecto_servidor.domain.Rol;
-import org.iesvdm.proyecto_servidor.enums.TipoRol;
+import org.iesvdm.proyecto_servidor.model.domain.Rol;
+import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
 import org.iesvdm.proyecto_servidor.repository.RolRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
