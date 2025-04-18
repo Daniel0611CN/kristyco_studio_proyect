@@ -2,7 +2,6 @@ package org.iesvdm.proyecto_servidor.service;
 
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.model.domain.Producto;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
@@ -12,20 +11,16 @@ import org.iesvdm.proyecto_servidor.repository.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Slf4j
 @Service
 @AllArgsConstructor
-public class PedidoService
-//        implements BasicServiceInterface<Pedido>
-{
+public class PedidoService implements BasicServiceInterface<Pedido> {
 
     private final PedidoRepository pedidoRepository;
     private final ProductoService productoService;
@@ -33,10 +28,18 @@ public class PedidoService
     private final PagoService pagoService;
     private final CategoriaRepository categoriaRepository;
 
-    public Page<Pedido> all(Pageable pageable) { return this.pedidoRepository.findAll(pageable); }
+    @Override
+    public List<Pedido> all() {
+        return List.of();
+    }
 
-    @Transactional
-    public Pedido save(Pedido pedido) {
+    @Override
+    public Page<Pedido> all(Pageable pageable) {
+        return this.pedidoRepository.findAll(pageable);
+    }
+
+    @Override
+    public Pedido saveOrGetIfExists(Pedido pedido) {
         if (pedido == null) throw new IllegalArgumentException("El pedido no puede ser null");
 
         if (pedido.getId() == null) {
@@ -74,11 +77,13 @@ public class PedidoService
         }
     }
 
+    @Override
     public Pedido one(Long id) {
         return this.pedidoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Pedido.class));
     }
 
+    @Override
     public Pedido replace(Long id, Pedido pedido) {
         return this.pedidoRepository.findById(id).map( p -> {
                     if (id.equals(pedido.getId())) return this.pedidoRepository.save(pedido);
@@ -87,6 +92,7 @@ public class PedidoService
         ).orElseThrow(() -> new EntityNotFoundException(id, Pedido.class));
     }
 
+    @Override
     public void delete(Long id) {
         this.pedidoRepository.findById(id).map(p -> {
                     this.pedidoRepository.delete(p);
