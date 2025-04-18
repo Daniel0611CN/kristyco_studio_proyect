@@ -26,7 +26,7 @@ public class ProductoController {
 
     @PostMapping({"", "/"})
     public Producto newProducto(@RequestBody Producto producto) {
-        return this.productoService.save(producto);
+        return this.productoService.saveOrGetIfExists(producto);
     }
 
     @GetMapping("/{id}")

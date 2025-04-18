@@ -4,7 +4,9 @@ import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.PagoRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Pago;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,11 @@ public class PagoService implements BasicServiceInterface<Pago> {
     @Override
     public List<Pago> all() {
         return this.pagoRepository.findAll();
+    }
+
+    @Override
+    public Page<Pago> all(Pageable pageable) {
+        return null;
     }
 
     @Override

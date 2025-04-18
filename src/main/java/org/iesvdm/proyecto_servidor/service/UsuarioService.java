@@ -4,8 +4,9 @@ import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
@@ -23,7 +24,11 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
     }
 
     @Override
-    @Transactional
+    public Page<Usuario> all(Pageable pageable) {
+        return null;
+    }
+
+    @Override
     public Usuario saveOrGetIfExists(Usuario usuario) {
         if (usuario == null) throw new IllegalArgumentException("El usuario no puede ser null");
 

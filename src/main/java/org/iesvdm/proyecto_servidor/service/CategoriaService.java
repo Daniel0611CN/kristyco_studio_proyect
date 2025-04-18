@@ -4,8 +4,9 @@ import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.CategoriaRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Categoria;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
@@ -23,7 +24,11 @@ public class CategoriaService implements BasicServiceInterface<Categoria> {
     }
 
     @Override
-    @Transactional
+    public Page<Categoria> all(Pageable pageable) {
+        return null;
+    }
+
+    @Override
     public Categoria saveOrGetIfExists(Categoria categoria) {
         if (categoria == null) throw new IllegalArgumentException("La categoría no puede ser null");
 

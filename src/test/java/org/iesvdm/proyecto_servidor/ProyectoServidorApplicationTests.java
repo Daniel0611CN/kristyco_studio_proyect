@@ -90,7 +90,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv1)
                 .build();
 
-        productoService.save(pt1);
+        productoService.saveOrGetIfExists(pt1);
 
         Producto pt2 = Producto.builder()
                 .nombre("Invitación 2")
@@ -101,7 +101,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv2)
                 .build();
 
-        productoService.save(pt2);
+        productoService.saveOrGetIfExists(pt2);
 
         Producto pt3 = Producto.builder()
                 .nombre("Invitación 3")
@@ -112,7 +112,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv3)
                 .build();
 
-        productoService.save(pt3);
+        productoService.saveOrGetIfExists(pt3);
 
         Producto pt4 = Producto.builder()
                 .nombre("Invitación 4")
@@ -123,7 +123,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv3)
                 .build();
 
-        productoService.save(pt4);
+        productoService.saveOrGetIfExists(pt4);
 
         Producto pt5 = Producto.builder()
                 .nombre("Invitación 5")
@@ -134,7 +134,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv2)
                 .build();
 
-        productoService.save(pt5);
+        productoService.saveOrGetIfExists(pt5);
 
         Producto pt6 = Producto.builder()
                 .nombre("Invitación 6")
@@ -145,7 +145,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv4)
                 .build();
 
-        productoService.save(pt6);
+        productoService.saveOrGetIfExists(pt6);
 
         Producto pt7 = Producto.builder()
                 .nombre("Invitación 7")
@@ -156,7 +156,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv3)
                 .build();
 
-        productoService.save(pt7);
+        productoService.saveOrGetIfExists(pt7);
 
         Producto pt8 = Producto.builder()
                 .nombre("Invitación 8")
@@ -167,7 +167,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv2)
                 .build();
 
-        productoService.save(pt8);
+        productoService.saveOrGetIfExists(pt8);
 
         Producto pt9 = Producto.builder()
                 .nombre("Invitación 9")
@@ -178,7 +178,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv1)
                 .build();
 
-        productoService.save(pt9);
+        productoService.saveOrGetIfExists(pt9);
 
         Producto pt10 = Producto.builder()
                 .nombre("Invitación 10")
@@ -189,7 +189,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv3)
                 .build();
 
-        productoService.save(pt10);
+        productoService.saveOrGetIfExists(pt10);
 
         Producto pt11 = Producto.builder()
                 .nombre("Invitación 11")
@@ -200,7 +200,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv2)
                 .build();
 
-        productoService.save(pt11);
+        productoService.saveOrGetIfExists(pt11);
 
         Producto pt12 = Producto.builder()
                 .nombre("Invitación 12")
@@ -211,7 +211,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv4)
                 .build();
 
-        productoService.save(pt12);
+        productoService.saveOrGetIfExists(pt12);
 
         Producto pt13 = Producto.builder()
                 .nombre("Invitación 13")
@@ -222,7 +222,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv3)
                 .build();
 
-        productoService.save(pt13);
+        productoService.saveOrGetIfExists(pt13);
 
         Producto pt14 = Producto.builder()
                 .nombre("Invitación 14")
@@ -233,7 +233,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv4)
                 .build();
 
-        productoService.save(pt14);
+        productoService.saveOrGetIfExists(pt14);
 
         Producto pt15 = Producto.builder()
                 .nombre("Invitación 15")
@@ -244,7 +244,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv2)
                 .build();
 
-        productoService.save(pt15);
+        productoService.saveOrGetIfExists(pt15);
 
         Producto pt16 = Producto.builder()
                 .nombre("Invitación 16")
@@ -255,7 +255,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv3)
                 .build();
 
-        productoService.save(pt16);
+        productoService.saveOrGetIfExists(pt16);
 
         Producto pt17 = Producto.builder()
                 .nombre("Invitación 17")
@@ -266,7 +266,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv1)
                 .build();
 
-        productoService.save(pt17);
+        productoService.saveOrGetIfExists(pt17);
 
         Producto pt18 = Producto.builder()
                 .nombre("Invitación 18")
@@ -277,7 +277,7 @@ class ProyectoServidorApplicationTests {
                 .proveedor(pv2)
                 .build();
 
-        productoService.save(pt18);
+        productoService.saveOrGetIfExists(pt18);
 
         ///// USUARIOS /////
 

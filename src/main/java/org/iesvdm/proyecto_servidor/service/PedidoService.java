@@ -1,20 +1,20 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
+import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.domain.Pago;
+import org.iesvdm.proyecto_servidor.repository.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.model.domain.Pago;
-import org.iesvdm.proyecto_servidor.model.domain.Pedido;
-import org.iesvdm.proyecto_servidor.model.domain.Producto;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
-import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
-import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
-import org.iesvdm.proyecto_servidor.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,22 +23,15 @@ import java.util.*;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class PedidoService {
+public class PedidoService
+//        implements BasicServiceInterface<Pedido>
+{
 
-    @Autowired
-    private PedidoRepository pedidoRepository;
-
-    @Autowired
-    private ProductoService productoService;
-
-    @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
-    private PagoService pagoService;
-
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private final PedidoRepository pedidoRepository;
+    private final ProductoService productoService;
+    private final UsuarioService usuarioService;
+    private final PagoService pagoService;
+    private final CategoriaRepository categoriaRepository;
 
     public Page<Pedido> all(Pageable pageable) { return this.pedidoRepository.findAll(pageable); }
 
@@ -65,7 +58,7 @@ public class PedidoService {
             }
 
             for (Producto producto : productos) {
-                productoService.save(producto);
+                productoService.saveOrGetIfExists(producto);
                 Producto finalProducto = producto;
                 producto = productoService.oneOptional(producto.getId())
                         .orElseThrow(() -> new EntityNotFoundException(finalProducto.getId(), Producto.class));

@@ -13,34 +13,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/categorias")
 @AllArgsConstructor
-public class CategoriaController {
+public class CategoriaController implements BasicControllerInterface<Categoria> {
 
     private final CategoriaService categoriaService;
 
-    @GetMapping({"", "/"})
+    @Override
     public List<Categoria> all() {
         return this.categoriaService.all();
     }
 
-    @PostMapping({"", "/"})
-    public Categoria newCategoria(@RequestBody Categoria categoria) {
+    @Override
+    public Categoria create(Categoria categoria) {
         return this.categoriaService.saveOrGetIfExists(categoria);
     }
 
-    @GetMapping("/{id}")
-    public Categoria one(@PathVariable("id") Long id) {
+    @Override
+    public Categoria one(Long id) {
         return this.categoriaService.one(id);
     }
 
-    @PutMapping("/{id}")
-    public Categoria replaceCategoria(@PathVariable("id") Long id, @RequestBody Categoria categoria) {
+    @Override
+    public Categoria update(Long id, Categoria categoria) {
         return this.categoriaService.replace(id, categoria);
     }
 
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    public void deleteCategoria(@PathVariable("id") Long id) {
+    @Override
+    public void delete(Long id) {
         this.categoriaService.delete(id);
     }
 
