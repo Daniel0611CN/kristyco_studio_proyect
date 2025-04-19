@@ -359,7 +359,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt1, pt12, pt16)))
                 .build();
 
-        pedidoService.save(p1);
+        pedidoService.saveOrGetIfExists(p1);
 
         Pedido p2 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -375,7 +375,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt2, pt13)))
                 .build();
 
-        pedidoService.save(p2);
+        pedidoService.saveOrGetIfExists(p2);
 
         Pedido p3 = Pedido.builder()
                 .estado(EstadoPedido.EN_CAMINO)
@@ -391,7 +391,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt3, pt14)))
                 .build();
 
-        pedidoService.save(p3);
+        pedidoService.saveOrGetIfExists(p3);
 
         Pedido p4 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -407,7 +407,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt6, pt10, pt15)))
                 .build();
 
-        pedidoService.save(p4);
+        pedidoService.saveOrGetIfExists(p4);
 
         Pedido p5 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -423,7 +423,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt1, pt7, pt16)))
                 .build();
 
-        pedidoService.save(p5);
+        pedidoService.saveOrGetIfExists(p5);
 
         Pedido p6 = Pedido.builder()
                 .estado(EstadoPedido.EN_CAMINO)
@@ -439,7 +439,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt3, pt9)))
                 .build();
 
-        pedidoService.save(p6);
+        pedidoService.saveOrGetIfExists(p6);
 
         Pedido p7 = Pedido.builder()
                 .estado(EstadoPedido.ENTREGADO)
@@ -455,7 +455,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt2)))
                 .build();
 
-        pedidoService.save(p7);
+        pedidoService.saveOrGetIfExists(p7);
 
         Pedido p8 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -471,7 +471,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt5, pt11)))
                 .build();
 
-        pedidoService.save(p8);
+        pedidoService.saveOrGetIfExists(p8);
 
         Pedido p9 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -487,7 +487,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt4, pt8)))
                 .build();
 
-        pedidoService.save(p9);
+        pedidoService.saveOrGetIfExists(p9);
 
         Pedido p10 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -503,7 +503,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt18)))
                 .build();
 
-        pedidoService.save(p10);
+        pedidoService.saveOrGetIfExists(p10);
 
         Pedido p11 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -519,7 +519,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt9, pt17)))
                 .build();
 
-        pedidoService.save(p11);
+        pedidoService.saveOrGetIfExists(p11);
 
         Pedido p12 = Pedido.builder()
                 .estado(EstadoPedido.EN_CAMINO)
@@ -535,7 +535,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt6)))
                 .build();
 
-        pedidoService.save(p12);
+        pedidoService.saveOrGetIfExists(p12);
 
         Pedido p13 = Pedido.builder()
                 .estado(EstadoPedido.ENTREGADO)
@@ -551,7 +551,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt11)))
                 .build();
 
-        pedidoService.save(p13);
+        pedidoService.saveOrGetIfExists(p13);
 
         Pedido p14 = Pedido.builder()
                 .estado(EstadoPedido.ENTREGADO)
@@ -567,7 +567,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt14)))
                 .build();
 
-        pedidoService.save(p14);
+        pedidoService.saveOrGetIfExists(p14);
 
         Pedido p15 = Pedido.builder()
                 .estado(EstadoPedido.EN_CAMINO)
@@ -583,7 +583,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt3)))
                 .build();
 
-        pedidoService.save(p15);
+        pedidoService.saveOrGetIfExists(p15);
 
         Pedido p16 = Pedido.builder()
                 .estado(EstadoPedido.ENTREGADO)
@@ -599,7 +599,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt4, pt7)))
                 .build();
 
-        pedidoService.save(p16);
+        pedidoService.saveOrGetIfExists(p16);
 
         Pedido p17 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -615,7 +615,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt3, pt17)))
                 .build();
 
-        pedidoService.save(p17);
+        pedidoService.saveOrGetIfExists(p17);
 
         Pedido p18 = Pedido.builder()
                 .estado(EstadoPedido.EN_CAMINO)
@@ -631,7 +631,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt16)))
                 .build();
 
-        pedidoService.save(p18);
+        pedidoService.saveOrGetIfExists(p18);
 
         Pedido p19 = Pedido.builder()
                 .estado(EstadoPedido.ENTREGADO)
@@ -647,7 +647,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt11, pt14)))
                 .build();
 
-        pedidoService.save(p19);
+        pedidoService.saveOrGetIfExists(p19);
 
         Pedido p20 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)
@@ -663,7 +663,7 @@ class ProyectoServidorApplicationTests {
                 .productos(new HashSet<>(List.of(pt3)))
                 .build();
 
-        pedidoService.save(p20);
+        pedidoService.saveOrGetIfExists(p20);
 
     }
 

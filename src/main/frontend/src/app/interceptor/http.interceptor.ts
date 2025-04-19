@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { StorageService } from '../../services/storage/storage.service';
+import { StorageService } from '../services/storage/storage.service';
 
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
 
-  constructor(private storageService: StorageService) { }
+  storageService = inject(StorageService);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const user = this.storageService.getUser();

@@ -3,24 +3,15 @@ import { inject } from '@angular/core';
 import { StorageService } from '../services/storage/storage.service';
 import { ERol } from '../models/enums/rol.enum';
 
-export const canActivateAdmin: CanActivateFn = (
+export const canActivate: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   const storageService = inject(StorageService);
   const router = inject(Router);
+  const roles = storageService.getUser()?.roles;
 
-  if (!storageService.isLoggedIn()) {
-    router.navigate(['/login']);
-    return false;
-  }
-
-  const user = storageService.getUser();
-  if (user?.roles?.includes(ERol.ROL_ADMIN)) {
-    return true;
-  }
-
-  router.navigate(['/home']);
-  return false;
+  return (storageService.isLoggedIn() && roles?.includes(ERol.ROL_ADMIN)) ||
+          router.createUrlTree(storageService.isLoggedIn() ? ['/home'] : ['/login']);
 
 };

@@ -1,10 +1,8 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import jakarta.transaction.Transactional;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.data.domain.Page;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 public interface BasicServiceInterface<T> {

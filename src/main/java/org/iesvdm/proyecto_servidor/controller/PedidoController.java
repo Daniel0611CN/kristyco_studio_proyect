@@ -28,7 +28,7 @@ public class PedidoController {
     public Page<Pedido> all(Pageable pageable) { return this.pedidoService.all(pageable); }
 
     @PostMapping({"", "/"})
-    public Pedido newPedido(@RequestBody Pedido pedido) { return this.pedidoService.save(pedido); }
+    public Pedido newPedido(@RequestBody Pedido pedido) { return this.pedidoService.saveOrGetIfExists(pedido); }
 
     @GetMapping("/{id}")
     public Pedido one(@PathVariable("id") Long id) {
