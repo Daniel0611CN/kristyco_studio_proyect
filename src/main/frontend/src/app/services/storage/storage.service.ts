@@ -6,8 +6,6 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 export class StorageService {
-  constructor() {}
-
   clean(): void {
     window.sessionStorage.clear();
   }
@@ -27,5 +25,4 @@ export class StorageService {
     const user = window.sessionStorage.getItem(USER_KEY);
     return !!user;
   }
-
 }

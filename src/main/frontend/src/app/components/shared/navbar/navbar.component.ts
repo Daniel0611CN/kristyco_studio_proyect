@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Enlaces } from '../../../models/interfaces/enlace.interface';
 import { StorageService } from '../../../services/storage/storage.service';
@@ -33,7 +33,8 @@ export class NavbarComponent {
     { label: 'Listado de Pedidos', link: '/listado/pedidos' }
   ];
 
-  constructor(protected storageService: StorageService, private router: Router) {}
+  storageService = inject(StorageService);
+  router = inject(Router);
 
   isLoggedIn(): boolean {
     return this.storageService.isLoggedIn();

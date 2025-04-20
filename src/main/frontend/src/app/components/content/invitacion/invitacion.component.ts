@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Invitacion } from '../../../models/interfaces/invitacion.interface';
 import { CommonModule, NgClass } from '@angular/common';
 
 @Component({

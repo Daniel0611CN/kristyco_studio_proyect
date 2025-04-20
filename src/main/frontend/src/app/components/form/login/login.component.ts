@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService,
-              private storageService: StorageService,
-              private router: Router) { }
+  authService = inject(AuthService);
+  storageService = inject(StorageService);
+  router = inject(Router);
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {

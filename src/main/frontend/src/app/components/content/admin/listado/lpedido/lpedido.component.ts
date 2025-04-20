@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PedidoService } from '../../../../../services/pedido/pedido.service';
 import { CommonModule } from '@angular/common';
 import { EstadoPedidoPipe } from '../../../../../pipes/estado.pedido.pipe';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { bootstrapApplication } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lpedido',
@@ -53,7 +52,7 @@ export class LpedidoComponent implements OnInit {
   currentPage: number = 0;
   pageSize: number = 10;
 
-  constructor(private pedidoService: PedidoService) {}
+  pedidoService = inject(PedidoService);
 
   get totalPages(): number {
     return Math.ceil(this.totalElements / this.pageSize);

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
 import { Observable } from 'rxjs';
 
@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ColeccionService {
-  private apiCategoriaUrl = 'http://localhost:8080/api/v1/categorias/';
+  private apiCategoriaUrl = '/categorias/';
 
-  constructor(private httpClient: HttpClient, private storageService: StorageService) {}
+  httpClient = inject(HttpClient);
+  storageService = inject(StorageService);
 
   private get token(): string {
     return this.storageService.getUser()?.token || '';

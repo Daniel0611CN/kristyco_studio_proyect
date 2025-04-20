@@ -1,21 +1,24 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, tap, throwError } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiAuthUrl = "http://localhost:8080/api/v1/auth/";
+
+  httpClient = inject(HttpClient);
+  storageService = inject(StorageService);
+
+  private apiAuthUrl = environment.apiUrl + '/auth/';
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   }
-
-  constructor(private httpClient: HttpClient, private storageService: StorageService) {}
 
   login(username: string, password: string): Observable<any> {
     return this.httpClient.post(
@@ -60,6 +63,5 @@ export class AuthService {
     }
     return throwError(() => errorMessage);
   }
-
 
 }

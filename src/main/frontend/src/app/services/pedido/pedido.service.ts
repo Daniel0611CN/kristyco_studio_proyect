@@ -1,16 +1,18 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
-import { Pedido } from '../../models/interfaces/pedido.interface';
+import { Pedido } from '../../models/interfaces/entities/pedido.interface';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiPedidoUrl = 'http://localhost:8080/api/v1/pedidos/';
+  private apiPedidoUrl = environment.apiUrl + '/pedidos/';
 
-  constructor(private httpClient: HttpClient, private storageService: StorageService) {}
+  httpClient = inject(HttpClient);
+  storageService = inject(StorageService);
 
   private get token(): string {
     return this.storageService.getUser()?.token || '';

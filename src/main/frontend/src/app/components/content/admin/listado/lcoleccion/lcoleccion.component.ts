@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColeccionService } from '../../../../../services/coleccion/coleccion.service';
 import { CommonModule } from '@angular/common';
 
@@ -16,8 +16,9 @@ export class LcoleccionComponent {
     { key: 'descripcion', label: 'Descripción' }
   ];
   data: any[] = [];
+  searchText: string = '';
 
-  constructor(private coleccionService: ColeccionService) {}
+  coleccionService = inject(ColeccionService);
 
   ngOnInit(): void {
     this.listarPedidos();
@@ -33,4 +34,12 @@ export class LcoleccionComponent {
       }
     });
   }
+
+  // getAllByPage(search? : string) {
+  //   this.coleccionService
+  //   .getWithFilters(this.orderOutput, this.page, search)
+  //   .subscribe((data) => this.processData(data));
+  // }
+
+
 }

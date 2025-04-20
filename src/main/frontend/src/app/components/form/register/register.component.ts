@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -26,12 +26,8 @@ export class RegisterComponent {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService,
-              private router: Router) { }
-
-  ngOnInit(): void {
-
-  }
+  authService = inject(AuthService);
+  router = inject(Router);
 
   onSubmit(): void {
     const { username, apellido1, apellido2, email, telefono, direccion, password, rol } = this.form;
