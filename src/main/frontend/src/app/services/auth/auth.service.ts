@@ -12,7 +12,7 @@ export class AuthService {
   httpClient = inject(HttpClient);
   storageService = inject(StorageService);
 
-  private apiAuthUrl = environment.apiUrl + '/auth/';
+  private apiAuthUrl = environment.apiUrl + '/auth';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,7 +22,7 @@ export class AuthService {
 
   login(username: string, password: string): Observable<any> {
     return this.httpClient.post(
-      this.apiAuthUrl + 'login',
+      this.apiAuthUrl + '/login',
       {
         username,
         password
@@ -44,7 +44,7 @@ export class AuthService {
     };
 
     return this.httpClient.post(
-      this.apiAuthUrl + 'register',
+      this.apiAuthUrl + '/register',
       JSON.stringify(registerRequest),
       this.httpOptions
     );

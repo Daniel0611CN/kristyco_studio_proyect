@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiPedidoUrl = environment.apiUrl + '/pedidos/';
+  private apiPedidoUrl = environment.apiUrl + '/pedidos';
 
   httpClient = inject(HttpClient);
   storageService = inject(StorageService);
@@ -59,7 +59,7 @@ export class PedidoService {
     const httpOptions = this.buildHttpOptions();
 
     return this.httpClient.put<any>(
-      this.apiPedidoUrl + id,
+      this.apiPedidoUrl + '/' + id,
       pedido,
       httpOptions
     )

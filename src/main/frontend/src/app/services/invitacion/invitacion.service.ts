@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class InvitacionService {
-  private apiProductoUrl = '/productos/';
+  private apiProductoUrl = '/productos';
 
   httpClient = inject(HttpClient);
   storageService = inject(StorageService);

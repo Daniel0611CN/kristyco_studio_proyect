@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ColeccionService {
-  private apiCategoriaUrl = '/categorias/';
+  private apiCategoriaUrl = '/categorias';
 
   httpClient = inject(HttpClient);
   storageService = inject(StorageService);
