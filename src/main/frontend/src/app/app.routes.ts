@@ -23,9 +23,15 @@ export const routes: Routes = [
   { path: 'perfil', component: PerfilComponent, title: 'Perfil' },
   { path: 'invitaciones', component: InvitacionComponent, title: 'Invitaciones' },
   { path: 'admin', component: AdminComponent, title: 'Admin', canActivate: [canActivate] },
-  { path: 'listado/colecciones', component: LcoleccionComponent, title: 'Listado Colecciones', canActivate: [canActivate] },
-  { path: 'listado/invitaciones', component: LinvitacionComponent, title: 'Listado Invitaciones', canActivate: [canActivate] },
-  { path: 'listado/pedidos', component: LpedidoComponent, title: 'Listado Pedidos', canActivate: [canActivate] },
+  {
+    path: 'listado',
+    canActivate: [canActivate],
+    children: [
+      { path: 'colecciones', component: LcoleccionComponent, title: 'Listado Colecciones' },
+      { path: 'invitaciones', component: LinvitacionComponent, title: 'Listado Invitaciones' },
+      { path: 'pedidos', component: LpedidoComponent, title: 'Listado Pedidos' },
+    ]
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];

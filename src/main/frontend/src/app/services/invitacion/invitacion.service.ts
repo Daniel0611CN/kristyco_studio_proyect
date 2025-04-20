@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class InvitacionService {
-  private apiProductoUrl = '/productos';
+  private apiProductoUrl = environment.apiUrl +  '/productos';
 
   httpClient = inject(HttpClient);
   storageService = inject(StorageService);

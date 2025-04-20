@@ -14,9 +14,8 @@
             {{ item.label }}
           </a>
         </li>
-        <li class="nav-item dropdown" *ngIf="!isLoggedIn()">
-          <a class="nav-link dropdown-toggle active text-secondary" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="true">
+        <li class="nav-item dropdown" *ngIf="!storageService.isLoggedIn()">
+          <a class="nav-link dropdown-toggle active text-secondary" href="#" role="button" data-bs-toggle="dropdown">
             <i class="fa-solid fa-right-to-bracket"></i>
           </a>
           <ul class="dropdown-menu">
@@ -27,9 +26,8 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
-          <a class="nav-link dropdown-toggle active text-secondary" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="true">
+        <li class="nav-item dropdown" *ngIf="storageService.isLoggedIn()">
+          <a class="nav-link dropdown-toggle active text-secondary" href="#" role="button" data-bs-toggle="dropdown">
             <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu">
@@ -46,7 +44,8 @@
             </li>
             <hr class="dropdown-divider">
             <li class="nav-item">
-              <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[2].link" (click)="logout()">
+              <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[2].link"
+                (click)="storageService.logout()">
                 {{dropdownConfigItems[2].label}}
               </a>
             </li>
@@ -56,7 +55,7 @@
     </div>
   </div>
 </nav>
-<nav *ngIf="isLoggedIn() && storageService.getUser()?.roles?.includes('ROL_ADMIN') && isAdminRoute()"
+<nav *ngIf="storageService.isLoggedIn() && storageService.getUser()?.roles?.includes('ROL_ADMIN') && isAdminRoute()"
   class="navbar navbar-expand-lg bg-light py-2 border-top border-secondary">
   <div class="container text-center d-flex justify-content-center align-items-center">
     <ul class="navbar-nav">

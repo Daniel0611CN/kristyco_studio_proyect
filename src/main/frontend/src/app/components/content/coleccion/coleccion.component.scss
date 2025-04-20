@@ -10,9 +10,11 @@
   font-family: "Chopin", sans-serif;
 }
 
-.aux {
-  height: 80vh;
-}
+// :host {
+//   display: block;
+//   min-height: calc(100vh - 131px);
+//   background-color: var(--bs-danger);
+// }
 
 section {
 

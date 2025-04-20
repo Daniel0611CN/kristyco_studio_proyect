@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 const USER_KEY = 'auth-user';
 
@@ -6,6 +7,8 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 export class StorageService {
+  router = inject(Router);
+
   clean(): void {
     window.sessionStorage.clear();
   }
@@ -24,5 +27,12 @@ export class StorageService {
   public isLoggedIn(): boolean {
     const user = window.sessionStorage.getItem(USER_KEY);
     return !!user;
+  }
+
+  logout(): void {
+    this.clean();
+    this.router.navigateByUrl('/login').then(
+      () => { console.log(`Se ha cerrado la sesión del usuario ${this.getUser().username} correctamente.`);}
+    );
   }
 }

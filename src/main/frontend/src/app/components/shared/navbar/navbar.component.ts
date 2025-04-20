@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Enlaces } from '../../../models/interfaces/enlace.interface';
 import { StorageService } from '../../../services/storage/storage.service';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-navbar',
@@ -36,21 +37,12 @@ export class NavbarComponent {
   storageService = inject(StorageService);
   router = inject(Router);
 
-  isLoggedIn(): boolean {
-    return this.storageService.isLoggedIn();
-  }
-
   isAdminRoute(): boolean {
     const url = this.router.url;
     const isAdmin = this.adminItems.some(item => url.startsWith(item.link));
 
-    return this.isLoggedIn() &&
+    return this.storageService.isLoggedIn() &&
            this.storageService.getUser()?.roles?.includes('ROL_ADMIN') &&
            isAdmin;
-  }
-
-  logout(): void {
-    this.storageService.clean();
-    this.router.navigateByUrl('/login');
   }
 }
