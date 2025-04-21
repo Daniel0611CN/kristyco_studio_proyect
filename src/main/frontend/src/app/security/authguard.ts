@@ -9,5 +9,5 @@ export const canActivate: CanActivateFn = (
   const storageService = inject(StorageService);
   const router = inject(Router);
 
-  return storageService.isLoggedIn() || router.createUrlTree(['/login']);
+  return storageService.isAdmin() || router.createUrlTree(['/home']);
 }

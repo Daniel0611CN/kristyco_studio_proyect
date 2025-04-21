@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().roles;
-        console.log(this.storageService.getUser());
+        console.log(`${this.storageService.getUser().username} ha iniciado sesión correctamente.`)
         const targetRoute = this.roles.includes(ERol.ROL_ADMIN) ? '/admin' : '/home';
         this.router.navigate([targetRoute]);
       },

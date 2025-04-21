@@ -41,8 +41,6 @@ export class NavbarComponent {
     const url = this.router.url;
     const isAdmin = this.adminItems.some(item => url.startsWith(item.link));
 
-    return this.storageService.isLoggedIn() &&
-           this.storageService.getUser()?.roles?.includes('ROL_ADMIN') &&
-           isAdmin;
+    return this.storageService.isAdmin() && isAdmin;
   }
 }

@@ -29,7 +29,12 @@ export class StorageService {
     return !!user;
   }
 
-  logout(): void {
+  public isAdmin(): boolean {
+    const user = this.getUser();
+    return user?.roles?.includes('ROL_ADMIN') && this.isLoggedIn();
+  }
+
+  public logout(): void {
     this.clean();
     this.router.navigateByUrl('/login').then(
       () => { console.log(`Se ha cerrado la sesión del usuario ${this.getUser().username} correctamente.`);}

@@ -31,12 +31,12 @@
             <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu">
-            <li class="nav-item" *ngIf="storageService.getUser()?.roles?.includes('ROL_ADMIN')">
+            <li class="nav-item" *ngIf="storageService.isAdmin()">
               <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[0].link">
                 {{dropdownConfigItems[0].label}}
               </a>
             </li>
-            <hr class="dropdown-divider" *ngIf="storageService.getUser()?.roles?.includes('ROL_ADMIN')">
+            <hr class="dropdown-divider" *ngIf="storageService.isAdmin()">
             <li class="nav-item">
               <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[1].link">
                 {{dropdownConfigItems[1].label}}
@@ -55,8 +55,7 @@
     </div>
   </div>
 </nav>
-<nav *ngIf="storageService.isLoggedIn() && storageService.getUser()?.roles?.includes('ROL_ADMIN') && isAdminRoute()"
-  class="navbar navbar-expand-lg bg-light py-2 border-top border-secondary">
+<nav *ngIf="isAdminRoute()" class="navbar navbar-expand-lg bg-light py-2 border-top border-secondary">
   <div class="container text-center d-flex justify-content-center align-items-center">
     <ul class="navbar-nav">
       <li class="nav-item" routerLinkActive="nav-underline" *ngFor="let item of adminItems">
