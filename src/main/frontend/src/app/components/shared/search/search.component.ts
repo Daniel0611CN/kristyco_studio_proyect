@@ -20,6 +20,7 @@ export class SearchComponent {
   onUpdateField(event: KeyboardEvent) {
     if (this.checkActiveSearch && this.searchInput.length > 2) {
       this.over2Chars = true;
+      console.log('search');
       this.search.emit({ searchText : this.searchInput});
     } else if (this.checkActiveSearch && this.over2Chars) {
       this.over2Chars = false;

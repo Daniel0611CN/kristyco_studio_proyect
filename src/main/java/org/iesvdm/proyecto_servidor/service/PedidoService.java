@@ -39,6 +39,16 @@ public class PedidoService implements BasicServiceInterface<Pedido> {
         return this.pedidoRepository.findAll(pageable);
     }
 
+    public Page<Pedido> all(Optional<String> optDireccion, Optional<EstadoPedido> optEstado, Pageable pageable) {
+        if (optDireccion.isPresent()) {
+            return this.pedidoRepository.findByDireccionContaining(optDireccion.get(), pageable);
+        } else if (optEstado.isPresent()) {
+            return this.pedidoRepository.findByEstado(optEstado.get(), pageable);
+        } else {
+            return this.pedidoRepository.findAll(pageable);
+        }
+    }
+
     @Override
     @Transactional
     public Pedido saveOrGetIfExists(Pedido pedido) {

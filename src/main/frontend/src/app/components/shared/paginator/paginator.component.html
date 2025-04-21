@@ -12,22 +12,18 @@
   </div>
   <div class="basis-1/2 shadow-xs flex justify-end">
     @if (previousPage > 0) {
-    <!--#previo selector para inyeccion en controlador mediante @ViewChild-->
     <a #previo (click)="onPreviousPage()"
       class="font-bold cursor-pointer items-center rounded-l-md px-2 py-2 text-gray-400">
       Previo
     </a>
     } @else {
-    <!--este control @else permite evitar metodo controlPrevioSiguiente()-->
     <label class="bg-red-100 items-center rounded-l-md px-2 py-2 text-gray-400">Previo</label>
     }
-    <a class="cursor-pointer items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white">{{ page}}</a>
-    @if (nextPage <= totalPages ) { <!--#previo selector para inyeccion en controlador mediante @ViewChild-->
-      <a #siguiente (click)="onNextPage()"
-        class="font-bold cursor-pointer items-center rounded-r-md px-2 py-2 text-gray-400">Siguiente
+    <a class="cursor-pointer items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white">{{ page }}</a>
+    @if (nextPage <= totalPages ) { <a #siguiente (click)="onNextPage()"
+      class="font-bold cursor-pointer items-center rounded-r-md px-2 py-2 text-gray-400">Siguiente
       </a>
       } @else {
-      <!--este control @else permite evitar metodo controlPrevioSiguiente()-->
       <label class="bg-red-100 items-center rounded-r-md px-2 py-2 text-gray-400">Siguiente</label>
       }
   </div>

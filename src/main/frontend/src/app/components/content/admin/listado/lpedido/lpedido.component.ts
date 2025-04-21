@@ -1,16 +1,21 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { PedidoService } from '../../../../../services/pedido/pedido.service';
-import { CommonModule } from '@angular/common';
-import { EstadoPedidoPipe } from '../../../../../pipes/estado.pedido.pipe';
-import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { Page } from '../../../../../models/interfaces/page.interface';
+import { ColumnSortComponent } from "../../../../shared/column-sort/column-sort.component";
+import { PaginatorComponent } from "../../../../shared/paginator/paginator.component";
 import { Pedido } from '../../../../../models/interfaces/entities/pedido.interface';
+import { StorageService } from '../../../../../services/storage/storage.service';
+import { PedidoService } from '../../../../../services/pedido/pedido.service';
+import { SearchComponent } from "../../../../shared/search/search.component";
+import { EstadoPedidoPipe } from "../../../../../pipes/estado.pedido.pipe";
+import { Page } from '../../../../../models/interfaces/page.interface';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-lpedido',
-  imports: [CommonModule, EstadoPedidoPipe, FormsModule],
+  imports: [CommonModule, FormsModule, SearchComponent, ColumnSortComponent, PaginatorComponent, EstadoPedidoPipe],
   templateUrl: './lpedido.component.html',
   styleUrl: './lpedido.component.css'
 })
@@ -53,6 +58,7 @@ export class LpedidoComponent implements OnInit {
   selectedItem: any = null;
 
   pedidoService = inject(PedidoService);
+  storageService = inject(StorageService);
 
   prepararEdicion(row: any): void {
     this.selectedItem = { row };
@@ -95,10 +101,10 @@ export class LpedidoComponent implements OnInit {
   page: number = 1;
 
   orderOutput?: {fieldQuery: string, order: string};
-  orderNames: string[] = ['id', 'nombre', 'ultimaActualizacion'];
-  orderNamesClear: {id: boolean, nombre: boolean, ultimaActualizacion: boolean} = { id: false, nombre: false, ultimaActualizacion: false};
+  orderNames: string[] = ['id', 'total', 'costeEnvio', 'fecha', 'estadoPedido'];
+  orderNamesClear: {id: boolean, total: boolean, costeEnvio: boolean, fecha: boolean, estadoPedido: boolean} = { id: false, total: false, costeEnvio: false, fecha: false, estadoPedido: false };
 
-  controlCategoriaAdd: boolean = false;
+  controlPedidoAdd: boolean = false;
 
   ngOnInit() {
    this.getAllByPage();
@@ -110,22 +116,14 @@ export class LpedidoComponent implements OnInit {
       this.pedidos = (<Page<Pedido>>data).content;
     } else {
       this.totalSize = (<Pedido[]>data).length;
-      this.pedidos = (<Pedido[]>data).slice((this.page -1)*this.pageSize,this.page*this.pageSize );
+      this.pedidos = (<Pedido[]>data).slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
     }
   }
 
   getAllByPage(search? : string) {
-    this.pedidoService
-    .getWithFilters(this.orderOutput, this.page, search)
+    this.pedidoService.getWithFilters(this.orderOutput, this.page, search)
     .subscribe((data) => this.processData(data));
-  }
-
-  goToCreate() {
-    this.router.navigate(['/categorias/crear']);
-  }
-
-  edit(id: string) {
-    this.router.navigate(['/categorias/editar', id]);
+    console.log(this.pedidos);
   }
 
   delete(id: string) {
@@ -187,11 +185,10 @@ export class LpedidoComponent implements OnInit {
   }
 
   onNewPedido(pedidoOutPut: {total: number, costeEnvio: number, fecha: string, estadoPedido: string}) {
-    this.pedidoService.create(pedidoOutPut as Pedido).subscribe( (data) =>{
-      this.controlCategoriaAdd = false;
+    this.pedidoService.create(pedidoOutPut as Pedido).subscribe( (data) => {
+      this.controlPedidoAdd = false;
       this.getAllByPage();
     });
-
   }
 
 }

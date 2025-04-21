@@ -26,8 +26,7 @@ public class DTORegister {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|outlook\\.es|g\\.educaand\\.es)$", message = "El email debe ser uno de los siguientes: @gmail.com, @outlook.es, @g.educaand.es.")
     private String email;
 
-    @NotBlank(message = "El teléfono no puede estar vacío.")
-    @Pattern(regexp = "^\\d{9}$", message = "El teléfono debe tener exactamente 9 dígitos.")
+
     private Long telefono;
 
     @NotBlank(message = "La dirección no puede estar vacía.")

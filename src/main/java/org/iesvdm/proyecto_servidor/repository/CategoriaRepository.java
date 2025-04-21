@@ -2,6 +2,7 @@ package org.iesvdm.proyecto_servidor.repository;
 
 import org.iesvdm.proyecto_servidor.model.domain.Categoria;
 import org.iesvdm.proyecto_servidor.model.domain.Pedido;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,7 +18,4 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
             "              JOIN pd.categoria c " +
             "              WHERE c.id = :categoriaId)")
     Set<Pedido> getPedidosHasProductoByCategoriaId(@Param("categoriaId") Long id);
-
-
-
 }

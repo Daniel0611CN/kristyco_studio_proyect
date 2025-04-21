@@ -7,12 +7,14 @@ import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -25,7 +27,9 @@ public class PedidoController {
     private final PedidoService pedidoService;
 
     @GetMapping({"", "/"})
-    public Page<Pedido> all(Pageable pageable) { return this.pedidoService.all(pageable); }
+    public Page<Pedido> all(@RequestParam(name="direccion", required = false) Optional<String> optDireccion,
+                            @RequestParam(name="estado", required = false) Optional<EstadoPedido> optEstado,
+                            @PageableDefault Pageable pageable) { return this.pedidoService.all(optDireccion, optEstado, pageable); }
 
     @PostMapping({"", "/"})
     public Pedido newPedido(@RequestBody Pedido pedido) { return this.pedidoService.saveOrGetIfExists(pedido); }
