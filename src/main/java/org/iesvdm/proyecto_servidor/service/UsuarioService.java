@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import jakarta.transaction.Transactional;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
@@ -29,6 +30,7 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
     }
 
     @Override
+    @Transactional
     public Usuario saveOrGetIfExists(Usuario usuario) {
         if (usuario == null) throw new IllegalArgumentException("El usuario no puede ser null");
 

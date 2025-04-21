@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import jakarta.transaction.Transactional;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
@@ -39,6 +40,7 @@ public class PedidoService implements BasicServiceInterface<Pedido> {
     }
 
     @Override
+    @Transactional
     public Pedido saveOrGetIfExists(Pedido pedido) {
         if (pedido == null) throw new IllegalArgumentException("El pedido no puede ser null");
 

@@ -11,7 +11,6 @@ public interface BasicServiceInterface<T> {
 
     Page<T> all(Pageable pageable);
 
-    @Transactional
     T saveOrGetIfExists(T t);
 
     T one(Long id);

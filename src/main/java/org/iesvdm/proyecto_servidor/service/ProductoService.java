@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import jakarta.transaction.Transactional;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.ProductoRepository;
@@ -34,6 +35,7 @@ public class ProductoService implements BasicServiceInterface<Producto> {
     }
 
     @Override
+    @Transactional
     public Producto saveOrGetIfExists(Producto producto) {
         if (producto == null) throw new IllegalArgumentException("El producto no puede ser null");
 

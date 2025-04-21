@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import jakarta.transaction.Transactional;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.ProveedorRepository;
@@ -29,6 +30,7 @@ public class ProveedorService implements BasicServiceInterface<Proveedor> {
     }
 
     @Override
+    @Transactional
     public Proveedor saveOrGetIfExists(Proveedor proveedor) {
         if (proveedor == null) throw new IllegalArgumentException("El proveedor no puede ser null");
 
