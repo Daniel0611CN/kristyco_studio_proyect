@@ -10,11 +10,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item" *ngFor="let item of navItems" routerLinkActive="nav-underline">
-          <a class="nav-link f3 fw-bold text-secondary" [routerLink]="item.link" routerLinkActive="active fw-medium">
+          <a class="nav-link f3 fw-bold text-secondary" [routerLink]="item.link"
+            routerLinkActive="active fw-medium nav-underline">
             {{ item.label }}
           </a>
         </li>
-        <li class="nav-item dropdown" *ngIf="!storageService.isLoggedIn()">
+        <li class="nav-item dropdown" *ngIf="!isLoggedIn">
           <a class="nav-link dropdown-toggle active text-secondary" href="#" role="button" data-bs-toggle="dropdown">
             <i class="fa-solid fa-right-to-bracket"></i>
           </a>
@@ -26,17 +27,17 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown" *ngIf="storageService.isLoggedIn()">
+        <li class="nav-item dropdown" *ngIf="isLoggedIn">
           <a class="nav-link dropdown-toggle active text-secondary" href="#" role="button" data-bs-toggle="dropdown">
             <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu">
-            <li class="nav-item" *ngIf="storageService.isAdmin()">
+            <li class="nav-item" *ngIf="isAdmin">
               <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[0].link">
                 {{dropdownConfigItems[0].label}}
               </a>
             </li>
-            <hr class="dropdown-divider" *ngIf="storageService.isAdmin()">
+            <hr class="dropdown-divider" *ngIf="isAdmin">
             <li class="nav-item">
               <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[1].link">
                 {{dropdownConfigItems[1].label}}
@@ -44,8 +45,7 @@
             </li>
             <hr class="dropdown-divider">
             <li class="nav-item">
-              <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[2].link"
-                (click)="storageService.logout()">
+              <a class="dropdown-item text-secondary" [routerLink]="dropdownConfigItems[2].link" (click)="logout()">
                 {{dropdownConfigItems[2].label}}
               </a>
             </li>

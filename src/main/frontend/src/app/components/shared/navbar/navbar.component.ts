@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Enlaces } from '../../../models/interfaces/enlace.interface';
+import { ADMIN_ITEMS, DROPDOWN_CONFIG_ITEMS, DROPDOWN_ITEMS, NAV_ITEMS } from './navbar.config';
 import { StorageService } from '../../../services/storage/storage.service';
-import { AppComponent } from '../../../app.component';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -12,35 +11,20 @@ import { AppComponent } from '../../../app.component';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  navItems: Enlaces[] = [
-    { label: 'Inicio', link: '/home' },
-    { label: 'Colecciones', link: '/colecciones' },
-    { label: 'Sobre Mi', link: '/sobre-mi' },
-    { label: 'Contacto', link: '/contacto' }
-  ];
-  dropdownItems: Enlaces[] = [
-    { label: 'Registrarse', link: '/register' },
-    { label: 'Iniciar Sesión', link: '/login' },
-  ]
-  dropdownConfigItems: Enlaces[] = [
-    { label: 'Administración', link: '/admin' },
-    { label: 'Configuración', link: '/perfil' },
-    { label: 'Cerrar Sesión', link: '/login' }
-  ]
-  adminItems: Enlaces[] = [
-    { label: 'Administrador', link: '/admin' },
-    { label: 'Listado de Colecciones', link: '/listado/colecciones' },
-    { label: 'Listado de Invitaciones', link: '/listado/invitaciones' },
-    { label: 'Listado de Pedidos', link: '/listado/pedidos' }
-  ];
+
+  navItems = NAV_ITEMS;
+  dropdownItems = DROPDOWN_ITEMS;
+  dropdownConfigItems = DROPDOWN_CONFIG_ITEMS;
+  adminItems = ADMIN_ITEMS;
 
   storageService = inject(StorageService);
   router = inject(Router);
 
-  isAdminRoute(): boolean {
-    const url = this.router.url;
-    const isAdmin = this.adminItems.some(item => url.startsWith(item.link));
+  get isLoggedIn(): boolean { return this.storageService.isLoggedIn();}
 
-    return this.storageService.isAdmin() && isAdmin;
-  }
+  get isAdmin(): boolean { return this.storageService.isAdmin(); }
+
+  isAdminRoute(): boolean { return this.isAdmin && this.adminItems.some(item => this.router.url.startsWith(item.link)); }
+
+  logout(): void { this.storageService.logout(); }
 }
