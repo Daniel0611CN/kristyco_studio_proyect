@@ -13,11 +13,7 @@ export class SearchComponent {
   search = output<{searchText: string}>();
   over2Chars: boolean = false;
 
-  //Callback para evento (ngSubmit) en el formulario de busqueda
   onSubmit() {
-
-    //Se emite el output hacia el componente padre
-    // para que este lo recoja en (search)="onSearch($event)"
     this.search.emit({ searchText : this.searchInput});
   }
 

@@ -3,7 +3,7 @@ import { Producto } from "./producto.interface";
 import { Usuario } from "./usuario.interface";
 
 export interface Pedido {
-  id: number;
+  id: string;
   total: number;
   costeEnvio: number;
   fecha: string;

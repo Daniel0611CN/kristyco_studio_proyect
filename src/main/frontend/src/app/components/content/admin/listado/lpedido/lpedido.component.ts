@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { EstadoPedidoPipe } from '../../../../../pipes/estado.pedido.pipe';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Page } from '../../../../../models/interfaces/page.interface';
+import { Pedido } from '../../../../../models/interfaces/entities/pedido.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lpedido',
@@ -48,39 +51,8 @@ export class LpedidoComponent implements OnInit {
 
   data: any[] = [];
   selectedItem: any = null;
-  totalElements: number = 0;
-  currentPage: number = 0;
-  pageSize: number = 10;
 
   pedidoService = inject(PedidoService);
-
-  get totalPages(): number {
-    return Math.ceil(this.totalElements / this.pageSize);
-  }
-
-  ngOnInit(): void {
-    this.listarPedidos();
-  }
-
-  cambiarPagina(nuevaPagina: number): void {
-    if (nuevaPagina >= 0 && nuevaPagina < this.totalPages) {
-      this.currentPage = nuevaPagina;
-      this.listarPedidos();
-    }
-  }
-
-  private listarPedidos() {
-    this.pedidoService.all(this.currentPage, this.pageSize).subscribe({
-      next: (response: any) => {
-        this.data = response.content;
-        console.log(this.data);
-        this.totalElements = response.totalElements;
-      },
-      error: (err) => {
-        console.error('Error al obtener los pedidos:', err);
-      }
-    });
-  }
 
   prepararEdicion(row: any): void {
     this.selectedItem = { row };
@@ -89,9 +61,9 @@ export class LpedidoComponent implements OnInit {
 
   guardarCambios(message: string, title: string = '¡Éxito!'): void {
     if (!this.selectedItem) return;
-    const id: number = this.selectedItem.id;
+    const id: string = this.selectedItem.id;
     let pedido = this.selectedItem;
-    this.pedidoService.updatePedido(id, pedido).subscribe({
+    this.pedidoService.update(id, pedido).subscribe({
       next: () => {
         return Swal.fire({
           title: title,
@@ -111,8 +83,114 @@ export class LpedidoComponent implements OnInit {
     this.selectedItem = null;
   }
 
+  //////////////////////////////////
 
-  prueba(message: string, title: string = '¡Éxito!') {
+  router = inject(Router);
+
+  pedidos: Pedido[] = [];
+  searchText: string = '';
+
+  pageSize: number = 10;
+  totalSize: number = 0;
+  page: number = 1;
+
+  orderOutput?: {fieldQuery: string, order: string};
+  orderNames: string[] = ['id', 'nombre', 'ultimaActualizacion'];
+  orderNamesClear: {id: boolean, nombre: boolean, ultimaActualizacion: boolean} = { id: false, nombre: false, ultimaActualizacion: false};
+
+  controlCategoriaAdd: boolean = false;
+
+  ngOnInit() {
+   this.getAllByPage();
+  }
+
+  processData(data: Page<Pedido> | Pedido[]) {
+    if ((<Page<Pedido>>data).content !== undefined) {
+      this.totalSize = (<Page<Pedido>>data).totalElements;
+      this.pedidos = (<Page<Pedido>>data).content;
+    } else {
+      this.totalSize = (<Pedido[]>data).length;
+      this.pedidos = (<Pedido[]>data).slice((this.page -1)*this.pageSize,this.page*this.pageSize );
+    }
+  }
+
+  getAllByPage(search? : string) {
+    this.pedidoService
+    .getWithFilters(this.orderOutput, this.page, search)
+    .subscribe((data) => this.processData(data));
+  }
+
+  goToCreate() {
+    this.router.navigate(['/categorias/crear']);
+  }
+
+  edit(id: string) {
+    this.router.navigate(['/categorias/editar', id]);
+  }
+
+  delete(id: string) {
+    if (confirm('¿Quieres borrar esta categoria?')) {
+      this.pedidoService.delete(id).subscribe(() => {
+        this.pedidos = this.pedidos.filter((ped) => ped.id !== id);
+      });
+    }
+  }
+
+  onSearch(searchData: { searchText: string }) {
+    this.page = 1;
+    this.searchText = searchData.searchText;
+    this.getAllByPage(this.searchText);
+  }
+
+  onChangePage(page: number) {
+    this.page = page;
+
+    if (this.searchText.length > 0) {
+      this.getAllByPage(this.searchText);
+    } else {
+      this.getAllByPage();
+    }
+  }
+
+  onChangeOrder(orderOutput: {fieldQuery: string, order: string}) {
+    this.orderOutput = orderOutput;
+
+    type ObjectKey = keyof typeof this.orderNamesClear;
+    for (let orderName of this.orderNames) {
+      if (orderName !== this.orderOutput.fieldQuery) {
+        this.orderNamesClear[orderName as ObjectKey] = !this.orderNamesClear[orderName as ObjectKey] ;
+      }
+    }
+
+    this.page = 1;
+
+    if (this.searchText.length > 0) {
+      this.getAllByPage(this.searchText);
+    } else {
+      this.getAllByPage();
+    }
+  }
+
+  onClearOrder() {
+    this.orderOutput = undefined;
+
+    type ObjectKey = keyof typeof this.orderNamesClear;
+    for (let orderName of this.orderNames) {
+        this.orderNamesClear[orderName as ObjectKey] = !this.orderNamesClear[orderName as ObjectKey] ;
+    }
+
+    if (this.searchText.length > 0) {
+      this.getAllByPage(this.searchText);
+    } else {
+      this.getAllByPage();
+    }
+  }
+
+  onNewPedido(pedidoOutPut: {total: number, costeEnvio: number, fecha: string, estadoPedido: string}) {
+    this.pedidoService.create(pedidoOutPut as Pedido).subscribe( (data) =>{
+      this.controlCategoriaAdd = false;
+      this.getAllByPage();
+    });
 
   }
 
