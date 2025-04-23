@@ -1,6 +1,6 @@
-<!-- <div class="text-center fs-2 p-5">Listado de Pedidos</div>
+<div class="text-center fs-2 pt-5 pb-2">Listado de Pedidos</div>
 
-<div class="container">
+<!-- <div class="container">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -39,9 +39,9 @@
     </button>
   </div>
 
-</div>
+</div> -->
 
-Modal Ver
+<!-- Modal Ver
 <div class="modal fade" id="exampleModalVer" tabindex="-1" aria-labelledby="exampleModalLabelVer" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -237,65 +237,79 @@ Modal Completar
 </div> -->
 
 
-<div class="container mx-auto">
-  <h1 class="text-2xl font-bold mb-4">Categorías</h1>
+<div class="container">
+  <div class="d-flex justify-content-between mb-4">
+    <app-search (search)="onSearch($event)"></app-search>
+  </div>
 
-  <div class="min-h-[700px]">
-    <table class="table-auto w-full">
-      <thead>
-        <tr>
-          <th class="col-span-2"><app-search (search)="onSearch($event)"></app-search></th>
-        </tr>
-        <tr class="border-b-2">
-          <th class="text-left px-4 py-2"><app-column-sort [clear]="orderNamesClear.id" [fieldInput]="'Id'"
-              [fieldQueryInput]="'id'" (orderOuput)="onChangeOrder($event)"></app-column-sort></th>
-          <th class="text-left px-4 py-2"><app-column-sort [clear]="orderNamesClear.total" [fieldInput]="'Total'"
-              [fieldQueryInput]="'total'" (orderOuput)="onChangeOrder($event)"></app-column-sort></th>
-          <th class="text-left px-4 py-2"><app-column-sort [clear]="orderNamesClear.costeEnvio"
-              [fieldInput]="'Coste de Envío'" [fieldQueryInput]="'costeEnvio'"
-              (orderOuput)="onChangeOrder($event)"></app-column-sort></th>
-          <th class="text-left px-4 py-2"><app-column-sort [clear]="orderNamesClear.fecha" [fieldInput]="'Fecha'"
-              [fieldQueryInput]="'fecha'" (orderOuput)="onChangeOrder($event)"></app-column-sort></th>
-          <th class="text-left px-4 py-2"><app-column-sort [clear]="orderNamesClear.estadoPedido"
-              [fieldInput]="'Estado del Pedido'" [fieldQueryInput]="'estadoPedido'"
-              (orderOuput)="onChangeOrder($event)"></app-column-sort></th>
-          <th class="text-left px-4 py-2">Acciones<button
-              class="mx-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 mr-2" (click)="onClearOrder()">Limpiar
-              orden</button></th>
-        </tr>
-      </thead>
-      <tbody>
-        @if (pedidos.length > 0) {
-        @for (pedido of pedidos; track pedido.id; let isOdd = $odd, isEven = $even) {
-        <tr>
-          <td class="px-4 py-2">{{ pedido.id }}</td>
-          <td class="px-4 py-2">{{ pedido.total }}</td>
-          <td class="px-4 py-2">{{ pedido.costeEnvio }}</td>
-          <td class="px-4 py-2">{{ pedido.fecha }}</td>
-          <td class="px-4 py-2">{{ pedido.estadoPedido | estadoPedidoPipe }}</td>
-          <td class="px-4 py-2">
-            <!-- <button (click)="edit(pedido.id)"
+  <table class="table table-hover">
+    <thead>
+      <tr class="text-center text-dark">
+        <th>
+          <app-column-sort [clear]="orderNamesClear.id" [fieldInput]="'ID'" [fieldQueryInput]="'id'"
+            (orderOuput)="onChangeOrder($event)">
+          </app-column-sort>
+        </th>
+        <th>
+          <app-column-sort [clear]="orderNamesClear.total" [fieldInput]="'Total'" [fieldQueryInput]="'total'"
+            (orderOuput)="onChangeOrder($event)">
+          </app-column-sort>
+        </th>
+        <th>
+          <app-column-sort [clear]="orderNamesClear.costeEnvio" [fieldInput]="'Coste de Envío'"
+            [fieldQueryInput]="'costeEnvio'" (orderOuput)="onChangeOrder($event)">
+          </app-column-sort>
+        </th>
+        <th>
+          <app-column-sort [clear]="orderNamesClear.fecha" [fieldInput]="'Fecha'" [fieldQueryInput]="'fecha'"
+            (orderOuput)="onChangeOrder($event)">
+          </app-column-sort>
+        </th>
+        <th>
+          <app-column-sort [clear]="orderNamesClear.estadoPedido" [fieldInput]="'Estado'"
+            [fieldQueryInput]="'estadoPedido'" (orderOuput)="onChangeOrder($event)">
+          </app-column-sort>
+        </th>
+        <th>
+          Acciones
+          <button class="border-0 bg-transparent" (click)="onClearOrder()">
+            <i class="fa-solid fa-broom"></i>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (pedidos.length > 0) {
+      @for (pedido of pedidos; track pedido.id; let isOdd = $odd, isEven = $even) {
+      <tr class="text-center">
+        <td>{{ pedido.id }}</td>
+        <td>{{ pedido.total }}</td>
+        <td>{{ pedido.costeEnvio }}</td>
+        <td>{{ pedido.fecha }}</td>
+        <td>{{ pedido.estadoPedido | estadoPedidoPipe }}</td>
+        <td>
+          <!-- <button (click)="edit(pedido.id)"
               class="font-bold bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 mr-2">
               Editar
             </button> -->
-            <button (click)="delete(pedido.id)" class="font-bold bg-red-500 text-white p-2 rounded-md hover:bg-red-700">
-              Borrar
-            </button>
-          </td>
-        </tr>
-        }
-        } @else {
-        <tr>
-          <td colspan="4">
-            <p>Ninguna categoría encontrada.</p>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  <div class="grid grid-cols-4 gap-4">
-    <div class="col-span-4">
+          <button class="bg-transparent border-0 text-secondary" (click)="delete(pedido.id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      }
+      } @else {
+      <tr>
+        <td colspan="6">
+          <p>Ninguna categoría encontrada.</p>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <div>
+    <div class="col-span-6">
       <app-paginator [pageInput]="page" [sizeInput]="pageSize" [totalInput]="totalSize"
         (pageOuput)="onChangePage($event)"></app-paginator>
     </div>

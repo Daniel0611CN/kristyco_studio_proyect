@@ -1,8 +1,9 @@
+import { NgClass, NgStyle } from '@angular/common';
 import { Component, input, output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-column-sort',
-  imports: [],
+  imports: [NgClass, NgStyle],
   templateUrl: './column-sort.component.html',
   styleUrl: './column-sort.component.css'
 })
@@ -42,6 +43,6 @@ export class ColumnSortComponent {
 
     this.orderOuput.emit({fieldQuery: this.fieldQueryInput(), order: this.order });
 
-}
+  }
 
 }

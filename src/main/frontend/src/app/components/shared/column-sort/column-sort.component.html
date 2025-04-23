@@ -1,18 +1,13 @@
-<a class="cursor-pointer pl-1" (click)="onChangeAscDesc()">
-  @if (order === 'asc') {
-  <svg class="w-4 h-4 cursor-pointer  rotate-180 text-black inline" xmlns="http://www.w3.org/2000/svg" width="24"
-    height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-  </svg>{{ fieldInput() }}
-  } @else if (order === 'desc') {
-  <svg class="w-4 h-4 cursor-pointer  rotate-0 text-black inline" xmlns="http://www.w3.org/2000/svg" width="24"
-    height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-  </svg>{{ fieldInput() }}
-  } @else {
-  <svg class="w-4 h-4 cursor-pointer  rotate-0 text-white inline" xmlns="http://www.w3.org/2000/svg" width="24"
-    height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-  </svg>{{ fieldInput() }}
-  }
+<a class="cursor-pointer text-dark text-decoration-none" (click)="onChangeAscDesc()">
+  <div>
+    {{fieldInput()}}
+    <span>
+      <i class="fa-solid ms-2" [ngClass]="{
+          'fa-arrow-up': order === 'asc',
+          'fa-arrow-down': order === 'desc',
+          'fa-arrows-up-down': order !== 'asc' && order !== 'desc'
+        }" [ngStyle]="{ width: '16px', height: '16px', fontSize: '16px' }">
+      </i>
+    </span>
+  </div>
 </a>

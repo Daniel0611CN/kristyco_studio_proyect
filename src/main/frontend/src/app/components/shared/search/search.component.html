@@ -1,7 +1,12 @@
 <form (ngSubmit)="onSubmit()">
+  <div class="d-flex">
+    <input id="checkActiveSearch" name="checkActiveSearch" type="checkbox" class=" justify-content-start"
+      [checked]="checkActiveSearch" (change)="checkActiveSearch = !checkActiveSearch" />
+    <label class="ms-2" for="checkActiveSearch">Búsqueda Activa</label>
+  </div>
   <input id="search" type="text" [(ngModel)]="searchInput" (keyup)="onUpdateField($event)" name="search"
-    class="border border-gray-300 p-2 rounded-md mb-3 mx-1" />
-  <button class="mx-2.5 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 mb-4">Buscar</button>
-  <input id="checkActiveSearch" name="checkActiveSearch" class="mx-2.5" type="checkbox" [checked]="checkActiveSearch"
-    (change)="checkActiveSearch = !checkActiveSearch" /><label for="checkActiveSearch">Busq. Activa</label>
+    class="border border-2 border-dark rounded-3 pt-1 pb-1" />
+  <button class="me-2 ms-2 pt-1 pb-1 border-0 bg-transparent">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
 </form>
