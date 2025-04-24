@@ -127,11 +127,28 @@ export class LpedidoComponent implements OnInit {
   }
 
   delete(id: string) {
-    if (confirm('¿Quieres borrar esta categoria?')) {
-      this.pedidoService.delete(id).subscribe(() => {
-        this.pedidos = this.pedidos.filter((ped) => ped.id !== id);
-      });
-    }
+    Swal.fire({
+      title: '¿Estás seguro de que quieres eliminar esta categoría?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.pedidoService.delete(id).subscribe(() => {
+          this.pedidos = this.pedidos.filter((ped) => ped.id !== id);
+          Swal.fire({
+            title: '¡Borrado!',
+            text: 'El pedido ha sido eliminado correctamente.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        });
+      }
+    });
   }
 
   onSearch(searchData: { searchText: string }) {

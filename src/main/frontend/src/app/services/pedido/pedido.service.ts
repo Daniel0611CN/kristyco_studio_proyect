@@ -19,7 +19,7 @@ export class PedidoService {
     let queryParams: { sort?: string; page?: number; size?: number; direccion?: string; estado?: string; } = {};
 
     if (orderOutput) {
-      queryParams.sort = orderOutput.fieldQuery + ',' +orderOutput.order;
+      queryParams.sort = orderOutput.fieldQuery + ',' + orderOutput.order;
     }
 
     if (page) {

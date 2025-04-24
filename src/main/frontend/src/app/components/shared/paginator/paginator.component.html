@@ -1,30 +1,30 @@
 <div id="paginador" class="flex flex-row items-center h-16">
   <div class="basis-1/2">
-    <p class="text-sm text-gray-700">
+    <p class="text-dark">
       Mostrando de fila
-      <span class="font-medium">{{ initRange }}</span>
+      <span class="fw-semibold">{{ initRange }}</span>
       a
-      <span class="font-medium">{{ endRange }}</span>
+      <span class="fw-semibold">{{ endRange }}</span>
       de
-      <span class="font-medium">{{ total }}</span>
+      <span class="fw-semibold">{{ total }}</span>
       resultados
     </p>
   </div>
   <div class="basis-1/2 shadow-xs flex justify-end">
     @if (previousPage > 0) {
-    <a #previo (click)="onPreviousPage()"
-      class="font-bold cursor-pointer items-center rounded-l-md px-2 py-2 text-gray-400">
+    <button #previo (click)="onPreviousPage()" class="fw-bold text-decoration-none px-2 py-2 bg-transparent border-0">
       Previo
-    </a>
+    </button>
     } @else {
-    <label class="bg-red-100 items-center rounded-l-md px-2 py-2 text-gray-400">Previo</label>
+    <label class="fw-bold text-decoration-none px-2 py-2 text-info">Previo</label>
     }
-    <a class="cursor-pointer items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white">{{ page }}</a>
-    @if (nextPage <= totalPages ) { <a #siguiente (click)="onNextPage()"
-      class="font-bold cursor-pointer items-center rounded-r-md px-2 py-2 text-gray-400">Siguiente
-      </a>
+    <a class="px-4 py-2 text-decoration-none text-dark fw-bold">{{ page }}</a>
+    @if (nextPage <= totalPages ) { <button #siguiente (click)="onNextPage()"
+      class="fw-bold text-decoration-none px-2 py-2 bg-transparent border-0">
+      Siguiente
+      </button>
       } @else {
-      <label class="bg-red-100 items-center rounded-r-md px-2 py-2 text-gray-400">Siguiente</label>
+      <label class="fw-bold text-decoration-none px-2 py-2 text-info">Siguiente</label>
       }
   </div>
 </div>

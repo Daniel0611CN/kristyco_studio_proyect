@@ -10,7 +10,7 @@ import { PerfilComponent } from './components/content/perfil/perfil.component';
 import { AdminComponent } from './components/content/admin/admin.component';
 import { HomeComponent } from './components/content/home/home.component';
 import { LoginComponent } from './components/form/login/login.component';
-import { canActivate } from './security/authguard';
+import { canActivateAdmin, canActivateUser } from './security/authguard';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -20,12 +20,12 @@ export const routes: Routes = [
   { path: 'contacto', component: ContactoComponent, title: 'Contacto' },
   { path: 'login', component: LoginComponent, title: 'Inicio de Sesión' },
   { path: 'register', component: RegisterComponent, title: 'Registro' },
-  { path: 'perfil', component: PerfilComponent, title: 'Perfil' },
+  { path: 'perfil', component: PerfilComponent, title: 'Perfil', canActivate: [canActivateUser] },
   { path: 'invitaciones', component: InvitacionComponent, title: 'Invitaciones' },
-  { path: 'admin', component: AdminComponent, title: 'Admin', canActivate: [canActivate] },
+  { path: 'admin', component: AdminComponent, title: 'Admin', canActivate: [canActivateAdmin] },
   {
     path: 'listado',
-    canActivate: [canActivate],
+    canActivate: [canActivateAdmin],
     children: [
       { path: 'colecciones', component: LcoleccionComponent, title: 'Listado Colecciones' },
       { path: 'invitaciones', component: LinvitacionComponent, title: 'Listado Invitaciones' },
