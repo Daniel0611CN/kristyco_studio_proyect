@@ -4,10 +4,11 @@ import { Usuario } from "./usuario.interface";
 
 export interface Pedido {
   id: string;
-  total: number;
   costeEnvio: number;
+  direccion: string;
+  estado: string;
   fecha: string;
-  estadoPedido: string;
+  total: number;
   pago: Pago;
   usuario: Usuario;
   productos: Producto[];

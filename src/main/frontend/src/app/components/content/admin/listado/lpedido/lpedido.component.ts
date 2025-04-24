@@ -101,8 +101,8 @@ export class LpedidoComponent implements OnInit {
   page: number = 1;
 
   orderOutput?: {fieldQuery: string, order: string};
-  orderNames: string[] = ['id', 'total', 'costeEnvio', 'fecha', 'estadoPedido'];
-  orderNamesClear: {id: boolean, total: boolean, costeEnvio: boolean, fecha: boolean, estadoPedido: boolean} = { id: false, total: false, costeEnvio: false, fecha: false, estadoPedido: false };
+  orderNames: string[] = ['id', 'costeEnvio', 'direccion', 'estado', 'fecha', 'total'];
+  orderNamesClear: {id: boolean, costeEnvio: boolean, direccion: boolean, estado: boolean, fecha: boolean, total: boolean } = { id: false, costeEnvio: false, direccion: false, estado: false, fecha: false, total: false };
 
   controlPedidoAdd: boolean = false;
 
@@ -128,10 +128,10 @@ export class LpedidoComponent implements OnInit {
 
   delete(id: string) {
     Swal.fire({
-      title: '¿Estás seguro de que quieres eliminar esta categoría?',
+      title: '¿Estás seguro de que quieres archivar este pedido?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Sí, borrar',
+      confirmButtonText: 'Sí, archivar',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6'
@@ -141,7 +141,7 @@ export class LpedidoComponent implements OnInit {
           this.pedidos = this.pedidos.filter((ped) => ped.id !== id);
           Swal.fire({
             title: '¡Borrado!',
-            text: 'El pedido ha sido eliminado correctamente.',
+            text: 'El pedido ha sido archivado correctamente.',
             icon: 'success',
             timer: 1500,
             showConfirmButton: false,
@@ -201,7 +201,7 @@ export class LpedidoComponent implements OnInit {
     }
   }
 
-  onNewPedido(pedidoOutPut: {total: number, costeEnvio: number, fecha: string, estadoPedido: string}) {
+  onNewPedido(pedidoOutPut: {costeEnvio: number, direccion: string, estado: string, fecha: string, total: number}) {
     this.pedidoService.create(pedidoOutPut as Pedido).subscribe( (data) => {
       this.controlPedidoAdd = false;
       this.getAllByPage();
