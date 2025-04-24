@@ -1,4 +1,4 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
-src/assets/styles/styles.css linguist-generated=true
-src/assets/styles/styles.min.css linguist-generated=true
+src/main/frontend/src/styles.css linguist-generated=true
+src/main/frontend/src/styles.min.css linguist-generated=true
