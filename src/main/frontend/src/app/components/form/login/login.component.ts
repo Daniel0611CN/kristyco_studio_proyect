@@ -9,8 +9,7 @@ import { ERol } from '../../../models/enums/rol.enum';
 @Component({
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
   form: any = {

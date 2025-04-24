@@ -1,9 +1,8 @@
-<section class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 135px);">
-  <div class="border-2 border-info rounded-4 p-5" style="background: #DDA39D; width: 650px;">
-    <h2 class="f1">Registro</h2>
+<section class="d-flex justify-content-center align-items-center text-primary" style="height: calc(100vh - 135px);">
+  <div class="border-2 border-info rounded-4 p-5 bg-success" style="width: 650px;">
+    <h2 class="font2 fw-semibold">Registro</h2>
     <br>
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <!-- Elementos importantes en línea completa -->
       <div class="row mb-3">
         <div class="col-12">
           <div class="form-group">
@@ -44,7 +43,6 @@
         </div>
       </div>
 
-      <!-- Elementos menos importantes en 2 por línea -->
       <div class="row mb-3">
         <div class="col-6">
           <div class="form-group">
@@ -56,6 +54,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-6">
           <div class="form-group">
             <label for="apellido2" class="form-label">Segundo Apellido</label>
@@ -79,6 +78,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-6">
           <div class="form-group">
             <label for="direccion" class="form-label">Dirección</label>
@@ -90,19 +90,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="row mb-3">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="rol" class="form-label" hidden>Rol</label>
-            <select id="rol" class="form-control" name="rol" hidden [(ngModel)]="form.rol" required #rol="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && rol.errors }">
-              <option value="user">Usuario</option>
-              <option value="admin">Administrador</option>
-            </select>
-          </div>
-        </div>
-      </div> -->
 
       <div class="form-group">
         <button class="btn btn-primary btn-block" style="margin-top: 2px;">

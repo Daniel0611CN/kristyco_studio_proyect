@@ -11910,6 +11910,10 @@ textarea.form-control-lg {
   font-family: "SophiaMorgant", sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
