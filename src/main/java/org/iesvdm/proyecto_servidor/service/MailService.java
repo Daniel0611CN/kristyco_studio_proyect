@@ -1,5 +1,8 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,27 +30,27 @@ public class MailService implements MailServiceInterface {
     private SpringTemplateEngine templateEngine;
 
     @Override
-    public void sendMail(String[] toUser, String subject, String message) {
+    public void sendMail(MailData mailData) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(emailUser);
-        mailMessage.setTo(toUser);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(message);
+        mailMessage.setTo(mailData.toUser());
+        mailMessage.setSubject(mailData.subject());
+        mailMessage.setText(mailData.message());
 
         mailSender.send(mailMessage);
     }
 
     @Override
-    public void sendMailWithFile(String[] toUser, String subject, String message, File file) {
+    public void sendMailWithFile(MailFileData mailFileData) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
 
             mimeMessageHelper.setFrom(emailUser);
-            mimeMessageHelper.setTo(toUser);
-            mimeMessageHelper.setSubject(subject);
-            mimeMessageHelper.setText(message);
-            mimeMessageHelper.addAttachment(file.getName(), file);
+            mimeMessageHelper.setTo(mailFileData.toUser());
+            mimeMessageHelper.setSubject(mailFileData.subject());
+            mimeMessageHelper.setText(mailFileData.message());
+            mimeMessageHelper.addAttachment(mailFileData.file().getName(), mailFileData.file());
 
             mailSender.send(mimeMessage);
 
@@ -56,19 +59,19 @@ public class MailService implements MailServiceInterface {
         }
     }
 
-    public void sendHtmlMail(String[] toUser, String subject, String templateName, Map<String, Object> variables) {
+    public void sendHtmlMail(MailHtmlData mailHtmlData) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
 
             Context context = new Context();
-            context.setVariables(variables);
+            context.setVariables(mailHtmlData.variables());
 
-            String htmlContent = templateEngine.process(templateName, context);
+            String htmlContent = templateEngine.process(mailHtmlData.templateName(), context);
 
             helper.setFrom(emailUser);
-            helper.setTo(toUser);
-            helper.setSubject(subject);
+            helper.setTo(mailHtmlData.toUser());
+            helper.setSubject(mailHtmlData.subject());
             helper.setText(htmlContent, true);
 
             mailSender.send(mimeMessage);

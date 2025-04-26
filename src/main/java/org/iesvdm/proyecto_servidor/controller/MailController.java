@@ -1,40 +1,37 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
 import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
 import org.iesvdm.proyecto_servidor.service.MailServiceInterface;
-import org.springframework.http.ResponseEntity;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
+import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.File;
+import org.springframework.http.ResponseEntity;
+import java.nio.file.StandardCopyOption;
+import lombok.AllArgsConstructor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
 @RestController
 @RequestMapping("/api/v1/mail")
+@AllArgsConstructor
 public class MailController {
 
     private final MailServiceInterface emailService;
 
-    public MailController(MailServiceInterface emailService) {
-        this.emailService = emailService;
-    }
-
     @PostMapping("/send-mail")
-    public ResponseEntity<?> receiveRequestEmail(@RequestBody MailData mailData) {
+    public ResponseEntity<?> sendRequestEmail(@RequestBody MailData mailData) {
 
         System.out.println(new DTOMessageResponse(String.format("Mensaje recibido %s", mailData)));
 
-        emailService.sendMail(mailData.toUser(), mailData.subject(), mailData.message());
+        emailService.sendMail(mailData);
 
         Map<String, DTOMessageResponse> response = new HashMap<>();
         response.put("estado", new DTOMessageResponse("Mensaje enviado correctamente"));
@@ -43,7 +40,7 @@ public class MailController {
     }
 
     @PostMapping("/send-mail-file")
-    public ResponseEntity<?> receiveRequestEmailWithFile(@RequestBody MailFileData mailFileData) {
+    public ResponseEntity<?> sendRequestEmailWithFile(@RequestBody MailFileData mailFileData) {
 
         try {
             String fileName = mailFileData.file().getName();
@@ -55,7 +52,7 @@ public class MailController {
 
             File file = path.toFile();
 
-            emailService.sendMailWithFile(mailFileData.toUser(), mailFileData.subject(), mailFileData.message(), file);
+            emailService.sendMailWithFile(mailFileData);
 
             Map<String, DTOMessageResponse> response = new HashMap<>();
             response.put("estado", new DTOMessageResponse("Mensaje enviado correctamente"));
@@ -69,16 +66,11 @@ public class MailController {
     }
 
     @PostMapping("/send-html-mail")
-    public ResponseEntity<?> receiveRequestHtmlEmail(@RequestBody MailData mailData) {
+    public ResponseEntity<?> sendRequestHtmlEmail(@RequestBody MailHtmlData mailHtmlData) {
 
-        System.out.println(new DTOMessageResponse(String.format("Mensaje recibido %s", mailData)));
+        System.out.println(new DTOMessageResponse(String.format("Mensaje recibido %s", mailHtmlData)));
 
-        String templateName = "email";
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("title", "Bienvenido, " + mailData.toUser()[0] + "!");
-        variables.put("descripcion", mailData.message());
-
-        emailService.sendHtmlMail(mailData.toUser(), mailData.subject(), templateName, variables);
+        emailService.sendHtmlMail(mailHtmlData);
 
         Map<String, DTOMessageResponse> response = new HashMap<>();
         response.put("estado", new DTOMessageResponse("Mensaje enviado correctamente"));

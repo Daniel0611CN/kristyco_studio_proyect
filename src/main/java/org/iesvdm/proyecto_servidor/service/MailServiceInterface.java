@@ -1,14 +1,18 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
+
 import java.io.File;
 import java.util.Map;
 
 public interface MailServiceInterface {
 
-    void sendMail(String[] toUser, String subject, String message);
+    void sendMail(MailData mailData);
 
-    void sendMailWithFile(String[] toUser, String subject, String message, File file);
+    void sendMailWithFile(MailFileData mailFileData);
 
-    void sendHtmlMail(String[] toUser, String subject, String templateName, Map<String, Object> variables);
+    void sendHtmlMail(MailHtmlData mailHtmlData);
 
 }

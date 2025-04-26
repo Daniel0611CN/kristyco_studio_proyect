@@ -1,7 +1,9 @@
 package org.iesvdm.proyecto_servidor.controller;
 
 import lombok.AllArgsConstructor;
+import org.iesvdm.proyecto_servidor.dto.MailHtmlDataVariables;
 import org.iesvdm.proyecto_servidor.mapper.MapStructMapper;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
 import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
 import org.iesvdm.proyecto_servidor.service.ConfirmationTokenService;
 import org.iesvdm.proyecto_servidor.service.MailService;
@@ -43,12 +45,12 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final ConfirmationTokenService tokenService;
     private final UsuarioRepository userRepository;
-    private final RolRepository rolRepository;
     private final MapStructMapper mapStructMapper;
+    private final MailController mailController;
+    private final UsuarioService usuarioService;
+    private final RolRepository rolRepository;
     private final PasswordEncoder encoder;
     private final TokenUtils tokenUtils;
-    private final UsuarioService usuarioService;
-    private final MailService mailService;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody DTOLogin loginRequest) {
@@ -116,6 +118,8 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
+        // intentar pasar esto a otro metodo
+
         String token = UUID.randomUUID().toString();
 
         ConfirmationToken confirmationToken = new ConfirmationToken(
@@ -127,32 +131,34 @@ public class AuthController {
 
         tokenService.saveConfirmationToken(confirmationToken);
 
-        String[] users = new String[] { user.getEmail() };
-        String subject = "Registro en KristyCoStudio";
-        String template = "mail";
-        Map<String, Object> variables = getStringObjectMap(user, token);
-
-        mailService.sendHtmlMail(
-                users,
-                subject,
-                template,
-                variables
-        );
+        mailController.sendRequestHtmlEmail(getMailHtmlData(user, token));
 
         return ResponseEntity.ok(new DTOMessageResponse(String.format("Usuario registrado correctamente %s", token)));
     }
 
-    private static Map<String, Object> getStringObjectMap(Usuario user, String token) {
-        String bienvenida = String.format("Bienvenido, %s", user.getNombre());
-        String descripcion = "Gracias por registrarte en nuestra plataforma. ¡Nos alegra tenerte con nosotros!";
-        String link = "Pulsa en el siguiente enlace para iniciar sesión con tu cuenta: ";
+    private static MailHtmlData getMailHtmlData(Usuario user, String token) {
 
-        return Map.of(
-                "bienvenida", bienvenida,
-                "descripcion", descripcion,
-                "enlace", link,
-                "token", token
+        String[] users = new String[] { user.getEmail() };
+        String subject = "Registro en KristyCoStudio";
+        String template = "mail";
+
+        MailHtmlDataVariables mailHtmlDataVariables = new MailHtmlDataVariables(
+                String.format("Bienvenido, %s!", user.getNombre()),
+                String.format("Bienvenido, %s", user.getNombre()),
+                "Gracias por registrarte en nuestra plataforma. ¡Nos alegra tenerte con nosotros!",
+                "Pulsa en el siguiente enlace para iniciar sesión con tu cuenta: ",
+                token
         );
+
+        Map<String, Object> variables = Map.of(
+                "title", mailHtmlDataVariables.getTitle(),
+                "bienvenida", mailHtmlDataVariables.getBienvenida(),
+                "descripcion", mailHtmlDataVariables.getDescripcion(),
+                "enlace", mailHtmlDataVariables.getLink(),
+                "token", mailHtmlDataVariables.getToken()
+        );
+
+        return new MailHtmlData(users, subject, template, variables);
     }
 
     @GetMapping("/confirm-register")

@@ -1,7 +1,12 @@
 package org.iesvdm.proyecto_servidor.model.record.mail;
 
-public class MailHtmlData {
+import org.iesvdm.proyecto_servidor.dto.MailHtmlDataVariables;
 
-    // Crear;
+import java.util.Map;
 
-}
+public record MailHtmlData (
+     String[] toUser,
+     String subject,
+     String templateName,
+     Map<String, Object> variables
+) {}
