@@ -1,4 +1,4 @@
-package org.iesvdm.proyecto_servidor.dto;
+package org.iesvdm.proyecto_servidor.dto.form;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

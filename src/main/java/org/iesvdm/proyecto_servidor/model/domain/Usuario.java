@@ -59,6 +59,12 @@ public class Usuario {
     @ToString.Exclude
     private Set<Rol> roles = new HashSet<>();
 
+    @Builder.Default
+    private Boolean locked = false;
+
+    @Builder.Default
+    private Boolean enabled = false;
+
     public Usuario(String username, String apellido1, String apellido2, String email, Long telefono, String direccion, String password) {
 
         this.nombre = username;
@@ -68,6 +74,8 @@ public class Usuario {
         this.telefono = telefono;
         this.direccion = direccion;
         this.password = password;
+        this.locked = false;
+        this.enabled = false;
 
     }
 }

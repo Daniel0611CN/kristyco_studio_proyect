@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+<h1 th:text="${bienvenida}"></h1>
+<h4 th:text="${descripcion}"></h4>
+<h5 th:text="${enlace}"></h5>
+<a th:href="@{'http://localhost:8080/api/v1/auth/confirm-register?token=' + ${token}}">Confirmar registro</a>
+</body>
+</html>

@@ -2,9 +2,16 @@ package org.iesvdm.proyecto_servidor.controller;
 
 import lombok.AllArgsConstructor;
 import org.iesvdm.proyecto_servidor.mapper.MapStructMapper;
+import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
+import org.iesvdm.proyecto_servidor.service.ConfirmationTokenService;
+import org.iesvdm.proyecto_servidor.service.MailService;
+import org.iesvdm.proyecto_servidor.service.UsuarioService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
@@ -16,10 +23,13 @@ import org.springframework.security.core.Authentication;
 import org.iesvdm.proyecto_servidor.security.TokenUtils;
 import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
 import org.iesvdm.proyecto_servidor.model.domain.Rol;
-import org.iesvdm.proyecto_servidor.dto.DTORegister;
-import org.iesvdm.proyecto_servidor.dto.DTOLogin;
+import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
+import org.iesvdm.proyecto_servidor.dto.form.DTOLogin;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+
+import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import jakarta.validation.Valid;
 import java.util.*;
@@ -31,11 +41,14 @@ import java.util.*;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
+    private final ConfirmationTokenService tokenService;
     private final UsuarioRepository userRepository;
     private final RolRepository rolRepository;
     private final MapStructMapper mapStructMapper;
     private final PasswordEncoder encoder;
     private final TokenUtils tokenUtils;
+    private final UsuarioService usuarioService;
+    private final MailService mailService;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody DTOLogin loginRequest) {
@@ -103,6 +116,51 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new DTOMessageResponse("Usuario registrado correctamente"));
+        String token = UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+            token,
+            LocalDateTime.now(),
+            LocalDateTime.now().plusMinutes(15),
+            user
+        );
+
+        tokenService.saveConfirmationToken(confirmationToken);
+
+        String[] users = new String[] { user.getEmail() };
+        String subject = "Registro en KristyCoStudio";
+        String template = "mail";
+        Map<String, Object> variables = getStringObjectMap(user, token);
+
+        mailService.sendHtmlMail(
+                users,
+                subject,
+                template,
+                variables
+        );
+
+        return ResponseEntity.ok(new DTOMessageResponse(String.format("Usuario registrado correctamente %s", token)));
     }
+
+    private static Map<String, Object> getStringObjectMap(Usuario user, String token) {
+        String bienvenida = String.format("Bienvenido, %s", user.getNombre());
+        String descripcion = "Gracias por registrarte en nuestra plataforma. ¡Nos alegra tenerte con nosotros!";
+        String link = "Pulsa en el siguiente enlace para iniciar sesión con tu cuenta: ";
+
+        return Map.of(
+                "bienvenida", bienvenida,
+                "descripcion", descripcion,
+                "enlace", link,
+                "token", token
+        );
+    }
+
+    @GetMapping("/confirm-register")
+    public ResponseEntity<?> confirm(@RequestParam("token") String token) {
+        usuarioService.confirmToken(token);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("http://localhost:4200/login"));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+    }
+
 }

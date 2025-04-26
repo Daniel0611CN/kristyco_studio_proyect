@@ -5,11 +5,14 @@ import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -18,6 +21,7 @@ import java.util.List;
 public class UsuarioService implements BasicServiceInterface<Usuario> {
 
     private final UsuarioRepository usuarioRepository;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public List<Usuario> all() {
@@ -74,6 +78,31 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id " + id));
         usuario.setPassword(pswd);
         usuarioRepository.save(usuario);
+    }
+
+    @Transactional
+    public void confirmToken(String token) {
+        ConfirmationToken confirmationToken = confirmationTokenService
+                .getToken(token)
+                .orElseThrow(() ->
+                        new IllegalStateException("Token not found"));
+
+        if (confirmationToken.getConfirmedAt() != null) {
+            throw new IllegalStateException("Email Confirmado");
+        }
+
+        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+
+        if (expiredAt.isBefore(LocalDateTime.now())) {
+            throw new IllegalStateException("El Token ha expirado");
+        }
+
+        confirmationTokenService.setConfirmedAt(token);
+        enableUsuario(confirmationToken.getUsuario().getEmail());
+    }
+
+    public void enableUsuario(String email) {
+        usuarioRepository.enableUsuario(email);
     }
 
 }

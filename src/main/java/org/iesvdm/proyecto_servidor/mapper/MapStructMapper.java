@@ -1,11 +1,10 @@
 package org.iesvdm.proyecto_servidor.mapper;
 
-import org.iesvdm.proyecto_servidor.dto.DTORegister;
+import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper(componentModel = "spring")
