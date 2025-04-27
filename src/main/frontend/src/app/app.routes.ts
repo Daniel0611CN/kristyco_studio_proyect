@@ -12,6 +12,9 @@ import { HomeComponent } from './components/content/home/home.component';
 import { LoginComponent } from './components/form/login/login.component';
 import { canActivateAdmin, canActivateUser } from './security/authguard';
 import { Routes } from '@angular/router';
+import { SuccessComponent } from './components/shared/paypal/success/success.component';
+import { CancelComponent } from './components/shared/paypal/cancel/cancel.component';
+import { PaypalComponent } from './components/shared/paypal/paypal.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, title: 'Inicio' },
@@ -32,6 +35,9 @@ export const routes: Routes = [
       { path: 'pedidos', component: LpedidoComponent, title: 'Listado Pedidos' },
     ]
   },
+  { path: 'paypal', component: PaypalComponent },
+  { path: 'payment/success', component: SuccessComponent },
+  { path: 'payment/cancel', component: CancelComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];

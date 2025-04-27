@@ -1,0 +1,60 @@
+@if (showFormPaypal) {
+<div class="p-4">
+  <h1 class="text-xl font-bold text-center mb-4">Integración de Pago con Paypal</h1>
+  <form [formGroup]="paypalForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="flex flex-col">
+      <label for="method" class="text-sm font-medium text-gray-700">Método de pago</label>
+      <input id="method" type="text" formControlName="method" value="Paypal" readonly
+        class="mt-1 p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700">
+    </div>
+    <div class="flex flex-col">
+      <label for="amount" class="text-sm font-medium text-gray-700">Monto</label>
+      <input id="amount" type="number" formControlName="amount" value="10.0"
+        class="mt-1 p-2 border border-gray-300 rounded-md">
+    </div>
+    <div class="flex flex-col">
+      <label for="currency" class="text-sm font-medium text-gray-700">Moneda</label>
+      <select id="currency" formControlName="currency" class="mt-1 p-2 border border-gray-300 rounded-md">
+        <option value="USD">USD</option>
+        <option value="EUR" selected>EUR</option>
+        <option value="GBP">GBP</option>
+      </select>
+    </div>
+    <div class="flex flex-col">
+      <label for="description" class="text-sm font-medium text-gray-700">Descripción</label>
+      <input id="description" type="text" formControlName="description"
+        class="mt-1 p-2 border border-gray-300 rounded-md">
+    </div>
+    <div class="flex justify-center">
+      <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600">Pagar con
+        Paypal</button>
+    </div>
+  </form>
+</div>
+} @else if (procesando) {
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="loading-spinner.gif" alt="Procesando pago" class="mb-4">
+  <p class="text-lg font-medium text-gray-700">Procesando pago...</p>
+</div>
+} @else if (cancelado) {
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
+  <strong class="font-bold">¡Pago cancelado!</strong>
+  <span class="block sm:inline">El proceso de pago ha sido cancelado. Por favor, inténtelo nuevamente si lo
+    desea.</span>
+</div>
+<div class="mt-4">
+  <a (click)="onClose()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Cerrar
+  </a>
+</div>
+} @else {
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+  <strong class="font-bold">¡Éxito!</strong>
+  <span class="block sm:inline">Tu pago con PayPal se procesó correctamente.</span>
+</div>
+<div class="mt-4">
+  <a (click)="onClose()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Cerrar
+  </a>
+</div>
+}

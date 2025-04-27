@@ -1,4 +1,10 @@
 package org.iesvdm.proyecto_servidor.model.record.paypal;
 
-public class PaypalRequest {
-}
+import java.math.BigDecimal;
+
+public record PaypalRequest (
+        String method,
+        BigDecimal amount,
+        String currency,
+        String description
+) {}

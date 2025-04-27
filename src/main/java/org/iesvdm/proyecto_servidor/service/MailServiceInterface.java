@@ -4,9 +4,6 @@ import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
 import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
 import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
 
-import java.io.File;
-import java.util.Map;
-
 public interface MailServiceInterface {
 
     void sendMail(MailData mailData);
