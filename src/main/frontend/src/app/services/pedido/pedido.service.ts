@@ -13,7 +13,6 @@ export class PedidoService {
   private apiPedidoUrl = environment.apiUrl + '/pedidos';
 
   httpClient = inject(HttpClient);
-  storageService = inject(StorageService);
 
   getWithFilters(orderOutput?: { fieldQuery: string; order: string }, page?: number, search?: string, size: number = 10): Observable<Page<Pedido> | Pedido[]> {
     let queryParams: { sort?: string; page?: number; size?: number; direccion?: string; estado?: string; } = {};
@@ -27,18 +26,16 @@ export class PedidoService {
       queryParams.size = size;
     }
 
-    if (search && search != 'PENDIENTE' && search != 'EN_CAMINO' && search != 'ENTREGADO' && search != 'CANCELADO') {
+    if (search && search.toUpperCase() != 'PENDIENTE' && search.toUpperCase() != 'EN CAMINO' &&
+        search.toUpperCase() != 'ENTREGADO' && search.toUpperCase() != 'CANCELADO') {
       queryParams.direccion = search;
     } else if (search) {
+      search = search.toUpperCase();
+      if (search == 'EN CAMINO') search = search.replace(/\s+/g, '_');
       queryParams.estado = search;
     }
 
-    const token = this.storageService.getUser()?.token;
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token || ''}`
-    });
-
-    return this.httpClient.get<Page<Pedido> | Pedido[]>(this.apiPedidoUrl, { headers, params: queryParams});
+    return this.httpClient.get<Page<Pedido> | Pedido[]>(this.apiPedidoUrl, { params: queryParams });
   }
 
   get(id: string): Observable<Pedido> {

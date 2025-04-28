@@ -37,7 +37,7 @@ export class StorageService {
   public logout(): void {
     this.router.navigateByUrl('/login').then(
       () => {
-        console.log(`Se ha cerrado la sesión del usuario ${this.getUser().username} correctamente.`);
+        // console.log(`Se ha cerrado la sesión del usuario ${this.getUser().username} correctamente.`);
         this.clean();
       }
     );

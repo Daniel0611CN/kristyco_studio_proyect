@@ -123,7 +123,6 @@ export class LpedidoComponent implements OnInit {
   getAllByPage(search? : string) {
     this.pedidoService.getWithFilters(this.orderOutput, this.page, search)
     .subscribe((data) => this.processData(data));
-    console.log(this.pedidos);
   }
 
   delete(id: string) {

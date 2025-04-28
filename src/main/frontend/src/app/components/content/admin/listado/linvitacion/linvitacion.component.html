@@ -27,16 +27,6 @@
     </tbody>
   </table>
 
-  <div class="d-flex justify-content-between mt-3">
-    <button class="btn btn-primary" (click)="cambiarPagina(currentPage - 1)" [disabled]="currentPage === 0">
-      Anterior
-    </button>
-    <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
-    <button class="btn btn-primary" (click)="cambiarPagina(currentPage + 1)"
-      [disabled]="(currentPage + 1) * pageSize >= totalElements">
-      Siguiente
-    </button>
-  </div>
 </div>
 
 <!-- Modal Crear -->

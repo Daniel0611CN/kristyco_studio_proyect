@@ -33,10 +33,7 @@ export class RegisterComponent {
 
     this.authService.register(username, apellido1, apellido2, email, telefono, direccion, password, rol).subscribe({
       next: data => {
-        console.log(data);
-        this.router.navigate(['/login']).then(
-          () => {console.log('Register OK, cargando login...')}
-        )
+        this.router.navigate(['/login'])
       },
       error: err => {
         this.errorMessage = err.error.message;
