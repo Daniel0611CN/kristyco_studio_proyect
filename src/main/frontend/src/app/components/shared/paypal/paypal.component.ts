@@ -16,7 +16,7 @@ const channel = new BroadcastChannel('succes-paypal-channel');
   styleUrl: './paypal.component.css'
 })
 export class PaypalComponent {
-  apiUrl: string =  'http://localhost:8080'; //
+  apiUrl: string =  'http://localhost:8080';
 
   http = inject(HttpClient);
   router = inject(Router);
@@ -52,7 +52,6 @@ export class PaypalComponent {
       }
     };
 
-
   }
 
   onSubmit() {
@@ -74,20 +73,16 @@ export class PaypalComponent {
   }
 
   onClose() {
-
     this.showFormPaypal=true;
     this.procesando=false;
     this.cd.detectChanges();
-
   }
 
   polling(orderId: string) {
 
     this.sendPolling(orderId).subscribe((data: any) =>{
       if (data["state"]=="APPROVED") {
-        // <-- para las solicitudes de polling
 
-        //this.router.navigate(['']);
         this.showFormPaypal = false;
         this.procesando = false;
         this.cd.detectChanges();

@@ -37,8 +37,8 @@ public class PaypalService {
                 String auth = paypalConfig.getClientId() + ":" + paypalConfig.getClientSecret();
                 log.info(auth);
                 String encodedAuth =  java.util.Base64.getEncoder()
-                        .withoutPadding() //<<< OJO!
-                        .encodeToString(auth.getBytes(StandardCharsets.UTF_8));//<<< OJO!
+                        .withoutPadding()
+                        .encodeToString(auth.getBytes(StandardCharsets.UTF_8));
 
                 String authHeader = "Basic " + encodedAuth;
                 log.info("authHeader {}", authHeader );
@@ -156,7 +156,7 @@ public class PaypalService {
     }
 
     public ResponseEntity<String> showOrderDetails(String orderId) throws JsonProcessingException {
-        String uri = paypalConfig.getBaseUrl()+ "/v2/checkout/orders/" + orderId;
+        String uri = paypalConfig.getBaseUrl() + "/v2/checkout/orders/" + orderId;
 
         HttpHeaders httpHeaders = new HttpHeaders() {
             {
