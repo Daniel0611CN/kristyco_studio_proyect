@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { StorageService } from '../storage/storage.service';
-import { environment } from '../../../environments/environment.development';
+import { StorageService } from './storage.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'

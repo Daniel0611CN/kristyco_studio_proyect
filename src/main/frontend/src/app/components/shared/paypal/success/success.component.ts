@@ -6,8 +6,7 @@ const channel = new BroadcastChannel('succes-paypal-channel');
 @Component({
   selector: 'app-success',
   imports: [],
-  templateUrl: './success.component.html',
-  styleUrl: './success.component.css'
+  templateUrl: './success.component.html'
 })
 export class SuccessComponent {
 

@@ -6,8 +6,7 @@ const channel = new BroadcastChannel('succes-paypal-channel');
 @Component({
   selector: 'app-cancel',
   imports: [RouterLink],
-  templateUrl: './cancel.component.html',
-  styleUrl: './cancel.component.css'
+  templateUrl: './cancel.component.html'
 })
 export class CancelComponent {
 

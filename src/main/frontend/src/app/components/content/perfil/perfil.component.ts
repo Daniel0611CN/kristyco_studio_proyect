@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UsuarioService } from '../../../services/usuario/usuario.service';
 import { StorageService } from '../../../services/storage.service';
 import { Usuario } from '../../../models/interfaces/entities/usuario.interface';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
