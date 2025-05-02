@@ -6,8 +6,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 @Component({
   selector: 'app-perfil',
   imports: [],
-  templateUrl: './perfil.component.html',
-  styleUrl: './perfil.component.css'
+  templateUrl: './perfil.component.html'
 })
 export class PerfilComponent implements OnInit {
   usuarioService = inject(UsuarioService);
