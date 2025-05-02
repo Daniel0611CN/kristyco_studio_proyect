@@ -74,6 +74,9 @@ public class MailService implements MailServiceInterface {
             helper.setSubject(mailHtmlData.subject());
             helper.setText(htmlContent, true);
 
+            File imageFile = new File("src/main/resources/static/img/logo.png");
+            helper.addInline("logo", imageFile);
+
             mailSender.send(mimeMessage);
 
         } catch (MessagingException e) {
