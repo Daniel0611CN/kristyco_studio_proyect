@@ -1,12 +1,11 @@
+import { Enlaces } from '../../../models/interfaces/enlace.interface';
 import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { Enlaces } from '../../../models/interfaces/enlace.interface';
 
 @Component({
   selector: 'app-contacto',
   imports: [CommonModule, NgClass],
-  templateUrl: './contacto.component.html',
-  styleUrl: './contacto.component.css'
+  templateUrl: './contacto.component.html'
 })
 export class ContactoComponent {
   title: string = '¿Tienes dudas? !Estamos aquí para ayudaros¡';

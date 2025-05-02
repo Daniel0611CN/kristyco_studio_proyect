@@ -1,19 +1,17 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { PaypalResponse } from './paypalresponse.interface';
-import { Observable, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { PaypalResponse } from './../../../models/interfaces/paypalResponse.interface';
+import { SharedDataService } from '../../../services/sharedData.service';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { SharedDataService } from './shareddata.service';
-
 
 const channel = new BroadcastChannel('succes-paypal-channel');
 
 @Component({
   selector: 'app-paypal',
   imports: [ReactiveFormsModule],
-  templateUrl: './paypal.component.html',
-  styleUrl: './paypal.component.css'
+  templateUrl: './paypal.component.html'
 })
 export class PaypalComponent {
   apiUrl: string =  'http://localhost:8080';

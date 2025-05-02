@@ -1,5 +1,5 @@
 import { ADMIN_ITEMS, DROPDOWN_CONFIG_ITEMS, DROPDOWN_ITEMS, NAV_ITEMS } from './navbar.config';
-import { StorageService } from '../../../services/storage/storage.service';
+import { StorageService } from '../../../services/storage.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,8 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 

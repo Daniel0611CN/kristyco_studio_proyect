@@ -4,8 +4,7 @@ import { Component, input, output, SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-column-sort',
   imports: [NgClass, NgStyle],
-  templateUrl: './column-sort.component.html',
-  styleUrl: './column-sort.component.css'
+  templateUrl: './column-sort.component.html'
 })
 export class ColumnSortComponent {
 

@@ -1,10 +1,10 @@
 import { ColumnSortComponent } from "../../../../shared/column-sort/column-sort.component";
 import { PaginatorComponent } from "../../../../shared/paginator/paginator.component";
 import { Pedido } from '../../../../../models/interfaces/entities/pedido.interface';
-import { StorageService } from '../../../../../services/storage/storage.service';
-import { PedidoService } from '../../../../../services/pedido/pedido.service';
 import { SearchComponent } from "../../../../shared/search/search.component";
-import { EstadoPedidoPipe } from "../../../../../pipes/estado.pedido.pipe";
+import { EstadoPedidoPipe } from "../../../../../pipes/estadoPedido.pipe";
+import { StorageService } from '../../../../../services/storage.service';
+import { PedidoService } from "../../../../../services/pedido.service";
 import { Page } from '../../../../../models/interfaces/page.interface';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,12 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-lpedido',
   imports: [CommonModule, FormsModule, SearchComponent, ColumnSortComponent, PaginatorComponent, EstadoPedidoPipe],
-  templateUrl: './lpedido.component.html',
-  styleUrl: './lpedido.component.css'
+  templateUrl: './lpedido.component.html'
 })
 export class LpedidoComponent implements OnInit {
   title: string = 'Listado de Pedidos';
@@ -88,8 +86,6 @@ export class LpedidoComponent implements OnInit {
   cancelarEdicion() {
     this.selectedItem = null;
   }
-
-  //////////////////////////////////
 
   router = inject(Router);
 

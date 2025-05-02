@@ -1,12 +1,11 @@
+import { InvitacionService } from '../../../../../services/invitacion.service';
 import { Component, inject } from '@angular/core';
-import { InvitacionService } from '../../../../../services/invitacion/invitacion.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-linvitacion',
   imports: [CommonModule],
-  templateUrl: './linvitacion.component.html',
-  styleUrl: './linvitacion.component.css'
+  templateUrl: './linvitacion.component.html'
 })
 export class LinvitacionComponent {
   title: string = 'Listado de Invitaciones';

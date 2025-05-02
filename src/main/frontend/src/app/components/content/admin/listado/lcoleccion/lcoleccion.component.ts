@@ -1,12 +1,11 @@
+import { ColeccionService } from '../../../../../services/coleccion.service';
 import { Component, inject } from '@angular/core';
-import { ColeccionService } from '../../../../../services/coleccion/coleccion.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lcoleccion',
   imports: [CommonModule],
-  templateUrl: './lcoleccion.component.html',
-  styleUrl: './lcoleccion.component.css'
+  templateUrl: './lcoleccion.component.html'
 })
 export class LcoleccionComponent {
   title: string = 'Listado de Colecciones';
@@ -34,12 +33,5 @@ export class LcoleccionComponent {
       }
     });
   }
-
-  // getAllByPage(search? : string) {
-  //   this.coleccionService
-  //   .getWithFilters(this.orderOutput, this.page, search)
-  //   .subscribe((data) => this.processData(data));
-  // }
-
 
 }

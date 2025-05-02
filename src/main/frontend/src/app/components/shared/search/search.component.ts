@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-search',
   imports: [FormsModule],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.css'
+  templateUrl: './search.component.html'
 })
 export class SearchComponent {
   checkActiveSearch: boolean = false;

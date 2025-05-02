@@ -3,8 +3,7 @@ import { Component, ElementRef, input, output, SimpleChanges, ViewChild } from '
 @Component({
   selector: 'app-paginator',
   imports: [],
-  templateUrl: './paginator.component.html',
-  styleUrl: './paginator.component.css'
+  templateUrl: './paginator.component.html'
 })
 export class PaginatorComponent {
 

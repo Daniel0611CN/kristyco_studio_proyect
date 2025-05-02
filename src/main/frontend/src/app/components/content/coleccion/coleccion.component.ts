@@ -5,8 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-coleccion',
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './coleccion.component.html',
-  styleUrl: './coleccion.component.css'
+  templateUrl: './coleccion.component.html'
 })
 export class ColeccionComponent {
   subnavItems: {label: string, link: string}[] = [

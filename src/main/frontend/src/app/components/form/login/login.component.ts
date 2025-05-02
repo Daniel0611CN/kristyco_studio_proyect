@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth/auth.service';
-import { StorageService } from '../../../services/storage/storage.service';
+import { StorageService } from '../../../services/storage.service';
 import { ERol } from '../../../models/enums/rol.enum';
 
 @Component({
