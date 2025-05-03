@@ -1,55 +1,30 @@
-<!-- invitacion.component.html -->
-<main>
-  <section class="s1 container-xl mt-5">
-    <!-- Usamos currentTitle en lugar de currentItems[0]?.title -->
-    <div class="f1">Invitación {{currentTitle}}</div>
+<section class="s1 container-xl mt-5">
+  <div class="font6">Invitación {{currentTitle}}</div>
 
-    <div class="container mx-auto mt-5 row">
-      <div *ngFor="let item of currentItems; let i = index"
-        [ngClass]="{'col-md-6': itemsPerPage === 2, 'col-md-4': itemsPerPage === 3}">
-        <div class="card border-0 rounded-0 p-3 mt-4">
-          <button type="button" class="btn btn-primary p-0 border-0" [attr.aria-controls]="'modal' + item.id">
-            <img [src]="item.src" class="car-img-top img-fluid" style="width: 100%;" alt="{{item.title}}" />
-          </button>
+  <div class="container mx-auto mt-5 row justify-content-center">
+    <div *ngFor="let item of currentItems; let i = index" class="justify-content-center"
+      [ngClass]="{'col-md-6': itemsPerPage === 2, 'col-md-4': itemsPerPage === 3}">
+      <div class="card border-0 rounded-0 p-3 mt-4" style="transition: transform 0.3s ease;">
+        <button type=" button" class="btn btn-primary p-0 border-0" [attr.aria-controls]="'modal' + item.id">
+          <img [src]="item.src" class="car-img-top img-fluid" style="width: 100%;" alt="{{item.title}}" />
+        </button>
 
-          <!-- Modal movido fuera del button para mejor control -->
-          <div class="modal fade" [id]="'modal' + item.id" tabindex="-1" [attr.aria-labelledby]="'modalLabel' + item.id"
-            aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-              <div class="modal-content">
-                <div class="modal-body mt-5 pt-5">
-                  <img [src]="item.src" class="img-fluid" style="width: 900px;" alt="{{item.title}}" />
-                </div>
-                <div class="modal-footer border-0 mb-5 pb-5 d-flex justify-content-center align-items-center">
-                  <button type="button" class="btn btn-success">Close</button>
-                </div>
+        <div class="modal fade" [id]="'modal' + item.id" tabindex="-1" [attr.aria-labelledby]="'modalLabel' + item.id"
+          aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-body mt-5 pt-5">
+                <img [src]="item.src" class="img-fluid" style="width: 900px;" alt="{{item.title}}" />
+              </div>
+              <div class="modal-footer border-0 mb-5 pb-5 d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-success">Close</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-<!-- <footer>
-  Resto del footer sin cambios
-  <nav aria-label="Page navigation example" class="n mb-auto mt-5 pt-5">
-    <ul class="pagination justify-content-between">
-      <li class="page-item me-auto ps-5 ms-5">
-        <button class="page-link bg-transparent d-flex justify-content-between align-items-center border-0 ms-2"
-          [disabled]="currentPage === 0" (click)="previousPage()">
-          <i class="me-2 fa-solid fa-chevron-left"></i>
-          <h4 class="f2 mb-0">Previous</h4>
-        </button>
-      </li>
-      <li class="page-item ms-auto pe-5 me-5">
-        <button class="page-link bg-transparent d-flex justify-content-between align-items-center border-0 me-2"
-          [disabled]="currentPage === totalPages - 1" (click)="nextPage()">
-          <h4 class="f2 mb-0">Next</h4>
-          <i class="ms-2 fa-solid fa-chevron-right"></i>
-        </button>
-      </li>
-    </ul>
-  </nav>
-</footer> -->
+<!-- .card:hover { transform: scale(1.02); } -->

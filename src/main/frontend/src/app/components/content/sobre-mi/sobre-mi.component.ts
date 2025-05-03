@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-sobre-mi',
   imports: [],
   templateUrl: './sobre-mi.component.html',
-  styleUrl: './sobre-mi.component.css'
+  styleUrl: './sobre-mi.component.min.css'
 })
 export class SobreMiComponent {
   title: string = '¿Quién diseñará la papelería de tu boda?';
