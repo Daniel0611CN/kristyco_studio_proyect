@@ -3,12 +3,15 @@ package org.iesvdm.proyecto_servidor.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.proyecto_servidor.model.domain.Producto;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.service.ProductoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
@@ -20,9 +23,8 @@ public class ProductoController {
     private final ProductoService productoService;
 
     @GetMapping({"", "/"})
-    public Page<Producto> all(Pageable pageable) {
-        return this.productoService.all(pageable);
-    }
+    public Page<Producto> all(@RequestParam(name="nombre", required = false) Optional<String> optNombre,
+                              @PageableDefault Pageable pageable) { return this.productoService.all(optNombre, pageable); }
 
     @PostMapping({"", "/"})
     public Producto newProducto(@RequestBody Producto producto) {

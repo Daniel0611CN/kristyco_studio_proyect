@@ -3,7 +3,6 @@ import { PaginatorComponent } from "../../../../shared/paginator/paginator.compo
 import { Pedido } from '../../../../../models/interfaces/entities/pedido.interface';
 import { SearchComponent } from "../../../../shared/search/search.component";
 import { EstadoPedidoPipe } from "../../../../../pipes/estadoPedido.pipe";
-import { StorageService } from '../../../../../services/storage.service';
 import { PedidoService } from "../../../../../services/pedido.service";
 import { Page } from '../../../../../models/interfaces/page.interface';
 import { Component, inject, OnInit } from '@angular/core';
@@ -19,14 +18,6 @@ import Swal from 'sweetalert2';
 })
 export class LpedidoComponent implements OnInit {
   title: string = 'Listado de Pedidos';
-  columnas: { key: string, label: string }[] = [
-    { key: 'id', label: 'ID' },
-    { key: 'total', label: 'Total' },
-    { key: 'costeEnvio', label: 'Coste de Envío' },
-    { key: 'fecha', label: 'Fecha' },
-    { key: 'direccion', label: 'Dirección' },
-    { key: 'estado', label: 'Estado' }
-  ];
 
   total: any = { key: 'total', label: 'Coste Total', span: '€', type: 'number' };
   costeEnvio: any = { key: 'costeEnvio', label: 'Coste de Envío', span: '€', type: 'number' };
@@ -53,10 +44,10 @@ export class LpedidoComponent implements OnInit {
   ];
 
   data: any[] = [];
+
   selectedItem: any = null;
 
   pedidoService = inject(PedidoService);
-  storageService = inject(StorageService);
 
   prepararEdicion(row: any): void {
     this.selectedItem = { row };
@@ -90,7 +81,9 @@ export class LpedidoComponent implements OnInit {
   router = inject(Router);
 
   pedidos: Pedido[] = [];
+
   searchText: string = '';
+  isLoading: boolean = false;
 
   pageSize: number = 10;
   totalSize: number = 0;
@@ -116,9 +109,19 @@ export class LpedidoComponent implements OnInit {
     }
   }
 
-  getAllByPage(search? : string) {
+  getAllByPage(search?: string) {
+    this.isLoading = true;
     this.pedidoService.getWithFilters(this.orderOutput, this.page, search)
-    .subscribe((data) => this.processData(data));
+      .subscribe({
+        next: (data) => {
+          this.processData(data);
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error al obtener los pedidos', error);
+          this.isLoading = false;
+        }
+      });
   }
 
   delete(id: string) {
@@ -150,6 +153,10 @@ export class LpedidoComponent implements OnInit {
     this.page = 1;
     this.searchText = searchData.searchText;
     this.getAllByPage(this.searchText);
+  }
+
+  clearSearch() {
+    this.searchText = '';
   }
 
   onChangePage(page: number) {
@@ -196,11 +203,11 @@ export class LpedidoComponent implements OnInit {
     }
   }
 
-  onNewPedido(pedidoOutPut: {costeEnvio: number, direccion: string, estado: string, fecha: string, total: number}) {
-    this.pedidoService.create(pedidoOutPut as Pedido).subscribe( (data) => {
-      this.controlPedidoAdd = false;
-      this.getAllByPage();
-    });
-  }
+  // onNewPedido(pedidoOutPut: {costeEnvio: number, direccion: string, estado: string, fecha: string, total: number}) {
+  //   this.pedidoService.create(pedidoOutPut as Pedido).subscribe( (data) => {
+  //     this.controlPedidoAdd = false;
+  //     this.getAllByPage();
+  //   });
+  // }
 
 }

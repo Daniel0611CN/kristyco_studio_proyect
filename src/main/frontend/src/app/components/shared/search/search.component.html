@@ -1,12 +1,7 @@
-<form (ngSubmit)="onSubmit()">
-  <div class="d-flex">
-    <input id="checkActiveSearch" name="checkActiveSearch" type="checkbox" class=" justify-content-start"
-      [checked]="checkActiveSearch" (change)="checkActiveSearch = !checkActiveSearch" />
-    <label class="ms-2" for="checkActiveSearch">Búsqueda Activa</label>
-  </div>
+<form (ngSubmit)="onSubmit()" class="d-flex w-100">
   <input id="search" type="text" [(ngModel)]="searchInput" (keyup)="onUpdateField($event)" name="search"
-    class="border border-2 border-dark rounded-3 pt-1 pb-1" />
-  <button class="me-2 ms-2 pt-1 pb-1 border-0 bg-transparent">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    placeholder="🔍︎ Buscar" class="border border-2 border-dark rounded-3 pt-1 pb-1 ps-2 form-control bg-light" />
+  <button class="me-2 pt-1 pb-1 border-0 bg-transparent" (click)="clearSearch()">
+    <i class="fa-solid fa-rotate-right"></i>
   </button>
 </form>

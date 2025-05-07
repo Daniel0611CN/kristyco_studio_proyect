@@ -1,4 +1,4 @@
-import { ADMIN_ITEMS, DROPDOWN_CONFIG_ITEMS, DROPDOWN_ITEMS, NAV_ITEMS } from './navbar.config';
+import { ADMIN_ITEMS, DROPDOWN_CONFIG_ITEMS, DROPDOWN_ITEMS, NAV_ITEMS } from './navbar.content';
 import { StorageService } from '../../../services/storage.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Component, inject } from '@angular/core';

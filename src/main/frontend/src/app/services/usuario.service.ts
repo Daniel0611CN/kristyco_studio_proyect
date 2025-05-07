@@ -12,6 +12,10 @@ export class UsuarioService {
 
   httpClient = inject(HttpClient);
 
+  getAll(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.apiUsuarioUrl);
+  }
+
   get(id: string): Observable<Usuario> {
     return this.httpClient.get<Usuario>(`${this.apiUsuarioUrl}/${id}`);
   }

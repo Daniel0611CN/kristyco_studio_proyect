@@ -3,6 +3,8 @@ package org.iesvdm.proyecto_servidor.service;
 import jakarta.transaction.Transactional;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
+import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.repository.ProductoRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Categoria;
 import org.iesvdm.proyecto_servidor.model.domain.Producto;
@@ -32,6 +34,14 @@ public class ProductoService implements BasicServiceInterface<Producto> {
     @Override
     public Page<Producto> all(Pageable pageable) {
         return this.productoRepository.findAll(pageable);
+    }
+
+    public Page<Producto> all(Optional<String> optNombre, Pageable pageable) {
+        if (optNombre.isPresent()) {
+            return this.productoRepository.findByNombreContaining(optNombre.get(), pageable);
+        } else {
+            return this.productoRepository.findAll(pageable);
+        }
     }
 
     @Override

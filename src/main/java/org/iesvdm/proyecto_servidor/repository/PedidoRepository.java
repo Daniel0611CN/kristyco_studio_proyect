@@ -1,14 +1,11 @@
 package org.iesvdm.proyecto_servidor.repository;
 
 import org.iesvdm.proyecto_servidor.model.domain.Pedido;
-import org.iesvdm.proyecto_servidor.model.enums.EstadoPago;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -37,4 +34,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     Page<Pedido> findByDireccionContaining(String direccion, Pageable pageable);
 
     Page<Pedido> findByEstado(EstadoPedido estado, Pageable pageable);
+
 }

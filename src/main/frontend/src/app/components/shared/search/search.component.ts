@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './search.component.html'
 })
 export class SearchComponent {
-  checkActiveSearch: boolean = false;
+  checkActiveSearch: boolean = true;
   searchInput: string = '';
   search = output<{searchText: string}>();
   over2Chars: boolean = false;
@@ -24,6 +24,12 @@ export class SearchComponent {
       this.over2Chars = false;
       this.search.emit({ searchText : ''});
     }
+  }
+
+  clearSearch(): void {
+    this.searchInput = '';
+    this.over2Chars = false;
+    this.search.emit({ searchText: '' });
   }
 
 }

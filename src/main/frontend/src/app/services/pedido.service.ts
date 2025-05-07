@@ -25,12 +25,13 @@ export class PedidoService {
       queryParams.size = size;
     }
 
-    if (search && search.toUpperCase() != 'PENDIENTE' && search.toUpperCase() != 'EN CAMINO' &&
-        search.toUpperCase() != 'ENTREGADO' && search.toUpperCase() != 'CANCELADO') {
+    if (search && search.toLowerCase() != 'pendiente' && search.toLowerCase() != 'en camino' && search.toLowerCase() != 'entregado' && search.toLowerCase() != 'cancelado') {
       queryParams.direccion = search;
     } else if (search) {
-      search = search.toUpperCase();
-      if (search == 'EN CAMINO') search = search.replace(/\s+/g, '_');
+      if (search.toLowerCase() == 'pendiente') search = 'PENDIENTE'
+      else if (search.toLowerCase() == 'en camino') search = 'EN_CAMINO';
+      else if (search.toLowerCase() == 'entregado') search = 'ENTREGADO';
+      else if (search.toLowerCase() == 'cancelado') search = 'CANCELADO';
       queryParams.estado = search;
     }
 

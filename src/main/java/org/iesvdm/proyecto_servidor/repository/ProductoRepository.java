@@ -15,4 +15,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     List<Producto> findByIdOrNombreOrProveedorIdOrCategoriaIdOrderByIdAsc(Long id, String nombre, Long proveedorId, Long categoriaId);
 
+    Page<Producto> findByNombreContaining(String nombre, Pageable pageable);
+    
 }
