@@ -9,6 +9,7 @@ import org.iesvdm.proyecto_servidor.service.ProductoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -22,6 +23,9 @@ class ProyectoServidorApplicationTests {
 
     @Autowired
     private ProductoService productoService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void contextLoads() {

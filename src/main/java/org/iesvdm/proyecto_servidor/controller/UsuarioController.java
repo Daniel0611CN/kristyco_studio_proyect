@@ -21,9 +21,6 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-//    @Autowired
-//    private PasswordEncoder pswdEncoder;
-
     @GetMapping({"", "/"})
     public List<Usuario> all() { return this.usuarioService.all(); }
 

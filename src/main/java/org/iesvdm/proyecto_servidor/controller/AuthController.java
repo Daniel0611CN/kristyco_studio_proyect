@@ -118,8 +118,6 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        // intentar pasar esto a otro metodo
-
         String token = UUID.randomUUID().toString();
 
         ConfirmationToken confirmationToken = new ConfirmationToken(

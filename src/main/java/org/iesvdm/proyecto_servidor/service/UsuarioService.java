@@ -6,7 +6,9 @@ import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
+import org.mapstruct.Context;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
 
     private final UsuarioRepository usuarioRepository;
     private final ConfirmationTokenService confirmationTokenService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<Usuario> all() {
@@ -38,10 +41,13 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
     public Usuario saveOrGetIfExists(Usuario usuario) {
         if (usuario == null) throw new IllegalArgumentException("El usuario no puede ser null");
 
-        return usuario.getId() == null ?
-                usuarioRepository.save(usuario) :
-                usuarioRepository.findById(usuario.getId())
-                        .orElseThrow(() -> new EntityNotFoundException(usuario.getId(), Usuario.class));
+        if (usuario.getId() == null) {
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            return usuarioRepository.save(usuario);
+        } else {
+            return usuarioRepository.findById(usuario.getId())
+                    .orElseThrow(() -> new EntityNotFoundException(usuario.getId(), Usuario.class));
+        }
     }
 
     @Override
