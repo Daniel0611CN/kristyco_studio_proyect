@@ -1,9 +1,17 @@
 {
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "src/main/frontend/angular.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "src/main/frontend/dist/frontend"
+      }
     }
   ],
-  "public": "src/main/frontend/dist/frontend"
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
