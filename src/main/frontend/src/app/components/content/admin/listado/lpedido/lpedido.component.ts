@@ -150,6 +150,7 @@ export class LpedidoComponent implements OnInit {
   }
 
   onSearch(searchData: { searchText: string }) {
+    this.isLoading = false;
     this.page = 1;
     this.searchText = searchData.searchText;
     this.getAllByPage(this.searchText);

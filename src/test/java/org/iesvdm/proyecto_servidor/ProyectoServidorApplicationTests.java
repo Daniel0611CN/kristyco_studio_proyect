@@ -24,9 +24,6 @@ class ProyectoServidorApplicationTests {
     @Autowired
     private ProductoService productoService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Test
     void contextLoads() {
 
