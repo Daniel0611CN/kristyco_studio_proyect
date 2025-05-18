@@ -8,10 +8,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class DTOLogin {
 
-    @NotBlank(message = "El nombre de usuario no puede estar vacío.")
+    @NotBlank(message = "El nombre es obligatorio")
     private String username;
 
-    @NotBlank(message = "La contraseña no puede estar vacía.")
+    @NotBlank(message = "La contraseña es obligatoria")
     private String password;
 
 }

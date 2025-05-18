@@ -1,6 +1,5 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import org.iesvdm.proyecto_servidor.model.domain.Categoria;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

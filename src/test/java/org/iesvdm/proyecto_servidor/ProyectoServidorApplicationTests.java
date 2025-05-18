@@ -26,9 +26,6 @@ class ProyectoServidorApplicationTests {
 
     @Test
     void contextLoads() {
-
-        ///// CATEGORÍAS /////
-
         Categoria c1 = Categoria.builder()
                 .nombre("Colección Aire")
                 .descripcion("Colección de invitaciones relacionadas con elementos como el viento y el aire.")
@@ -54,8 +51,6 @@ class ProyectoServidorApplicationTests {
                 .descripcion("Colección de invitaciones relacionadas con elementos de fuego.")
                 .build();
 
-        ///// PROVEEDORES /////
-
         Proveedor pv1 = Proveedor.builder()
                 .direccion("Calle Alcorcón, 15")
                 .email("provMadrid@gmail.com")
@@ -79,8 +74,6 @@ class ProyectoServidorApplicationTests {
                 .email("mariaGema@gmail.com")
                 .telefono(614564591L)
                 .build();
-
-        ///// PRODUCTOS /////
 
         Producto pt1 = Producto.builder()
                 .nombre("Invitación 1")
@@ -280,14 +273,12 @@ class ProyectoServidorApplicationTests {
 
         productoService.saveOrGetIfExists(pt18);
 
-        ///// USUARIOS /////
-
         Usuario u1 = Usuario.builder()
                 .nombre("María")
                 .apellido1("Ruiz")
                 .apellido2("León")
                 .email("maria22@gmail.com")
-                .telefono(681754114L)
+                .telefono("681754114")
                 .direccion("Calle Salamanca, 14")
                 .password("1a?24#9183aniap1")
                 .build();
@@ -297,7 +288,7 @@ class ProyectoServidorApplicationTests {
                 .apellido1("Pérez")
                 .apellido2("Villarubia")
                 .email("andresperezv@outlook.es")
-                .telefono(687514901L)
+                .telefono("687514901")
                 .direccion("Calle Rio Chillar, 10")
                 .password("1a?9138ANsidnas")
                 .build();
@@ -307,7 +298,7 @@ class ProyectoServidorApplicationTests {
                 .apellido1("Cuevas")
                 .apellido2("Sedeño")
                 .email("jmcuesed19@gmail.com")
-                .telefono(681917818L)
+                .telefono("681917818")
                 .direccion("Calle Baja, 1")
                 .password("soyjosee33")
                 .build();
@@ -317,7 +308,7 @@ class ProyectoServidorApplicationTests {
                 .apellido1("Jiménez")
                 .apellido2("Gutiérrez")
                 .email("pljigu09@gmail.com")
-                .telefono(686894374L)
+                .telefono("686894374")
                 .direccion("Calle San Andrés, 2")
                 .password("22paulaJM")
                 .build();
@@ -327,7 +318,7 @@ class ProyectoServidorApplicationTests {
                 .apellido1("Tejón")
                 .apellido2("Martínez")
                 .email("dtm2@gmail.com")
-                .telefono(681358236L)
+                .telefono("681358236")
                 .direccion("Av Clemente, 11")
                 .password("dtM4?#futb0l")
                 .build();
@@ -337,14 +328,10 @@ class ProyectoServidorApplicationTests {
                 .apellido1("Quero")
                 .apellido2("Porras")
                 .email("andreita10@gmail.com")
-                .telefono(687715614L)
+                .telefono("687715614")
                 .direccion("Calle Libertad, 5")
                 .password("991Aie#31")
                 .build();
-
-        ///// PEDIDOS /////
-
-            ///// PAGOS /////
 
         Pedido p1 = Pedido.builder()
                 .estado(EstadoPedido.PENDIENTE)

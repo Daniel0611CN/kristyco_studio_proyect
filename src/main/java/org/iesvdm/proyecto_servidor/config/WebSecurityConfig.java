@@ -58,7 +58,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                             .requestMatchers("/api/v1/auth/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/ap/v1/**").hasAuthority("ROL_ADMIN")
+                            .requestMatchers(HttpMethod.GET,"/api/v1/confirmation_token/**").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/api/v1/confirmation_token/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority("ROL_ADMIN")
                             .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority("ROL_ADMIN")
                             .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ROL_ADMIN")
                             .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")

@@ -25,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
-    private Long telefono;
+    private String telefono;
 
     private String direccion;
 
@@ -39,7 +39,7 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl( Long id, String nombre, String apellido1, String apellido2, String email, String direccion,
-                            Long telefono, String password, Boolean locked, Boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+                            String telefono, String password, Boolean locked, Boolean enabled, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -98,7 +98,7 @@ public class UserDetailsImpl implements UserDetails {
         return email;
     }
 
-    public Long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 

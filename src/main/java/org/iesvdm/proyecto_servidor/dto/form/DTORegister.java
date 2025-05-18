@@ -10,32 +10,32 @@ import java.util.Set;
 @AllArgsConstructor
 public class DTORegister {
 
-    @NotBlank(message = "El nombre de usuario no puede estar vacío.")
-    @Size(min = 3, max = 15, message = "El nombre de usuario debe tener entre 3 y 15 caracteres.")
+    @NotBlank(message = "{nombre.required}")
+    @Size(min = 3, message = "{nombre.minlength}")
+    @Size(max = 20, message = "{nombre.maxlength}")
     private String username;
 
-    @NotBlank(message = "El primer apellido no puede estar vacío.")
-    @Size(max = 20, message = "El primer apellido no puede tener más de 20 caracteres.")
+    @NotBlank(message = "{apellido1.required}")
+    @Size(max = 20, message = "{apellido1.maxlength}")
     private String apellido1;
 
-    @Size(max = 20, message = "El segundo apellido no puede tener más de 20 caracteres.")
+    @Size(max = 20, message = "{apellido2.maxlength}")
     private String apellido2;
 
-    @NotBlank(message = "El correo electrónico no puede estar vacío.")
-    @Email(message = "El email debe tener un formato válido.")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|outlook\\.es|g\\.educaand\\.es)$", message = "El email debe ser uno de los siguientes: @gmail.com, @outlook.es, @g.educaand.es.")
+    @NotBlank(message = "{email.required}")
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@(gmail\\.com)$", message = "{email.pattern}")
     private String email;
 
+    @NotBlank(message = "{telefono.required}")
+    @Pattern(regexp = "^[0-9]{9}$", message = "{telefono.pattern}")
+    private String telefono;
 
-    private Long telefono;
-
-    @NotBlank(message = "La dirección no puede estar vacía.")
+    @NotBlank(message = "{direccion.required}")
     private String direccion;
 
-    @NotBlank(message = "La contraseña no puede estar vacía.")
-    @Size(min = 8, max = 20, message = "La contraseña debe tener entre 6 y 20 caracteres.")
-    @Pattern(regexp = "^(?=(.*[a-z]){3})(?=(.*[A-Z]){2})(?=(.*\\d){1})(?=(.*[!@#$%^&*]){1}).{8,20}$",
-            message = "La contraseña debe contener al menos 3 letras minúsculas, 2 mayúsculas, 1 número y 1 carácter especial.")
+    @NotBlank(message = "{password.required}")
+    @Size(max = 24, message = "{password.maxlength}")
+    @Pattern(regexp = "^(?=(.*[a-z]){3})(?=(.*[A-Z]){2})(?=(.*\\d){1})(?=(.*[!@#$%^&*]){1}).{8,24}$", message = "{password.pattern}")
     private String password;
 
     private Set<String> roles;

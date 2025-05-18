@@ -24,7 +24,7 @@ public class Usuario {
     private Long id;
 
     @NotBlank
-    @Column(length = 15, nullable = false)
+    @Column(length = 20, nullable = false)
     private String nombre;
 
     @Column(length = 20, nullable = false)
@@ -33,11 +33,11 @@ public class Usuario {
     @Column(length = 20)
     private String apellido2;
 
-    @Column(length = 45, unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(precision = 9, unique = true, nullable = false)
-    private Long telefono;
+    @Column(length = 9, unique = true, nullable = false)
+    private String telefono;
 
     @Column(nullable = false)
     private String direccion;
@@ -64,9 +64,10 @@ public class Usuario {
     private Boolean locked = false;
 
     @Builder.Default
+    @Column(nullable = false)
     private Boolean enabled = false;
 
-    public Usuario(String username, String apellido1, String apellido2, String email, Long telefono, String direccion, String password) {
+    public Usuario(String username, String apellido1, String apellido2, String email, String telefono, String direccion, String password) {
 
         this.nombre = username;
         this.apellido1 = apellido1;

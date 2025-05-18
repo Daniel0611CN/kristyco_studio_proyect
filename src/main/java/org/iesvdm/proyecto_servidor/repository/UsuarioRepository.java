@@ -26,6 +26,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Boolean existsByEmail(String email);
 
+    Boolean existsByTelefono(String telefono);
+
     @Transactional
     @Modifying
     @Query("UPDATE Usuario a " +

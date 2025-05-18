@@ -8,12 +8,12 @@ import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
 import org.iesvdm.proyecto_servidor.service.ConfirmationTokenService;
 import org.iesvdm.proyecto_servidor.service.MailService;
 import org.iesvdm.proyecto_servidor.service.UsuarioService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
@@ -29,8 +29,6 @@ import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
 import org.iesvdm.proyecto_servidor.dto.form.DTOLogin;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import jakarta.validation.Valid;
@@ -51,42 +49,71 @@ public class AuthController {
     private final RolRepository rolRepository;
     private final PasswordEncoder encoder;
     private final TokenUtils tokenUtils;
+    private final MailService mailService;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody DTOLogin loginRequest) {
+        try {
+            Optional<Usuario> usuarioOpt = userRepository.findByNombre(loginRequest.getUsername());
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            if (usuarioOpt.isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("message", "No existe ninguna cuenta con este usuario."));
+            }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = tokenUtils.generateToken(authentication);
+            Usuario usuario = usuarioOpt.get();
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+            if (!encoder.matches(loginRequest.getPassword(), usuario.getPassword())) {
+                return ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("message", "El valor de la contraseña no es correcto, inténtelo de nuevo."));
+            }
 
-        Map<String, Object> response = new HashMap<>();
+            if (!usuario.getEnabled()) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("message", "Tu cuenta no está habilitada. Por favor, confirma tu correo electrónico."));
+            }
 
-        response.put("token", token);
-        response.put("id", userDetails.getId());
-        response.put("username", userDetails.getUsername());
-        response.put("email", userDetails.getEmail());
-        response.put("roles", roles);
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        return ResponseEntity.ok(response);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = tokenUtils.generateToken(authentication);
 
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("id", userDetails.getId());
+            response.put("username", userDetails.getUsername());
+            response.put("enabled", userDetails.isEnabled());
+            response.put("email", userDetails.getEmail());
+            response.put("roles", roles);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Ha ocurrido un error inesperado."));
+        }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody DTORegister registerRequest) {
-        if (userRepository.existsByNombre(registerRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new DTOMessageResponse("Error: El Usuario introducido ya existe"));
-        }
+        if (userRepository.existsByNombre(registerRequest.getUsername()))
+            return ResponseEntity.badRequest().body(new DTOMessageResponse("El usuario corresponde a una cuenta"));
 
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new DTOMessageResponse("Error: El Email introducido ya existe"));
-        }
+        if (userRepository.existsByEmail(registerRequest.getEmail()))
+            return ResponseEntity.badRequest().body(new DTOMessageResponse("El email corresponde a una cuenta"));
+
+        if (userRepository.existsByTelefono(registerRequest.getTelefono()))
+            return ResponseEntity.badRequest().body(new DTOMessageResponse("El teléfono corresponde a una cuenta"));
 
         Usuario user = mapStructMapper.registroToUsuario(registerRequest, encoder);
 
@@ -95,22 +122,18 @@ public class AuthController {
 
         if (strRoles == null) {
             Rol userRole = rolRepository.findByRol(TipoRol.ROL_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
+                    .orElseThrow(() -> new RuntimeException("No se ha encontrado el rol de usuario"));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Rol adminRole = rolRepository.findByRol(TipoRol.ROL_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(adminRole);
-
-                        break;
-
-                    default:
-                        Rol userRole = rolRepository.findByRol(TipoRol.ROL_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(userRole);
+                if (role.equals("admin") || registerRequest.getEmail().equals("kristycostudio@gmail.com") || registerRequest.getEmail().equals("daniclavijonunez@gmail.com")) {
+                    Rol adminRole = rolRepository.findByRol(TipoRol.ROL_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("No se ha encontrado el rol de administrador"));
+                    roles.add(adminRole);
+                } else {
+                    Rol userRole = rolRepository.findByRol(TipoRol.ROL_USER)
+                            .orElseThrow(() -> new RuntimeException("No se ha encontrado el rol de usuario"));
+                    roles.add(userRole);
                 }
             });
         }
@@ -118,53 +141,14 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        String token = UUID.randomUUID().toString();
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-            token,
-            LocalDateTime.now(),
-            LocalDateTime.now().plusMinutes(15),
-            user
-        );
-
+        String token = tokenService.generateConfirmationToken();
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
         tokenService.saveConfirmationToken(confirmationToken);
 
-        mailController.sendRequestHtmlEmail(getMailHtmlData(user, token));
+        mailController.sendRequestHtmlEmail(mailService.buildMailHtmlData(user, token));
 
-        return ResponseEntity.ok(new DTOMessageResponse(String.format("Usuario registrado correctamente %s", token)));
+        return ResponseEntity.ok(new DTOMessageResponse(String.format("Usuario registrado correctamente, token=%s", token)));
     }
 
-    private static MailHtmlData getMailHtmlData(Usuario user, String token) {
-
-        String[] users = new String[] { user.getEmail() };
-        String subject = "Registro en KristyCoStudio";
-        String template = "mail";
-
-        MailHtmlDataVariables mailHtmlDataVariables = new MailHtmlDataVariables(
-                String.format("Bienvenido, %s!", user.getNombre()),
-                String.format("Bienvenido, %s", user.getNombre()),
-                "Gracias por registrarte en nuestra plataforma. ¡Nos alegra tenerte con nosotros!",
-                "Pulsa en el siguiente enlace para iniciar sesión con tu cuenta: ",
-                token
-        );
-
-        Map<String, Object> variables = Map.of(
-                "title", mailHtmlDataVariables.getTitle(),
-                "bienvenida", mailHtmlDataVariables.getBienvenida(),
-                "descripcion", mailHtmlDataVariables.getDescripcion(),
-                "enlace", mailHtmlDataVariables.getLink(),
-                "token", mailHtmlDataVariables.getToken()
-        );
-
-        return new MailHtmlData(users, subject, template, variables);
-    }
-
-    @GetMapping("/confirm-register")
-    public ResponseEntity<?> confirm(@RequestParam("token") String token) {
-        usuarioService.confirmToken(token);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("http://localhost:4200/login"));
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
-    }
 
 }

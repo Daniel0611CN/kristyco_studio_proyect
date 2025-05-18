@@ -1,11 +1,12 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
-import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
 import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
+import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
+import org.iesvdm.proyecto_servidor.dto.MailHtmlDataVariables;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.beans.factory.annotation.Value;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -23,11 +24,14 @@ public class MailService implements MailServiceInterface {
     @Value("${email.sender}")
     private String emailUser;
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-    @Autowired
-    private SpringTemplateEngine templateEngine;
+    private final SpringTemplateEngine templateEngine;
+
+    public MailService(JavaMailSender mailSender, SpringTemplateEngine templateEngine) {
+        this.mailSender = mailSender;
+        this.templateEngine = templateEngine;
+    }
 
     @Override
     public void sendMail(MailData mailData) {
@@ -59,6 +63,7 @@ public class MailService implements MailServiceInterface {
         }
     }
 
+    @Override
     public void sendHtmlMail(MailHtmlData mailHtmlData) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -82,6 +87,50 @@ public class MailService implements MailServiceInterface {
         } catch (MessagingException e) {
             throw new RuntimeException("Error al enviar el correo", e);
         }
+    }
+
+    @Override
+    public MailHtmlData buildMailHtmlData(Usuario user, String token) {
+        MailData mailData = getMailParameters(user, "Registro en KristyCoStudio", "mail");
+
+        MailHtmlDataVariables mailHtmlDataVariables = getMailHtmlDataVariables("Bienvenido, %s!", user,
+                "Gracias por registrarte en nuestra plataforma. !Nos alegra tenerte con nosotros!",
+                "Para iniciar sesión pulsa en el siguiente enlace", token);
+
+        Map<String, Object> variables = Map.of(
+                "welcome", mailHtmlDataVariables.getWelcome(),
+                "description", mailHtmlDataVariables.getDescription(),
+                "link", mailHtmlDataVariables.getLink(),
+                "token", mailHtmlDataVariables.getToken()
+        );
+
+        return new MailHtmlData(mailData.toUser(), mailData.subject(), mailData.message(), variables);
+    }
+
+    @Override
+    public MailHtmlData buildResendHtmlData(Usuario user, String token) {
+        MailData mailData = getMailParameters(user, "Reenvío de confirmación - KristyCoStudio", "resend-mail");
+
+        MailHtmlDataVariables mailHtmlDataVariables = getMailHtmlDataVariables("Reenvío de correo de confirmación para %s!", user,
+                "Has solicitado un nuevo enlace de confirmación. Usa el siguiente enlace para validar tu cuenta:", null, token);
+
+        Map<String, Object> variables = Map.of(
+                "welcome", mailHtmlDataVariables.getWelcome(),
+                "description", mailHtmlDataVariables.getDescription(),
+                "token", mailHtmlDataVariables.getToken()
+        );
+
+        return new MailHtmlData(mailData.toUser(), mailData.subject(), mailData.message(), variables);
+    }
+
+    private static MailData getMailParameters(Usuario user, String subject, String template) {
+        String[] users = new String[] { user.getEmail() };
+        return new MailData(users, subject, template);
+    }
+
+    private static MailHtmlDataVariables getMailHtmlDataVariables(String welcome, Usuario user, String description, String link, String token) {
+        String confirmToken = String.format("http://localhost:4200/confirmar-token/%s", token);
+        return new MailHtmlDataVariables(String.format(welcome, user.getNombre()), description, link, confirmToken);
     }
 
 }
