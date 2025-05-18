@@ -7,11 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class MailHtmlDataVariables {
 
-    private String title;
+    private String welcome;
 
-    private String bienvenida;
-
-    private String descripcion;
+    private String description;
 
     private String link;
 
