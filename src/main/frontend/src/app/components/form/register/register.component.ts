@@ -34,7 +34,9 @@ export class RegisterComponent {
           Validators.pattern('^(?=(?:.*[a-z]){3,})(?=(?:.*[A-Z]){2,})(?=(?:.*\\d){1,})(?=(?:.*[^a-zA-Z0-9]){1,}).{8,24}$')
         ]
       ],
-      rol: 'User'
+      rol: 'User',
+      privacy: [false, Validators.requiredTrue],
+      terms_conditions: [false, Validators.requiredTrue]
     });
 
   }
