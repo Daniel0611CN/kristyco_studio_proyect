@@ -35,7 +35,7 @@ export class RegisterComponent {
         ]
       ],
       rol: 'User'
-    }, { updateOn: 'change' });
+    });
 
   }
 
@@ -45,6 +45,9 @@ export class RegisterComponent {
 
   errorMessage = '';
   roles: string[] = [];
+
+  showPassword = false;
+  togglePassword() { this.showPassword = !this.showPassword; }
 
   onSubmit(): void {
     if (this.registerForm.invalid) return;

@@ -31,7 +31,6 @@ public class MailController {
 
     @PostMapping("/send-mail")
     public ResponseEntity<?> sendRequestEmail(@RequestBody MailData mailData) {
-
         System.out.println(new DTOMessageResponse(String.format("Mensaje recibido %s", mailData)));
 
         emailService.sendMail(mailData);
@@ -44,7 +43,6 @@ public class MailController {
 
     @PostMapping("/send-mail-file")
     public ResponseEntity<?> sendRequestEmailWithFile(@RequestBody MailFileData mailFileData) {
-
         try {
             String fileName = mailFileData.file().getName();
 
@@ -71,16 +69,6 @@ public class MailController {
 
     @PostMapping("/send-html-mail")
     public ResponseEntity<?> sendRequestHtmlEmail(@RequestBody MailHtmlData mailHtmlData) {
-
-//        System.out.println(new DTOMessageResponse(String.format("Mensaje recibido %s", mailHtmlData)));
-//
-//        emailService.sendHtmlMail(mailHtmlData);
-//
-//        Map<String, DTOMessageResponse> response = new HashMap<>();
-//        response.put("estado", new DTOMessageResponse("Mensaje enviado correctamente"));
-//
-//        return ResponseEntity.ok(response);
-
         try {
             System.out.println(new DTOMessageResponse(String.format("Mensaje recibido %s", mailHtmlData)));
 
