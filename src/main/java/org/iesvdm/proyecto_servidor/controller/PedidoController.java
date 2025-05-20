@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 @RestController
 @RequestMapping("/api/v1/pedidos")
 @AllArgsConstructor

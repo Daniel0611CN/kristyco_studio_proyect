@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 @RestController
 @RequestMapping("/api/v1/confirmation_token")
 @AllArgsConstructor

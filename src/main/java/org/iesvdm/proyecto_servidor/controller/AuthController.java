@@ -1,41 +1,37 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import lombok.AllArgsConstructor;
-import org.iesvdm.proyecto_servidor.dto.MailHtmlDataVariables;
-import org.iesvdm.proyecto_servidor.mapper.MapStructMapper;
-import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
-import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
-import org.iesvdm.proyecto_servidor.service.ConfirmationTokenService;
-import org.iesvdm.proyecto_servidor.service.MailService;
-import org.iesvdm.proyecto_servidor.service.UsuarioService;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
+import org.iesvdm.proyecto_servidor.service.ConfirmationTokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.iesvdm.proyecto_servidor.repository.RolRepository;
 import org.iesvdm.proyecto_servidor.service.UserDetailsImpl;
 import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
+import org.iesvdm.proyecto_servidor.mapper.MapStructMapper;
+import org.iesvdm.proyecto_servidor.service.UsuarioService;
+import org.springframework.security.core.GrantedAuthority;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
 import org.springframework.security.core.Authentication;
 import org.iesvdm.proyecto_servidor.security.TokenUtils;
 import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
-import org.iesvdm.proyecto_servidor.model.domain.Rol;
-import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
+import org.iesvdm.proyecto_servidor.service.MailService;
 import org.iesvdm.proyecto_servidor.dto.form.DTOLogin;
+import org.iesvdm.proyecto_servidor.model.domain.Rol;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import jakarta.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 @RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
@@ -45,7 +41,6 @@ public class AuthController {
     private final UsuarioRepository userRepository;
     private final MapStructMapper mapStructMapper;
     private final MailController mailController;
-    private final UsuarioService usuarioService;
     private final RolRepository rolRepository;
     private final PasswordEncoder encoder;
     private final TokenUtils tokenUtils;
