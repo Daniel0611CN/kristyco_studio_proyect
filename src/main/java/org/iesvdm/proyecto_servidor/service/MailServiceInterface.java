@@ -17,4 +17,6 @@ public interface MailServiceInterface {
 
     MailHtmlData buildResendHtmlData(Usuario user, String token);
 
+    MailHtmlData buildPasswordResetHtmlData(Usuario user, String token);
+
 }

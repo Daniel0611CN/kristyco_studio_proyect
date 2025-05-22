@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.repository;
 
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,5 +23,8 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
     void updateConfirmedAt(String token, LocalDateTime confirmedAt);
 
     Optional<ConfirmationToken> findTopByUsuario_IdOrderByExpiresAtDesc(Long usuarioId);
+
+    Optional<ConfirmationToken> findTopByUsuario_IdAndTypeOrderByExpiresAtDesc(Long id, TokenType type);
+
 
 }

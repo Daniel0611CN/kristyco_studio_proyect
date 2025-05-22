@@ -3,14 +3,20 @@ package org.iesvdm.proyecto_servidor.service;
 import org.iesvdm.proyecto_servidor.repository.ConfirmationTokenRepository;
 import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
-import org.iesvdm.proyecto_servidor.controller.MailController;
+import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.Optional;
+import java.util.HashMap;
 import java.util.UUID;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -19,86 +25,88 @@ public class ConfirmationTokenService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final UsuarioRepository usuarioRepository;
     private final UsuarioService usuarioService;
-    private final MailController mailController;
     private final MailService mailService;
 
-    public void saveConfirmationToken(ConfirmationToken token) {
-        confirmationTokenRepository.save(token);
-    }
+    public Optional<ConfirmationToken> getToken(String token) { return confirmationTokenRepository.findByToken(token); }
 
-    public Optional<ConfirmationToken> getToken(String token) {
-        return confirmationTokenRepository.findByToken(token);
-    }
+    private void throwIf(boolean condition, String message) { if (condition) throw new IllegalStateException(message); }
 
-    public void setConfirmedAt(String token) {
-        confirmationTokenRepository.updateConfirmedAt(token, LocalDateTime.now());
-    }
+    @Transactional
+    public ConfirmationToken createForUsuario(Usuario usuario, Duration duration, TokenType type) {
+        confirmationTokenRepository.findTopByUsuario_IdAndTypeOrderByExpiresAtDesc(usuario.getId(), type)
+                .ifPresent(confirmationTokenRepository::delete);
 
-    public String generateConfirmationToken() {
-        return UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plus(duration), type, usuario);
+        confirmationTokenRepository.save(confirmationToken);
+        return confirmationToken;
     }
 
     @Transactional
     public boolean confirmToken(String token) {
-        boolean isConfirmed = false;
+        ConfirmationToken confirmationToken = getToken(token).orElseThrow(() -> new IllegalStateException("El token no ha sido encontrado"));
 
-        ConfirmationToken confirmationToken = getToken(token)
-                .orElseThrow(() ->
-                        new IllegalStateException("El token no ha sido encontrado"));
+        throwIf(confirmationToken.getConfirmedAt() != null, "El email ya ha sido confirmado");
+        throwIf(confirmationToken.getExpiresAt().isBefore(LocalDateTime.now()), "El token ha expirado");
 
-        if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("El email ha sido confirmado anteriormente");
-        }
+        confirmationToken.setConfirmedAt(LocalDateTime.now());
+        confirmationTokenRepository.save(confirmationToken);
 
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-
-        if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("El token ha expirado");
-        }
-
-        setConfirmedAt(token);
         usuarioService.enableUsuario(confirmationToken.getUsuario().getEmail());
 
-        isConfirmed = true;
-
-        return isConfirmed;
+        return true;
     }
 
-    Optional<Usuario> findByUsername(String username) {
-        return usuarioRepository.findByNombre(username);
-    }
-
+    @Transactional
     public boolean revalidateToken(String username) {
-        Optional<Usuario> usuarioOpt = findByUsername(username);
-        if (usuarioOpt.isEmpty()) {
-            throw new IllegalStateException("Usuario no encontrado");
-        }
+        Optional<Usuario> usuarioOpt =  usuarioRepository.findByNombre(username);
+        throwIf(usuarioOpt.isEmpty(), "Usuario no encontrado");
         Usuario usuario = usuarioOpt.get();
 
         ConfirmationToken oldToken = confirmationTokenRepository.findTopByUsuario_IdOrderByExpiresAtDesc(usuario.getId())
                 .orElseThrow(() -> new IllegalStateException("Token no encontrado para el usuario"));
 
-        if (oldToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("El email ya ha sido confirmado");
-        }
-
-        if (oldToken.getExpiresAt().isAfter(LocalDateTime.now())) {
-            throw new IllegalStateException("El token todavía no ha expirado");
-        }
-
+        throwIf(oldToken.getConfirmedAt() != null, "El email ha sido confirmado anteriormente");
+        throwIf(oldToken.getExpiresAt().isAfter(LocalDateTime.now()), "El token todavía no ha expirado");
         confirmationTokenRepository.delete(oldToken);
 
-        String newTokenString = generateConfirmationToken();
-
-        ConfirmationToken newToken = new ConfirmationToken(newTokenString, LocalDateTime.now(), LocalDateTime.now().plusMinutes(120), usuario);
-        confirmationTokenRepository.save(newToken);
+        ConfirmationToken newToken = createForUsuario(usuario, Duration.ofMinutes(120), TokenType.REVALIDATE_TOKEN);
 
         usuarioService.enableUsuario(usuario.getEmail());
-        mailController.sendRequestHtmlEmail(mailService.buildResendHtmlData(usuario, newTokenString));
+        mailService.sendHtmlMail(mailService.buildResendHtmlData(usuario, newToken.getToken()));
 
         return true;
     }
 
+    public ConfirmationToken validateTokenOrThrow(String token, TokenType expectedType) {
+        ConfirmationToken confirmationToken = getToken(token).orElseThrow(() -> new IllegalStateException("Token no válido"));
+
+        throwIf(!confirmationToken.getType().equals(expectedType), "Tipo de token no válido");
+        throwIf(confirmationToken.getConfirmedAt() != null, "El token ya ha sido usado");
+        throwIf(confirmationToken.getExpiresAt().isBefore(LocalDateTime.now()), "El token ha expirado");
+
+        return confirmationToken;
+    }
+
+    @Transactional
+    public void markAsUsed(ConfirmationToken token) {
+        token.setConfirmedAt(LocalDateTime.now());
+        confirmationTokenRepository.save(token);
+    }
+
+    private ResponseEntity<Map<String, Object>> buildResponse(String message, Map<String, Object> extraData) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", new DTOMessageResponse(message));
+        if (extraData != null) response.putAll(extraData);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public Usuario getUserByResetToken(String token) {
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalArgumentException("Token inválido o expirado"));
+
+        return confirmationToken.getUsuario();
+    }
 
 
 }

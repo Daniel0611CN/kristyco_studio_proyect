@@ -75,19 +75,14 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
                 .orElseThrow(() -> new EntityNotFoundException(id, Usuario.class));
     }
 
-//    public Usuario oneEmail(String email) {
-//        return this.usuarioRepository.findByEmail(email)
-//                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con email " + email));
-//    }
-
-    public Optional<Usuario> findByUsername(String username) {
-        return usuarioRepository.findByNombre(username);
+    public Optional<Usuario> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 
     public void changePassword(Long id, String pswd) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id " + id));
-        usuario.setPassword(pswd);
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Usuario no encontrado con id %s", id)));
+        usuario.setPassword(passwordEncoder.encode(pswd));
         usuarioRepository.save(usuario);
     }
 

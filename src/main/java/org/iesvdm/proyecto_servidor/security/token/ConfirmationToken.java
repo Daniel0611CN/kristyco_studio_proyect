@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 
 import java.time.LocalDateTime;
 
@@ -30,15 +31,20 @@ public class ConfirmationToken {
 
     private LocalDateTime confirmedAt = null;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TokenType type;
+
     @ManyToOne
     @JoinColumn(nullable = false)
     private Usuario usuario;
 
-    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, Usuario usuario) {
+    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, TokenType type, Usuario usuario) {
 
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
+        this.type = type;
         this.usuario = usuario;
 
     }

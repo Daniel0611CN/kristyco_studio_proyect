@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
-@CrossOrigin("https://kristyco-studio.vercel.app")
+@CrossOrigin("http://localhost:4200")
 @RequiredArgsConstructor
 @RestController
 @Slf4j

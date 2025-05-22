@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.controller;
 
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +12,6 @@ import org.iesvdm.proyecto_servidor.repository.RolRepository;
 import org.iesvdm.proyecto_servidor.service.UserDetailsImpl;
 import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
 import org.iesvdm.proyecto_servidor.mapper.MapStructMapper;
-import org.iesvdm.proyecto_servidor.service.UsuarioService;
 import org.springframework.security.core.GrantedAuthority;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
@@ -24,27 +24,29 @@ import org.iesvdm.proyecto_servidor.model.domain.Rol;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+
+import java.time.Duration;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import jakarta.validation.Valid;
-import java.time.LocalDateTime;
+
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
 
+    private final ConfirmationTokenService confirmationTokenService;
     private final AuthenticationManager authenticationManager;
-    private final ConfirmationTokenService tokenService;
     private final UsuarioRepository userRepository;
     private final MapStructMapper mapStructMapper;
     private final MailController mailController;
     private final RolRepository rolRepository;
     private final PasswordEncoder encoder;
-    private final TokenUtils tokenUtils;
     private final MailService mailService;
+    private final TokenUtils tokenUtils;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody DTOLogin loginRequest) {
@@ -136,14 +138,10 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        String token = tokenService.generateConfirmationToken();
-        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
-        tokenService.saveConfirmationToken(confirmationToken);
+        ConfirmationToken confirmationToken = confirmationTokenService.createForUsuario(user, Duration.ofMinutes(30), TokenType.REGISTER_CONFIRMATION);
+        mailService.sendHtmlMail(mailService.buildMailHtmlData(user, confirmationToken.getToken()));
 
-        mailController.sendRequestHtmlEmail(mailService.buildMailHtmlData(user, token));
-
-        return ResponseEntity.ok(new DTOMessageResponse(String.format("Usuario registrado correctamente, token=%s", token)));
+        return ResponseEntity.ok(new DTOMessageResponse(String.format("Usuario registrado correctamente, token=%s", confirmationToken.getToken())));
     }
-
 
 }

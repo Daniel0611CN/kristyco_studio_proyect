@@ -1,22 +1,24 @@
 package org.iesvdm.proyecto_servidor.controller;
 
 import org.iesvdm.proyecto_servidor.service.ConfirmationTokenService;
+import org.iesvdm.proyecto_servidor.service.PasswordService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
-@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/confirmation_token")
 @AllArgsConstructor
 public class ConfirmationTokenController {
 
     private final ConfirmationTokenService confirmationTokenService;
+    private final PasswordService passwordService;
 
     @GetMapping("/confirm-register")
     public ResponseEntity<Map<String, Object>> confirm(@RequestParam("token") String token) {
@@ -52,6 +54,34 @@ public class ConfirmationTokenController {
         }
         response.put("message", "No se pudo reenviar el correo");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @PutMapping("/request-reset-password")
+    public ResponseEntity<Map<String, Object>> requestResetPassword(@RequestParam("email") String email) {
+        return passwordService.requestReset(email);
+    }
+
+    @GetMapping("/validate-reset-token")
+    public ResponseEntity<Map<String, Object>> validateResetToken(@RequestParam("token") String token) {
+        return passwordService.validateResetToken(token);
+    }
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<Map<String, Object>> resetPassword(@RequestBody Map<String, String> data) {
+        String token = data.get("token");
+        String newPassword = data.get("password");
+        return passwordService.resetPassword(token, newPassword);
+    }
+
+    @PostMapping("/validate-old-password")
+    public ResponseEntity<?> validateOldPassword(@RequestBody String token, @RequestBody String oldPassword) {
+        boolean isValid = passwordService.isOldPasswordCorrect(token, oldPassword);
+
+        if (isValid) {
+            return ResponseEntity.ok().body(Map.of("valid", true));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("valid", false, "message", "Contraseña incorrecta"));
+        }
     }
 
 }
