@@ -80,8 +80,8 @@ public class MailService implements MailServiceInterface {
             helper.setSubject(mailHtmlData.subject());
             helper.setText(htmlContent, true);
 
-            ClassPathResource image = new ClassPathResource("static/img/logo.png");
-            helper.addInline("logo", image);
+            // ClassPathResource image = new ClassPathResource("static/img/logo.png");
+            // helper.addInline("logo", image);
 
             mailSender.send(mimeMessage);
 
