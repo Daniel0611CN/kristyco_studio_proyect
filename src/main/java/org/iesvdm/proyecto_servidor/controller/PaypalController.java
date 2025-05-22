@@ -22,8 +22,8 @@ public class PaypalController {
     public PaypalResponse createPayment(@RequestBody PaypalRequest paypalRequest
     ) throws JsonProcessingException {
 
-        String cancelUrl = "http://localhost:4200/payment/cancel";
-        String successUrl = "http://localhost:4200/payment/success";
+        String cancelUrl = "https://kristyco-studio.vercel.app/payment/cancel";
+        String successUrl = "https://kristyco-studio.vercel.app/payment/success";
 
         return paypalService.createOrder("CAPTURE",
                 paypalRequest.currency(),
