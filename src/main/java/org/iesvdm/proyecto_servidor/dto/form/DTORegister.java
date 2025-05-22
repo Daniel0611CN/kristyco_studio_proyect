@@ -23,7 +23,7 @@ public class DTORegister {
     private String apellido2;
 
     @NotBlank(message = "{email.required}")
-    @Email(regexp = "^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$", message = "{email.pattern}")
+    @Email(regexp = "[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-]([\\.]?[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-])+@[a-zA-Z0-9]([^@&%$\\/\\(\\)=?¿!\\.,:;]|\\d)+[a-zA-Z0-9][\\.][a-zA-Z]{2,4}([\\.][a-zA-Z]{3})?", message = "{email.pattern}")
     private String email;
 
     @NotBlank(message = "{telefono.required}")
