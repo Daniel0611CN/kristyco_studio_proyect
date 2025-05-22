@@ -33,7 +33,7 @@ import jakarta.validation.Valid;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 @RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
