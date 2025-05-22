@@ -4,6 +4,7 @@ import org.iesvdm.proyecto_servidor.model.record.mail.MailHtmlData;
 import org.iesvdm.proyecto_servidor.model.record.mail.MailFileData;
 import org.iesvdm.proyecto_servidor.model.record.mail.MailData;
 import org.iesvdm.proyecto_servidor.dto.MailHtmlDataVariables;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
@@ -79,8 +80,8 @@ public class MailService implements MailServiceInterface {
             helper.setSubject(mailHtmlData.subject());
             helper.setText(htmlContent, true);
 
-            File imageFile = new File("src/main/resources/static/img/logo.png");
-            helper.addInline("logo", imageFile);
+            ClassPathResource image = new ClassPathResource("static/img/logo.png");
+            helper.addInline("logo", image);
 
             mailSender.send(mimeMessage);
 
