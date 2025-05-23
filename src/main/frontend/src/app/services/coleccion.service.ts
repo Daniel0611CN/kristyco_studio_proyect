@@ -15,5 +15,4 @@ export class ColeccionService {
     return this.httpClient.get<any>(this.apiCategoriaUrl);
   }
 
-
 }
