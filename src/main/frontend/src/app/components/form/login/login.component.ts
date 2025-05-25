@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
 
         this.errorMessage = err?.error?.message;
-
+        console.log(this.errorMessage);
         if (this.errorMessage.includes('contraseña')) {
           Swal.fire({
             icon: 'error',
