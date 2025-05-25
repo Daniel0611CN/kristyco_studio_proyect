@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/confirmation_token")
-@CrossOrigin(origins = "http:localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class ConfirmationTokenController {
 
