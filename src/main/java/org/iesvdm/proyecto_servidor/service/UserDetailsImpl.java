@@ -1,15 +1,14 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import org.springframework.security.core.GrantedAuthority;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -32,9 +31,9 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private Boolean locked = false;
+    private Boolean locked;
 
-    private Boolean enabled = false;
+    private Boolean enabled;
 
     private Collection<? extends GrantedAuthority> authorities;
 

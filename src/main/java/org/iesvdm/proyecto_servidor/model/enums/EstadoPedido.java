@@ -6,5 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EstadoPedido {
-    PENDIENTE, EN_CAMINO, ENTREGADO, CANCELADO
+        PENDIENTE,
+        EN_CAMINO,
+        ENTREGADO,
+        CANCELADO
 }

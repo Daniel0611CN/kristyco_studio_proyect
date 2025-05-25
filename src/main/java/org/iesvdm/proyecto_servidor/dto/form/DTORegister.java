@@ -2,9 +2,8 @@ package org.iesvdm.proyecto_servidor.dto.form;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import java.util.Set;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +20,8 @@ public class DTORegister {
 
     @Size(max = 20, message = "{apellido2.maxlength}")
     private String apellido2;
+
+    // ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$
 
     @NotBlank(message = "{email.required}")
     @Email(regexp = "[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-]([\\.]?[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-])+@[a-zA-Z0-9]([^@&%$\\/\\(\\)=?¿!\\.,:;]|\\d)+[a-zA-Z0-9][\\.][a-zA-Z]{2,4}([\\.][a-zA-Z]{3})?", message = "{email.pattern}")

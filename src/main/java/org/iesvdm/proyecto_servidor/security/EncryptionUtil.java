@@ -13,8 +13,10 @@ public class EncryptionUtil {
 
     @Value("${encryption.key}")
     private String key;
+
     @Value("${encryption.initVector}")
     private String initVector;
+
     @Value("${encryption.algorithm}")
     private String algorithm;
 

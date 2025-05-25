@@ -22,8 +22,8 @@ import java.util.Map;
 import java.io.File;
 
 @RestController
-@RequestMapping("/api/v1/mail")
 @AllArgsConstructor
+@RequestMapping("/api/v1/mail")
 public class MailController {
 
     private final MailServiceInterface emailService;

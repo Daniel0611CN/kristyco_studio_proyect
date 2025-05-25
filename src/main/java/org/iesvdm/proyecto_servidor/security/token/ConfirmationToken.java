@@ -1,19 +1,18 @@
 package org.iesvdm.proyecto_servidor.security.token;
 
-import jakarta.persistence.*;
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.iesvdm.proyecto_servidor.model.enums.TokenType;
-
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class ConfirmationToken {
 
     @Id
@@ -23,6 +22,7 @@ public class ConfirmationToken {
 
     @Column(nullable = false)
     private String token;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
@@ -40,12 +40,10 @@ public class ConfirmationToken {
     private Usuario usuario;
 
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, TokenType type, Usuario usuario) {
-
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
         this.type = type;
         this.usuario = usuario;
-
     }
 }

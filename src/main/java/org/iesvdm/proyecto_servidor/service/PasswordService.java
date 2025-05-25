@@ -1,19 +1,17 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import lombok.AllArgsConstructor;
-import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import lombok.AllArgsConstructor;
+import java.util.Optional;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -61,6 +59,5 @@ public class PasswordService {
         Usuario usuario = confirmationTokenService.getUserByResetToken(token);
         return passwordEncoder.matches(oldPassword, usuario.getPassword());
     }
-
 
 }

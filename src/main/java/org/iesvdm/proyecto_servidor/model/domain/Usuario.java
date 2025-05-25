@@ -1,20 +1,17 @@
 package org.iesvdm.proyecto_servidor.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
-
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Entity
-//@Table(name = "usuario")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario {
 
@@ -80,4 +77,5 @@ public class Usuario {
         this.enabled = false;
 
     }
+
 }

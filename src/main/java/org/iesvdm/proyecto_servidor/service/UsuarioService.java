@@ -1,23 +1,18 @@
 package org.iesvdm.proyecto_servidor.service;
 
-import jakarta.transaction.Transactional;
-import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
 import org.iesvdm.proyecto_servidor.exception.EntityNotFoundException;
 import org.iesvdm.proyecto_servidor.exception.NotCouplingIdException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
-import org.mapstruct.Context;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -85,6 +80,8 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
         usuario.setPassword(passwordEncoder.encode(pswd));
         usuarioRepository.save(usuario);
     }
+
+    public void changePasswordInternal(Long id, String oldPswd, String pswd) {}
 
     public void enableUsuario(String email) {
         usuarioRepository.enableUsuario(email);

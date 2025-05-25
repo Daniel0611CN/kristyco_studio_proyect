@@ -1,19 +1,18 @@
 package org.iesvdm.proyecto_servidor.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPago;
 import org.iesvdm.proyecto_servidor.model.enums.MetodoPago;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import lombok.*;
 
-@Entity
-//@Table(name = "pago")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pago {
 

@@ -1,27 +1,25 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.model.domain.Pedido;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.iesvdm.proyecto_servidor.model.domain.Pedido;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.List;
 import java.util.Set;
 
-@Slf4j
-@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 @RestController
-@RequestMapping("/api/v1/pedidos")
 @AllArgsConstructor
+@RequestMapping("/api/v1/pedidos")
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class PedidoController {
 
     private final PedidoService pedidoService;

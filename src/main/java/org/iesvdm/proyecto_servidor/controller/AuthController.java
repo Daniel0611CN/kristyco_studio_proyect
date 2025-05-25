@@ -1,6 +1,5 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +12,7 @@ import org.iesvdm.proyecto_servidor.service.UserDetailsImpl;
 import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
 import org.iesvdm.proyecto_servidor.mapper.MapStructMapper;
 import org.springframework.security.core.GrantedAuthority;
+import org.iesvdm.proyecto_servidor.model.enums.TokenType;
 import org.iesvdm.proyecto_servidor.model.domain.Usuario;
 import org.iesvdm.proyecto_servidor.dto.form.DTORegister;
 import org.springframework.security.core.Authentication;
@@ -24,25 +24,23 @@ import org.iesvdm.proyecto_servidor.model.domain.Rol;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-
-import java.time.Duration;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import jakarta.validation.Valid;
-
+import java.time.Duration;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
-@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
+@RequestMapping("/api/v1/auth")
+@CrossOrigin(origins = "http:localhost:4200")
+//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class AuthController {
 
     private final ConfirmationTokenService confirmationTokenService;
     private final AuthenticationManager authenticationManager;
     private final UsuarioRepository userRepository;
     private final MapStructMapper mapStructMapper;
-    private final MailController mailController;
     private final RolRepository rolRepository;
     private final PasswordEncoder encoder;
     private final MailService mailService;

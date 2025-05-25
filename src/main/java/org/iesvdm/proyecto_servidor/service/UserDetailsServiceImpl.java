@@ -1,14 +1,14 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.iesvdm.proyecto_servidor.model.domain.Usuario;
+import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.model.domain.Usuario;
-import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service

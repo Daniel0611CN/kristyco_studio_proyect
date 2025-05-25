@@ -1,18 +1,17 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.proyecto_servidor.model.domain.Proveedor;
 import org.iesvdm.proyecto_servidor.service.ProveedorService;
-import org.springframework.http.HttpStatus;
+import org.iesvdm.proyecto_servidor.model.domain.Proveedor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import lombok.AllArgsConstructor;
 import java.util.List;
 
-@Slf4j
-@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 @RestController
-@RequestMapping("/api/v1/proveedores")
 @AllArgsConstructor
+@RequestMapping("/api/v1/proveedores")
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class ProveedorController {
 
     private final ProveedorService proveedorService;

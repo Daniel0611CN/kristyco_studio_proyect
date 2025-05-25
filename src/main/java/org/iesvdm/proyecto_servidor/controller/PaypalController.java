@@ -1,26 +1,23 @@
 package org.iesvdm.proyecto_servidor.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.iesvdm.proyecto_servidor.model.record.paypal.PaypalRequest;
 import org.iesvdm.proyecto_servidor.model.record.paypal.PaypalResponse;
+import org.iesvdm.proyecto_servidor.model.record.paypal.PaypalRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.iesvdm.proyecto_servidor.service.PaypalService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-
-@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
-@RequiredArgsConstructor
 @RestController
-@Slf4j
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class PaypalController {
-
+    // Cambiar endpoint;
     private final PaypalService paypalService;
 
     @PostMapping("/payment/create")
-    public PaypalResponse createPayment(@RequestBody PaypalRequest paypalRequest
-    ) throws JsonProcessingException {
+    public PaypalResponse createPayment(@RequestBody PaypalRequest paypalRequest) throws JsonProcessingException {
 
         String cancelUrl = "https://kristyco-studio.vercel.app/payment/cancel";
         String successUrl = "https://kristyco-studio.vercel.app/payment/success";
@@ -33,9 +30,7 @@ public class PaypalController {
     }
 
     @GetMapping("/payment/success")
-    public ResponseEntity<String> paymentSuccess(
-            @RequestParam("orderId") String orderId
-    ) throws JsonProcessingException {
+    public ResponseEntity<String> paymentSuccess(@RequestParam("orderId") String orderId) throws JsonProcessingException {
 
         return this.paypalService.showOrderDetails(orderId);
 

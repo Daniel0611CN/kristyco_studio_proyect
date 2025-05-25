@@ -14,7 +14,8 @@ const channel = new BroadcastChannel('succes-paypal-channel');
   templateUrl: './paypal.component.html'
 })
 export class PaypalComponent {
-  apiUrl: string =  'https://kristyco-studio-proyect.onrender.com';
+  // apiUrl: string =  'https://kristyco-studio-proyect.onrender.com';
+  apiUrl: string =  'http://localhost:8080';
 
   http = inject(HttpClient);
   router = inject(Router);

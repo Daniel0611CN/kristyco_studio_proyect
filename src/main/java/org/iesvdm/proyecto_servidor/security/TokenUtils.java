@@ -1,6 +1,5 @@
 package org.iesvdm.proyecto_servidor.security;
 
-import org.antlr.v4.runtime.Token;
 import org.iesvdm.proyecto_servidor.model.record.TokenData;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

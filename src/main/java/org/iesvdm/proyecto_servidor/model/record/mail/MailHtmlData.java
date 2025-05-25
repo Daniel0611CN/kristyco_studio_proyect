@@ -1,7 +1,5 @@
 package org.iesvdm.proyecto_servidor.model.record.mail;
 
-import org.iesvdm.proyecto_servidor.dto.MailHtmlDataVariables;
-
 import java.util.Map;
 
 public record MailHtmlData (

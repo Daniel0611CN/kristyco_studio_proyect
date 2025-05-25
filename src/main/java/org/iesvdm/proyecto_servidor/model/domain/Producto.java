@@ -7,12 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.*;
 
-@Entity
-//@Table(name = "producto")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Producto {
 

@@ -108,5 +108,4 @@ public class ConfirmationTokenService {
         return confirmationToken.getUsuario();
     }
 
-
 }

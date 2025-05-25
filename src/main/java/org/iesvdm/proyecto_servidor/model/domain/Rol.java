@@ -1,17 +1,16 @@
 package org.iesvdm.proyecto_servidor.model.domain;
 
+import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
 import jakarta.persistence.*;
 import lombok.*;
-import org.iesvdm.proyecto_servidor.model.enums.TipoRol;
 
-@Entity
 @Data
+@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Rol {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

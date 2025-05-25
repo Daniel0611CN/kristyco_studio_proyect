@@ -1,20 +1,18 @@
 package org.iesvdm.proyecto_servidor.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.*;
-
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.*;
 
-@Entity
-//@Table(name = "proveedor")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Proveedor {
 

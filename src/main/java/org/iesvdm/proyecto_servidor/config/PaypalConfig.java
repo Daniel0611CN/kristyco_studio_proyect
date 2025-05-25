@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import lombok.Data;
 
-@Configuration
 @Data
+@Configuration
 @ConfigurationProperties(prefix = "paypal")
 public class PaypalConfig {
 
@@ -19,4 +19,5 @@ public class PaypalConfig {
     public RestTemplate createRestTemplate() {
         return new RestTemplate();
     }
+
 }

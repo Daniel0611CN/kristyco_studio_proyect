@@ -1,22 +1,19 @@
 package org.iesvdm.proyecto_servidor.model.domain;
 
-import com.fasterxml.jackson.annotation.*;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
-
-import java.time.LocalDate;
-
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.*;
 
-@Entity
-//@Table(name = "pedido")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Pedido {
