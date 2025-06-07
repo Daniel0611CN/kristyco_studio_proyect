@@ -2,10 +2,12 @@
   <h2 class="mt-5">{{ title }}</h2>
   <p class="mt-5 pt-5 fw-ligther" [innerHTML]="finalText"></p>
   <ul class="d-flex list-unstyled justify-content-center mt-5 pt-5">
-    <li *ngFor="let link of links; let i = index">
+    @for (link of links; track $index) {
+    <li>
       <a [href]="link.link">
-        <i [ngClass]="links[i].label" style="font-size: 2rem; padding: 10px;" class="text-secondary"></i>
+        <i [ngClass]="links[$index].label" style="font-size: 2rem; padding: 10px;" class="text-secondary"></i>
       </a>
     </li>
+    }
   </ul>
 </section>

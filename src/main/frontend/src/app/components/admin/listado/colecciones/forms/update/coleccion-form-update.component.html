@@ -1,0 +1,32 @@
+<form [formGroup]="formEditar" (ngSubmit)="editarColeccion()">
+  <div class="modal-header">
+    <h1 class="modal-title fs-5 font3" id="exampleModalLabelEditar">Editar Colección</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" formControlName="id" />
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control border-secondary" formControlName="nombre" />
+      <!-- cambiar esto -->
+      <div
+        *ngIf="formEditar.get('nombre')?.invalid && (formEditar.get('nombre')?.dirty || formEditar.get('nombre')?.touched)"
+        class="invalid-feedback d-block">
+        <div *ngIf="formEditar.get('nombre')?.errors?.['required']">El nombre es obligatorio.</div>
+        <div *ngIf="formEditar.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.
+        </div>
+        <div *ngIf="formEditar.get('nombre')?.errors?.['maxlength']">El nombre no puede tener más de 20
+          caracteres.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <textarea class="form-control border-secondary" rows="3" formControlName="descripcion"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="formEditar.invalid">Guardar</button>
+  </div>
+</form>

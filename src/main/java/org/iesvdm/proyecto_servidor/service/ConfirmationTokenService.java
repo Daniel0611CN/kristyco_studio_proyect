@@ -63,7 +63,7 @@ public class ConfirmationTokenService {
         throwIf(usuarioOpt.isEmpty(), "Usuario no encontrado");
         Usuario usuario = usuarioOpt.get();
 
-        ConfirmationToken oldToken = confirmationTokenRepository.findTopByUsuario_IdOrderByExpiresAtDesc(usuario.getId())
+        ConfirmationToken oldToken = confirmationTokenRepository.findTopByUsuario_IdAndTypeOrderByExpiresAtDesc(usuario.getId(), TokenType.REGISTER_CONFIRMATION)
                 .orElseThrow(() -> new IllegalStateException("Token no encontrado para el usuario"));
 
         throwIf(oldToken.getConfirmedAt() != null, "El email ha sido confirmado anteriormente");
@@ -72,7 +72,6 @@ public class ConfirmationTokenService {
 
         ConfirmationToken newToken = createForUsuario(usuario, Duration.ofMinutes(120), TokenType.REVALIDATE_TOKEN);
 
-        usuarioService.enableUsuario(usuario.getEmail());
         mailService.sendHtmlMail(mailService.buildResendHtmlData(usuario, newToken.getToken()));
 
         return true;

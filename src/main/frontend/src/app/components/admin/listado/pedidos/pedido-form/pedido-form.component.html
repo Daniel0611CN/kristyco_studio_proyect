@@ -1,0 +1,53 @@
+@if (selectedItem) {
+<div class="modal-body">
+  <form (ngSubmit)="guardarCambios()">
+    @for (input of form; track $index) {
+    <div class="mb-2 d-inline-block" [class.col-6]="input.col" [class.col-12]="!input.col">
+      <div class="row text-dark justify-content-start mt-2">
+        <label class="col">{{ input.label }}</label>
+      </div>
+      <div class="input-group mt-1">
+        @if (input.key === 'estado') {
+        <select class="form-select border-secondary" [(ngModel)]="selectedItem[input.key]" name="{{ input.key }}"
+          ngDefaultControl="Pendiente">
+          @for (aux of input.options; track $index) {
+          <option [value]="aux.option">{{ aux.label }}</option>
+          }
+        </select>
+        }
+        @else if (input.key === 'productos') {
+        <select class="form-select border-secondary" multiple [(ngModel)]="selectedItem.productos"
+          name="productosSeleccionados">
+          @for (producto of productosPedidos(); track $index) {
+          <option [value]="producto.id">{{ producto.nombre }}</option>
+          }
+        </select>
+        } @else {
+        @if (input.key === 'usuario') {
+        <input type="{{ input.type }}" class="form-control border-secondary"
+          [value]="selectedItem.usuario.nombre + ' ' + selectedItem.usuario.apellido1 + ' ' + selectedItem.usuario.apellido2"
+          [placeholder]="input.placeholder" readonly>
+        } @else if (input.key === 'estadoPago') {
+        <input type="{{ input.type }}" class="form-control border-secondary" name="{{ input.key }}"
+          [(ngModel)]="selectedItem.pago.estado" [placeholder]="input.placeholder" readonly>
+        } @else if (input.key === 'metodoPago') {
+        <input type="{{ input.type }}" class="form-control border-secondary me-1" name="{{ input.key }}"
+          [(ngModel)]="selectedItem.pago.metodo" [placeholder]="input.placeholder" readonly>
+        } @else {
+        <input type="{{ input.type }}" class="form-control border-secondary" name="{{ input.key }}"
+          [(ngModel)]="selectedItem[input.key]" [placeholder]="input.placeholder" [readOnly]="input.readonly">
+        }
+        }
+        @if (input.span) {
+        <span class="input-group-text me-1 border-secondary">{{ input.span }}</span>
+        }
+      </div>
+    </div>
+    }
+  </form>
+</div>
+}
+<div class="modal-footer">
+  <button type="submit" class="btn btn-outline-danger text-dark" (click)="guardarCambios()">Guardar Cambios</button>
+  <button type="button" class="btn btn-secondary" (click)="cancelarEdicion()" data-bs-dismiss="modal">Cancelar</button>
+</div>

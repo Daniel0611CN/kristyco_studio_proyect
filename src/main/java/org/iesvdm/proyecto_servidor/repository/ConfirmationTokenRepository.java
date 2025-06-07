@@ -13,6 +13,5 @@ import java.util.Optional;
 @Repository
 public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Long> {
     Optional<ConfirmationToken> findByToken(String token);
-    Optional<ConfirmationToken> findTopByUsuario_IdOrderByExpiresAtDesc(Long usuarioId);
     Optional<ConfirmationToken> findTopByUsuario_IdAndTypeOrderByExpiresAtDesc(Long id, TokenType type);
 }

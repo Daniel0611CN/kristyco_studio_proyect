@@ -1,0 +1,193 @@
+<div class="container-fluid">
+  <div class="text-center fs-2 pt-5 pb-2">{{ title() }}</div>
+  <div class="container">
+    <div class="d-flex justify-content-start mb-4 d-none d-md-block" style="max-width: 325px;">
+      <app-search (search)="onSearch($event)"></app-search>
+    </div>
+
+    <div class="d-flex justify-content-between mb-4 d-md-none">
+      <app-search (search)="onSearch($event)" class="flex-grow-1"></app-search>
+    </div>
+
+    <div class="table-responsive d-none d-md-block transition-opacity">
+
+      <table class="table table-hover">
+        <thead>
+          <tr class="text-center text-dark">
+            <th>
+              <app-column-sort [clear]="orderNamesClear.id" [fieldInput]="'ID'" [fieldQueryInput]="'id'"
+                (orderOuput)="onChangeOrder($event)">
+              </app-column-sort>
+            </th>
+            <th>
+              <app-column-sort [clear]="orderNamesClear.costeEnvio" [fieldInput]="'Coste de Envío'"
+                [fieldQueryInput]="'costeEnvio'" (orderOuput)="onChangeOrder($event)">
+              </app-column-sort>
+            </th>
+            <th>
+              <app-column-sort [clear]="orderNamesClear.direccion" [fieldInput]="'Dirección'"
+                [fieldQueryInput]="'direccion'" (orderOuput)="onChangeOrder($event)">
+              </app-column-sort>
+            </th>
+            <th>
+              <app-column-sort [clear]="orderNamesClear.estado" [fieldInput]="'Estado'" [fieldQueryInput]="'estado'"
+                (orderOuput)="onChangeOrder($event)">
+              </app-column-sort>
+            </th>
+            <th>
+              <app-column-sort [clear]="orderNamesClear.fecha" [fieldInput]="'Fecha'" [fieldQueryInput]="'fecha'"
+                (orderOuput)="onChangeOrder($event)">
+              </app-column-sort>
+            </th>
+            <th>
+              <app-column-sort [clear]="orderNamesClear.total" [fieldInput]="'Total'" [fieldQueryInput]="'total'"
+                (orderOuput)="onChangeOrder($event)">
+              </app-column-sort>
+            </th>
+            <th>
+              Acciones
+              <button class="border-0 bg-transparent" (click)="onClearOrder()">
+                <i class="fa-solid fa-ban"></i>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (pedidos().length > 0) {
+          @for (pedido of pedidos(); track pedido.id) {
+          <tr class="text-center">
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.costeEnvio }}</td>
+            <td>{{ pedido.direccion }}</td>
+            <td>{{ pedido.estado | estadoPedidoPipe }}</td>
+            <td>{{ pedido.fecha }}</td>
+            <td>{{ pedido.total }}</td>
+            <td>
+              <button class="bg-transparent border-0" data-bs-toggle="modal" (click)="prepararEdicion(pedido)"
+                data-bs-target="#exampleModalVer">
+                <i class="fa-solid fa-pen-to-square text-secondary"></i>
+              </button>
+              <button class="bg-transparent border-0 text-secondary" (click)="delete(pedido.id)">
+                <i class="fa-solid fa-box-archive"></i>
+              </button>
+            </td>
+          </tr>
+          }
+          } @else {
+          <tr>
+            <td colspan="7">
+              <p>Ningún pedido encontrado</p>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (pedidos().length > 0) {
+    <div class="d-md-none">
+      <div class="d-md-none mb-3 px-2">
+        <div class="row fw-bold">
+          <div class="col-6 mb-1">
+            <app-column-sort [clear]="orderNamesClear.id" [fieldInput]="'ID'" [fieldQueryInput]="'id'"
+              (orderOuput)="onChangeOrder($event)">
+            </app-column-sort>
+          </div>
+          <div class="col-6 mb-1">
+            <app-column-sort [clear]="orderNamesClear.costeEnvio" [fieldInput]="'Coste'"
+              [fieldQueryInput]="'costeEnvio'" (orderOuput)="onChangeOrder($event)">
+            </app-column-sort>
+          </div>
+          <div class="col-6 mb-1">
+            <app-column-sort [clear]="orderNamesClear.direccion" [fieldInput]="'Dirección'"
+              [fieldQueryInput]="'direccion'" (orderOuput)="onChangeOrder($event)">
+            </app-column-sort>
+          </div>
+          <div class="col-6 mb-1">
+            <app-column-sort [clear]="orderNamesClear.estado" [fieldInput]="'Estado'" [fieldQueryInput]="'estado'"
+              (orderOuput)="onChangeOrder($event)">
+            </app-column-sort>
+          </div>
+          <div class="col-6 mb-1">
+            <app-column-sort [clear]="orderNamesClear.fecha" [fieldInput]="'Fecha'" [fieldQueryInput]="'fecha'"
+              (orderOuput)="onChangeOrder($event)">
+            </app-column-sort>
+          </div>
+          <div class="col-6 mb-1">
+            <app-column-sort [clear]="orderNamesClear.total" [fieldInput]="'Total'" [fieldQueryInput]="'total'"
+              (orderOuput)="onChangeOrder($event)">
+            </app-column-sort>
+          </div>
+          <div class="col-12 d-flex align-items-center justify-content-between pt-2 border-top">
+            <span class="text-dark fw-semibold">Acciones</span>
+            <button class="border-0 bg-transparent" (click)="onClearOrder()">
+              <i class="fa-solid fa-ban"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      @for (pedido of pedidos(); track $index) {
+      <div class="card mb-3 rounded shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title font2 fw-bolder text-decoration-underline text-start mb-3 pb-1"
+            style="text-underline-offset: 5px;">Pedido {{
+            pedido.id }}</h5>
+          <div class="card-text text-start">
+            <div class="row mb-2">
+              <div class="col-6 fw-bold">Coste de Envío</div>
+              <div class="col-6">{{ pedido.costeEnvio }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-6 fw-bold">Dirección</div>
+              <div class="col-6">{{ pedido.direccion }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-6 fw-bold">Estado</div>
+              <div class="col-6">{{ pedido.estado | estadoPedidoPipe }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-6 fw-bold">Fecha</div>
+              <div class="col-6">{{ pedido.fecha }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-6 fw-bold">Total</div>
+              <div class="col-6">{{ pedido.total }}</div>
+            </div>
+            <div class="d-flex justify-content-start mt-3">
+              <button class="bg-transparent border-0 pe-3 text-secondary" data-bs-toggle="modal"
+                (click)="prepararEdicion(pedido)" data-bs-target="#exampleModalVer">
+                <i class="fa-solid fa-pen-to-square text-secondary"></i>
+              </button>
+              <button class="bg-transparent border-0 text-secondary" (click)="delete(pedido.id)">
+                <i class="fa-solid fa-box-archive"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div>
+      <div class="col-span-6">
+        <app-paginator [pageInput]="page()" [sizeInput]="pageSize()" [totalInput]="totalSize()"
+          (pageOuput)="onChangePage($event)"></app-paginator>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalVer" tabindex="-1" aria-labelledby="exampleModalLabelVer" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark font5" id="exampleModalLabelVer">Ver / Editar Pedido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <app-pedido-form [selectedItem]="selectedItem" [originalItem]="originalItem"
+        [productosPedidos]="productosPedidos" />
+    </div>
+  </div>
+</div>

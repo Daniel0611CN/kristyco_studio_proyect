@@ -40,6 +40,7 @@ public class ConfirmationTokenController {
         Map<String, Object> response = new HashMap<>();
         try {
             boolean valid = confirmationTokenService.revalidateToken(username);
+            System.out.println(valid);
             if (valid) {
                 response.put("message", "Correo de confirmación reenviado correctamente");
                 return ResponseEntity.ok(response);

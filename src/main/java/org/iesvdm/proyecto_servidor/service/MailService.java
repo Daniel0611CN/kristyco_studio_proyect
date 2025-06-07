@@ -96,7 +96,9 @@ public class MailService implements MailServiceInterface {
 
         MailHtmlDataVariables mailHtmlDataVariables = getMailHtmlDataVariables("Bienvenido, %s!", user,
                 "Gracias por registrarte en nuestra plataforma. !Nos alegra tenerte con nosotros!",
-                "Para iniciar sesión pulsa en el siguiente enlace", "https://kristyco-studio.vercel.app/confirmar-token/%s", token);
+                "Para iniciar sesión pulsa en el siguiente enlace",
+             // "https://kristyco-studio.vercel.app/confirmar-token/%s",
+                "http://localhost:4200/confirmar-token/%s", token);
 
         Map<String, Object> variables = Map.of(
                 "welcome", mailHtmlDataVariables.getWelcome(),
@@ -113,7 +115,9 @@ public class MailService implements MailServiceInterface {
         MailData mailData = getMailParameters(user, "Reenvío de confirmación - KristyCoStudio", "resend-mail");
 
         MailHtmlDataVariables mailHtmlDataVariables = getMailHtmlDataVariables("Reenvío de correo de confirmación para %s!", user,
-                "Has solicitado un nuevo enlace de confirmación. Usa el siguiente enlace para validar tu cuenta:", null, null, token);
+                "Has solicitado un nuevo enlace de confirmación. Usa el siguiente enlace para validar tu cuenta:", "",
+             // "https://kristyco-studio.vercel.app/confirmar-token/%s",
+                "http://localhost:4200/confirmar-token/%s", token);
 
         Map<String, Object> variables = Map.of(
                 "welcome", mailHtmlDataVariables.getWelcome(),

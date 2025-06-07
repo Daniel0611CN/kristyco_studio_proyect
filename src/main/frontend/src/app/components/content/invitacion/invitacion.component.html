@@ -2,8 +2,8 @@
   <div class="font6">Invitación {{currentTitle}}</div>
 
   <div class="container mx-auto mt-5 row justify-content-center">
-    <div *ngFor="let item of currentItems; let i = index" class="justify-content-center"
-      [ngClass]="{'col-md-6': itemsPerPage === 2, 'col-md-4': itemsPerPage === 3}">
+    @for (item of currentItems; track $index) {
+    <div class="justify-content-center" [ngClass]="{'col-md-6': itemsPerPage === 2, 'col-md-4': itemsPerPage === 3}">
       <div class="card border-0 rounded-0 p-3 mt-4" style="transition: transform 0.3s ease;">
         <button type=" button" class="btn btn-primary p-0 border-0" [attr.aria-controls]="'modal' + item.id">
           <img [src]="item.src" class="car-img-top img-fluid" style="width: 100%;" alt="{{item.title}}" />
@@ -24,6 +24,7 @@
         </div>
       </div>
     </div>
+    }
   </div>
 </section>
 
