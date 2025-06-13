@@ -1,78 +1,123 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, effect, inject, input, Output, EventEmitter, InputSignal } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { PedidoService } from '../../../../../services/pedido.service';
-import { Producto } from '../../../../../models/interfaces/entities/producto.interface';
-import { FormsModule } from '@angular/forms';
 import { SwalService } from '../../../../shared/services/swal.service';
+import { Pedido } from '../../../../../models/interfaces/entities/pedido.interface';
 
-interface Option {
-  option: string;
-  label: string;
-}
-
-interface Form {
+interface FormField {
   col?: boolean;
   key: string;
   label: string;
   span?: string;
   type?: string;
-  placeholder?: string;
   readonly?: boolean;
-  options?: Option[];
+  options?: { value: string; label: string; }[];
 }
 
 @Component({
   selector: 'app-pedido-form',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './pedido-form.component.html'
 })
 export class PedidoFormComponent {
+  private fb = inject(FormBuilder);
+  private swalService = inject(SwalService);
+  private pedidoService = inject(PedidoService);
 
-  swalService = inject(SwalService);
-  pedidoService = inject(PedidoService);
+  public pedido: InputSignal<Pedido | null> = input.required<Pedido | null>();
+  @Output() formSaved = new EventEmitter<Pedido>();
 
-  @Input() selectedItem: any = null;
-  @Input() originalItem: any = null;
-  @Input() productosPedidos = signal<Producto[]>([]);
+  public editForm: FormGroup;
+  private originalItem: Pedido | null = null;
 
-  form: Form[] = [
+  public formFields: FormField[] = [
     { col: true, key: 'total', label: 'Coste Total', span: '€', type: 'number' },
     { col: true, key: 'costeEnvio', label: 'Coste de Envío', span: '€', type: 'number' },
-    { key: 'fecha', label: 'Fecha de Registro', type: 'text', placeholder: '', readonly: true },
-    { key: 'direccion', label: 'Dirección', span: 'C/ nº', type: 'text', placeholder: 'Dirección', readonly: true },
+    { key: 'fecha', label: 'Fecha de Registro', type: 'text', readonly: true },
+    { key: 'direccion', label: 'Dirección', type: 'text', readonly: true },
     { key: 'estado', label: 'Estado de Envío', options: [
-      { option: 'PENDIENTE', label: 'Pendiente' },
-      { option: 'EN_CAMINO', label: 'En Camino' },
-      { option: 'ENTREGADO', label: 'Entregado' },
-      { option: 'CANCELADO', label: 'Cancelado' }
-    ]},
-    { key: 'usuario', label: 'Usuario' },
-    { col: true, key: 'metodoPago', label: 'Método de Pago' },
-    { col: true, key: 'estadoPago', label: 'Estado del Pago' },
-    { key: 'productos', label: 'Productos' }
+        { value: 'PENDIENTE', label: 'Pendiente' },
+        { value: 'EN_CAMINO', label: 'En Camino' },
+        { value: 'ENTREGADO', label: 'Entregado' },
+        { value: 'CANCELADO', label: 'Cancelado' }
+      ]
+    },
+    { key: 'usuario', label: 'Usuario', readonly: true },
+    { col: true, key: 'metodoPago', label: 'Método de Pago', readonly: true },
+    { col: true, key: 'estadoPago', label: 'Estado del Pago', readonly: true },
+    { key: 'productos', label: 'Productos', readonly: true }
   ];
 
-  guardarCambios(): void {
-    if (!this.selectedItem) return;
-    const id: string = this.selectedItem.id;
-    let pedido = this.selectedItem;
-    this.pedidoService.update(id, pedido).subscribe({
+  constructor() {
+    this.editForm = this.fb.group({
+      total: [0, [Validators.required, Validators.min(0)]],
+      costeEnvio: [0, [Validators.required, Validators.min(0)]],
+      fecha: [''],
+      direccion: [''],
+      estado: ['', Validators.required],
+      usuario: [''],
+      metodoPago: [''],
+      estadoPago: [''],
+      productos: [[]]
+    });
+
+    effect(() => {
+      const currentPedido = this.pedido();
+      if (currentPedido) {
+        this.originalItem = structuredClone(currentPedido);
+        this.buildForm(currentPedido);
+      }
+    });
+  }
+
+  private buildForm(data: Pedido): void {
+    this.editForm.patchValue({
+      total: data.total ?? 0,
+      costeEnvio: data.costeEnvio ?? 0,
+      fecha: data.fecha ? new Date(data.fecha).toLocaleDateString() : '',
+      direccion: data.direccion ?? '',
+      estado: data.estado ?? '',
+      usuario: `${data.usuario?.nombre ?? ''} ${data.usuario?.apellido1 ?? ''} ${data.usuario?.apellido2 ?? ''}`.trim(),
+      metodoPago: data.pago?.metodo ?? '',
+      estadoPago: data.pago?.estado ?? '',
+      productos: data.productos ?? []
+    });
+  }
+
+  public get formControl() {
+    return this.editForm.controls;
+  }
+
+  public guardarCambios(): void {
+    if (!this.editForm.valid || !this.originalItem) return;
+
+    const updatedPedido: Pedido = {
+      ...this.originalItem,
+      id: this.originalItem.id,
+      total: this.editForm.value.total,
+      costeEnvio: this.editForm.value.costeEnvio,
+      estado: this.editForm.value.estado
+    };
+    this.pedidoService.update(updatedPedido.id, updatedPedido).subscribe({
       next: () => {
-        this.closeButton();
-        this.swalService.showSuccess('Éxito', 'Se ha editado el pedido correctamente.');
+        this.closeModal();
+        this.formSaved.emit(updatedPedido);
+        this.swalService.showSuccess('Éxito', 'Se ha editado el pedido correctamente.', 1000);
       },
       error: (err) => console.error('Error al actualizar el pedido', err)
     });
   }
 
-  cancelarEdicion(): void {
-    if (this.originalItem && this.selectedItem) Object.assign(this.selectedItem, this.originalItem);
-    this.selectedItem = null;
-    this.originalItem = null;
+  public cancelarEdicion(): void {
+    if (this.originalItem) {
+      this.buildForm(this.originalItem);
+    }
   }
 
-  closeButton(): void {
+  private closeModal(): void {
     const closeBtn = document.querySelector('#exampleModalVer .btn-close') as HTMLElement;
-    if (closeBtn) closeBtn.click();
+    closeBtn?.click();
   }
-
 }

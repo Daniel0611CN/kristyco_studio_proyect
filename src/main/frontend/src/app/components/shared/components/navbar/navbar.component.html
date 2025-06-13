@@ -32,7 +32,7 @@
           <ul class="dropdown-menu">
             @for (dropdownItem of dropdownConfigItems; track $index; let last = $last) {
             <li class="nav-item" routerLinkActive="text-decoration-underline">
-              @if (isAdmin && (dropdownItem.label == "Administración")) {
+              @if (isAdmin && (dropdownItem.label == "Administración" || dropdownItem.label == "Perfil")) {
               <a class="dropdown-item text-secondary" style="background-color: transparent;"
                 [routerLink]="dropdownItem.link">
                 {{ dropdownItem.label }}

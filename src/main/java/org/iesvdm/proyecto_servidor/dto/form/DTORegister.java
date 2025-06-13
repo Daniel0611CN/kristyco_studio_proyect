@@ -24,7 +24,11 @@ public class DTORegister {
     // ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$
 
     @NotBlank(message = "{email.required}")
-    @Email(regexp = "[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-]([\\.]?[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-])+@[a-zA-Z0-9]([^@&%$\\/\\(\\)=?¿!\\.,:;]|\\d)+[a-zA-Z0-9][\\.][a-zA-Z]{2,4}([\\.][a-zA-Z]{3})?", message = "{email.pattern}")
+//    @Email(regexp = "[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-]([\\.]?[a-zA-Z0-9!#$%&'*\\/=?^_`\\{\\|\\}~\\+\\-])+@[a-zA-Z0-9]([^@&%$\\/\\(\\)=?¿!\\.,:;]|\\d)+[a-zA-Z0-9][\\.][a-zA-Z]{2,4}([\\.][a-zA-Z]{3})?", message = "{email.pattern}")
+    @Email(
+            regexp = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$",
+            message = "{email.pattern}"
+    )
     private String email;
 
     @NotBlank(message = "{telefono.required}")

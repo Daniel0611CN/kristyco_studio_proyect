@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/v1/confirmation_token/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/confirmation_token/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/productos/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority("ROL_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority("ROL_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ROL_ADMIN")

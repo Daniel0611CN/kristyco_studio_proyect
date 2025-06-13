@@ -1,69 +1,93 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ColeccionService } from '../../../../services/coleccion.service';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { ColeccionFormCreateComponent } from "./forms/create/coleccion-form-create.component";
-import { ColeccionFormUpdateComponent } from "./forms/update/coleccion-form-update.component";
 import { SwalService } from '../../../shared/services/swal.service';
+import { ColeccionFormComponent } from "./coleccion-form/coleccion-form.component";
+
+interface Coleccion {
+  id: number;
+  nombre: string;
+  descripcion?: string;
+}
 
 @Component({
   selector: 'app-colecciones',
-  imports: [CommonModule, ReactiveFormsModule, ColeccionFormCreateComponent, ColeccionFormUpdateComponent],
+  standalone: true,
+  imports: [CommonModule, ColeccionFormComponent],
   templateUrl: './colecciones.component.html'
 })
 export class ListadoColeccionComponent {
+  private coleccionService = inject(ColeccionService);
+  private swalService = inject(SwalService);
 
-  fb = inject(FormBuilder);
-  swalService = inject(SwalService);
-  coleccionService = inject(ColeccionService);
+  public title: string = 'Listado de Colecciones';
 
-  title: string = 'Listado de Colecciones';
-  columnas: { key: string, label: string }[] = [
+  public columnas: { key: keyof Coleccion, label: string }[] = [
     { key: 'id', label: 'ID' },
     { key: 'nombre', label: 'Nombre' },
     { key: 'descripcion', label: 'Descripción' }
   ];
-  data: any[] = [];
-  searchText: string = '';
-  selectedItem: any = null;
 
-  ngOnInit(): void {
-    this.listarColecciones();
+  public colecciones: WritableSignal<Coleccion[]> = signal([]);
+  public selectedItem: WritableSignal<Coleccion | null> = signal(null);
+
+  constructor() {
+    this.loadColecciones();
   }
 
-  listarColecciones() {
+  private loadColecciones(): void {
     this.coleccionService.all().subscribe({
-      next: res => this.data = res,
-      error: err => console.error('Error al obtener las colecciones:', err)
+      next: (data) => this.colecciones.set(data),
+      error: (err) => {
+        console.error('Error al cargar colecciones:', err);
+        this.swalService.showError('Error de Carga', 'No se pudieron obtener las colecciones.');
+      }
     });
   }
 
-  // abrirEditar(item: any) {
-  //   this.selectedItem = item;
-  //   this.formEditar.setValue({
-  //     id: item.id,
-  //     nombre: item.nombre,
-  //     descripcion: item.descripcion
-  //   });
-  // }
+  public handleSave(coleccion: Partial<Coleccion>): void {
+    const isUpdating = !!coleccion.id;
+    const action = isUpdating
+      ? this.coleccionService.update(coleccion.id!, coleccion)
+      : this.coleccionService.create(coleccion);
 
-  abrirEliminar(item: any) {
-    this.selectedItem = item;
+    const successMessage = isUpdating ? 'actualizada' : 'creada';
+
+    action.subscribe({
+      next: () => {
+        this.loadColecciones();
+        this.closeModalAndShowSuccess(`Colección ${successMessage} exitosamente.`);
+      },
+      error: (err) => {
+        console.error(`Error al ${successMessage} la colección:`, err);
+        this.swalService.showError(`Error al ${successMessage}`, `No se pudo guardar la colección.`);
+      }
+    });
   }
 
-  eliminarColeccion() {
-    // this.coleccionService.delete(this.selectedItem.id).subscribe(() => this.listarColecciones());
+  public handleDelete(): void {
+    const itemToDelete = this.selectedItem();
+    if (!itemToDelete) return;
+
+    this.coleccionService.delete(itemToDelete.id).subscribe({
+      next: () => {
+        this.loadColecciones();
+        this.closeModalAndShowSuccess(`La colección "${itemToDelete.nombre}" ha sido eliminada.`);
+      },
+      error: (err) => {
+        console.error('Error al eliminar la colección:', err);
+        this.swalService.showError('Error al eliminar', 'No se pudo eliminar la colección.');
+      }
+    });
   }
 
-  closeModalCrear(): void {
-    const closeBtn1 = document.querySelector('#exampleModalCrear .btn-close') as HTMLElement;
-    if (closeBtn1) closeBtn1.click();
+  private closeModalAndShowSuccess(message: string): void {
+      const modalElement = document.querySelector('.modal.show');
+      if (modalElement) {
+          const modalInstance = (window as any).bootstrap.Modal.getInstance(modalElement);
+          modalInstance?.hide();
+      }
+      this.swalService.showSuccess('Operación exitosa', message, 1500);
+      this.selectedItem.set(null);
   }
-
-  closeModalEditar(): void {
-    const closeBtn2 = document.querySelector('#exampleModalEditar .btn-close') as HTMLElement;
-    if (closeBtn2) closeBtn2.click();
-  }
-
 }

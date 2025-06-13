@@ -26,7 +26,7 @@ public class ProductoService implements BasicServiceInterface<Producto> {
 
     @Override
     public List<Producto> all() {
-        return List.of();
+        return this.productoRepository.findAll();
     }
 
     @Override

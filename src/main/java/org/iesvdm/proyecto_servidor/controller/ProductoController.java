@@ -24,6 +24,9 @@ public class ProductoController {
     public Page<Producto> all(@RequestParam(name="nombre", required = false) Optional<String> optNombre,
                               @PageableDefault Pageable pageable) { return this.productoService.all(optNombre, pageable); }
 
+    @GetMapping( "/list")
+    public List<Producto> all() { return this.productoService.all(); }
+
     @PostMapping({"", "/"})
     public Producto newProducto(@RequestBody Producto producto) {
         return this.productoService.saveOrGetIfExists(producto);

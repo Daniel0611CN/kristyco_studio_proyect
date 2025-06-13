@@ -21,16 +21,46 @@ import { ListadoInvitacionComponent } from './components/admin/listado/invitacio
 import { ListadoColeccionComponent } from './components/admin/listado/colecciones/colecciones.component';
 import { DashBoardComponent } from './components/admin/dashboard/dashboard.component';
 import { ListadoPedidoComponent } from './components/admin/listado/pedidos/pedidos.component';
+import { ColeccionesComponent } from './components/content/colecciones/colecciones.component';
+import { AcabadosComponent } from './components/content/acabados/acabados.component';
+import { DetallesComponent } from './components/content/detalles/detalles.component';
+import { RegalosComponent } from './components/content/regalos/regalos.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, title: 'Inicio' },
-  { path: 'colecciones', component: ColeccionComponent, title: 'Colecciones' },
+  {
+    path: 'colecciones',
+    children: [
+      {
+        path: '',
+        component: ColeccionesComponent,
+        title: 'Colecciones'
+      },
+      {
+        path: ':nombre',
+        children: [
+          {
+            path: '',
+            component: ColeccionComponent,
+            title: 'Detalle Colección'
+          },
+          {
+            path: 'invitaciones',
+            component: InvitacionComponent,
+            title: 'Invitaciones por Colección'
+          }
+        ]
+      }
+    ]
+  },
+  { path: 'acabados', component: AcabadosComponent, title: 'Acabados' },
+  { path: 'detalles', component: DetallesComponent, title: 'Detalles' },
+  { path: 'regalos', component: RegalosComponent, title: 'Regalos' },
   { path: 'sobre-mi', component: SobreMiComponent, title: 'Sobre-Mi' },
   { path: 'contacto', component: ContactoComponent, title: 'Contacto' },
   { path: 'login', component: LoginComponent, title: 'Inicio de Sesión', canActivate: [canActivateGuest] },
   { path: 'register', component: RegisterComponent, title: 'Registro', canActivate: [canActivateGuest] },
   { path: 'perfil', component: PerfilComponent, title: 'Perfil', canActivate: [canActivateAuth] },
-  { path: 'invitaciones', component: InvitacionComponent, title: 'Invitaciones' },
   { path: 'admin', component: DashBoardComponent, title: 'Dashboard', canActivate: [canActivateAdmin] },
   {
     path: 'listado',

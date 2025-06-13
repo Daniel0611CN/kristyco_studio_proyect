@@ -26,18 +26,14 @@ export class PaginatorComponent {
   total: number = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes['totalInput'] || changes['size']) {
       this.initilize();
     }
 
     this.setPageRange();
-
   }
 
-  //Establezco el estado interno del objeto en base a los inputs
   initilize() {
-
     this.previousPage = this.pageInput() -1;
     this.page = this.pageInput();
     this.nextPage = this.pageInput() +1;
@@ -48,14 +44,11 @@ export class PaginatorComponent {
   }
 
   setPageRange() {
-
     this.initRange = (this.page-1)*this.size +1;
     this.endRange = this.page*this.size <= this.total ? this.page*this.size: this.total;
-
   }
 
   onPreviousPage() {
-
     this.previousPage--;
     this.page--;
     this.nextPage--;
@@ -63,11 +56,9 @@ export class PaginatorComponent {
     this.pageOuput.emit(this.page);
 
     this.setPageRange();
-
   }
 
   onNextPage() {
-
     this.previousPage++;
     this.page++;
     this.nextPage++;
@@ -75,7 +66,6 @@ export class PaginatorComponent {
     this.pageOuput.emit(this.page);
 
     this.setPageRange();
-
   }
 
 }

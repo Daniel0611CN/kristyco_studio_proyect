@@ -18,6 +18,12 @@
       <div class="d-inline-block font4">{{ title }}</div>
       <div class="d-inline-block font1">{{ subtitle }}</div>
     </div>
-    <p class="col-md-8 mx-auto mt-5 pt-5" [innerHTML]="finalText"></p>
+    <p class="col-md-8 mx-auto mt-5 pt-5" [innerHTML]="text"></p>
   </section>
+</div>
+
+<div class="mb-3">
+  <button type="button" class="btn btn-outline-secondary" [routerLink]="'/colecciones'">
+    <i class="fa-solid fa-arrow-left me-2"></i> Volver
+  </button>
 </div>

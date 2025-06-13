@@ -1,167 +1,178 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Page } from '../../../../models/interfaces/page.interface';
-import { SearchComponent } from '../../../shared/components/tables/search/search.component';
-import { ProductoService } from '../../../../services/invitacion.service';
-import { PaginatorComponent } from '../../../shared/components/tables/paginator/paginator.component';
-import { Producto } from '../../../../models/interfaces/entities/producto.interface';
-import { ColumnSortComponent } from '../../../shared/components/tables/column-sort/column-sort.component';
-import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
+
+import { Page } from '@interfaces/page.interface';
+import { Producto } from '@interfaces/entities/producto.interface';
+import { Categoria } from '@interfaces/entities/categoria.interface';
+import { Proveedor } from '@interfaces/entities/proveedor.interface';
+
+import { ProductoService } from '@services/invitacion.service';
+import { SwalService } from '@shared/services/swal.service';
+import { CategoriaService } from '@services/categoria.service';
+import { ProveedorService } from '@services/proveedor.service';
+
+import { SearchComponent } from '@shared/components/tables/search/search.component';
+import { PaginatorComponent } from '@shared/components/tables/paginator/paginator.component';
+import { ColumnSortComponent } from '@shared/components/tables/column-sort/column-sort.component';
+import { InvitacionFormComponent } from './invitacion-form/invitacion-form.component';
+
+export type OrderableFieldInvitacion = 'id' | 'nombre' | 'descripcion' | 'precio' | 'stock';
 
 @Component({
   selector: 'app-invitaciones',
-  imports: [CommonModule, FormsModule, SearchComponent, ColumnSortComponent, PaginatorComponent],
-  templateUrl: './invitaciones.component.html'
+  imports: [CommonModule, PaginatorComponent, ColumnSortComponent, SearchComponent, InvitacionFormComponent],
+  templateUrl: './invitaciones.component.html',
 })
 export class ListadoInvitacionComponent {
-  title: string = 'Listado de Invitaciones';
+  private readonly swalService = inject(SwalService);
+  private readonly productoService = inject(ProductoService);
 
-  productos: Producto[] = [];
+  private readonly categoriaService = inject(CategoriaService);
+  private readonly proveedorService = inject(ProveedorService);
 
-  searchText: string = '';
+  readonly categorias = signal<Categoria[]>([]);
+  readonly proveedores = signal<Proveedor[]>([]);
 
-  isLoading: boolean = false;
+  readonly title = signal('Listado de Productos');
+  readonly listaProductos = signal<Producto[]>([]);
 
-  pageSize: number = 10;
-  totalSize: number = 0;
-  page: number = 1;
+  readonly showFormModal = signal(false);
+  readonly formMode = signal<'crear' | 'editar'>('crear');
+  readonly currentProducto = signal<Partial<Producto> | null>(null);
 
-  orderOutput?: {fieldQuery: string, order: string};
-  orderNames: string[] = ['id', 'nombre', 'descripcion', 'precio', 'stock'];
-  orderNamesClear: {id: boolean, nombre: boolean, descripcion: boolean, precio: boolean, stock: boolean } = { id: false, nombre: false, descripcion: false, precio: false, stock: false };
+  readonly searchText = signal('');
+  readonly page = signal(1);
+  readonly currentSort = signal<{ fieldQuery: OrderableFieldInvitacion; order: string } | undefined>(undefined);
 
-  productoService = inject(ProductoService);
+  readonly pageSize = signal(10);
+  readonly totalSize = signal(0);
 
-  selectedItem: any = null;
+  constructor() {
+    effect((onCleanup) => {
+      this.page();
+      this.searchText();
+      this.currentSort();
+      const subscription = this.getAllByPage();
+      onCleanup(() => subscription.unsubscribe());
+    });
 
-  ngOnInit() {
-     this.getAllByPage();
-    }
+    this.loadCategorias();
+    this.loadProveedores();
+  }
 
-  processData(data: Page<Producto> | Producto[]) {
-    if ((<Page<Producto>>data).content !== undefined) {
-      this.totalSize = (<Page<Producto>>data).totalElements;
-      this.productos = (<Page<Producto>>data).content;
+  private loadCategorias(): void {
+    this.categoriaService.getAll().subscribe({
+      next: (categorias) => this.categorias.set(categorias),
+      error: (err: HttpErrorResponse) => this.swalService.showError('Error', 'No se pudieron cargar las categorías.')
+    });
+  }
+
+  private loadProveedores(): void {
+    this.proveedorService.getAll().subscribe({
+      next: (proveedores) => this.proveedores.set(proveedores),
+      error: (err: HttpErrorResponse) => this.swalService.showError('Error', 'No se pudieron cargar los proveedores.')
+    });
+  }
+
+  openCreateModal() {
+    this.formMode.set('crear');
+    this.currentProducto.set(null);
+    this.showFormModal.set(true);
+  }
+
+  openEditModal(producto: Producto) {
+    this.formMode.set('editar');
+    this.currentProducto.set(producto);
+    this.showFormModal.set(true);
+  }
+
+  closeModals() {
+    this.showFormModal.set(false);
+    const closeBtn = document.querySelector('#formModal .btn-close') as HTMLElement;
+    closeBtn?.click();
+    this.currentProducto.set(null);
+  }
+
+  handleFormSubmit(producto: Producto): void {
+    if (this.formMode() === 'crear') {
+      this.saveNewProducto(producto);
     } else {
-      this.totalSize = (<Producto[]>data).length;
-      this.productos = (<Producto[]>data).slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
+      this.updateProducto(producto);
     }
   }
 
-  getAllByPage(search?: string) {
-    this.productoService.getWithFilters(this.orderOutput, this.page, search)
-      .subscribe({
-        next: (data) => this.processData(data),
-        error: (error) => console.error('Error al obtener los productos', error)
-      });
+  private saveNewProducto(productoToCreate: Producto): void {
+    this.productoService.create(productoToCreate).subscribe({
+      next: (newProducto) => {
+        this.listaProductos.update(productos => [newProducto, ...productos].slice(0, this.pageSize()));
+        this.totalSize.update(total => total + 1);
+        this.closeModals();
+        this.swalService.showSuccess('¡Creado!', 'El producto ha sido creado correctamente.', 1000);
+      },
+      error: (err: HttpErrorResponse) => this.swalService.showError('Error', err.error?.message || 'No se pudo crear el producto.')
+    });
   }
 
-  prepararEdicion(row: any): void {
-    this.selectedItem = { row };
-    this.selectedItem = this.selectedItem.row;
+  private updateProducto(productoToUpdate: Producto): void {
+    const id = this.currentProducto()?.id;
+    if (!id) return;
+
+    this.productoService.update(id, productoToUpdate).subscribe({
+      next: (updatedProducto) => {
+        this.listaProductos.update(productos =>
+          productos.map(p => p.id === updatedProducto.id ? updatedProducto : p)
+        );
+        this.closeModals();
+        this.swalService.showSuccess('¡Actualizado!', 'El producto ha sido actualizado correctamente.', 1000);
+      },
+      error: (err: HttpErrorResponse) => this.swalService.showError('Error', err.error?.message || 'No se pudo actualizar el producto.')
+    });
   }
 
-  guardarCambios(message: string, title: string = '¡Éxito!'): void {
-    // if (!this.selectedItem) return;
-    // const id: string = this.selectedItem.id;
-    // let pedido = this.selectedItem;
-    // this.productoService.update(id, pedido).subscribe({
-    //   next: () => {
-    //     return Swal.fire({
-    //       title: title,
-    //       text: message,
-    //       icon: 'success',
-    //       confirmButtonText: 'Aceptar',
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.error('Error al actualizar el pedido', err);
-    //   }
-    // })
-  }
-
-  cancelarEdicion() {
-    this.selectedItem = null;
-  }
-
-  delete(id: string) {
-    // Swal.fire({
-    //   title: '¿Estás seguro de que quieres archivar este pedido?',
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Sí, archivar',
-    //   cancelButtonText: 'Cancelar',
-    //   confirmButtonColor: '#d33',
-    //   cancelButtonColor: '#3085d6'
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     this.productoService.delete(id).subscribe(() => {
-    //       this.productos = this.productos.filter((prod) => prod.id !== id);
-    //       Swal.fire({
-    //         title: '¡Borrado!',
-    //         text: 'El pedido ha sido archivado correctamente.',
-    //         icon: 'success',
-    //         timer: 1500,
-    //         showConfirmButton: false,
-    //       });
-    //     });
-    //   }
-    // });
-  }
-
-  onSearch(searchData: { searchText: string }) {
-    this.page = 1;
-    this.searchText = searchData.searchText;
-    this.getAllByPage(this.searchText);
-  }
-
-  clearSearch() {
-    this.searchText = '';
-  }
-
-  onChangePage(page: number) {
-    this.page = page;
-
-    if (this.searchText.length > 0) {
-      this.getAllByPage(this.searchText);
-    } else {
-      this.getAllByPage();
-    }
-  }
-
-  onChangeOrder(orderOutput: {fieldQuery: string, order: string}) {
-    this.orderOutput = orderOutput;
-
-    type ObjectKey = keyof typeof this.orderNamesClear;
-    for (let orderName of this.orderNames) {
-      if (orderName !== this.orderOutput.fieldQuery) {
-        this.orderNamesClear[orderName as ObjectKey] = !this.orderNamesClear[orderName as ObjectKey] ;
+  confirmDelete(id: number): void {
+    this.swalService.showWarning('¿Estás seguro?', 'Sí, eliminar', 'Esta acción no se puede deshacer.').then(result => {
+      if (result.isConfirmed) {
+        this.productoService.delete(id).subscribe({
+          next: () => {
+            this.listaProductos.update(productos => productos.filter(p => p.id !== id));
+            this.totalSize.update(total => total - 1);
+            this.swalService.showSuccess('¡Eliminado!', 'El producto ha sido eliminado.');
+          },
+          error: (err: HttpErrorResponse) => this.swalService.showError('Error', err.error?.message || 'No se pudo eliminar el producto.')
+        });
       }
-    }
-
-    this.page = 1;
-
-    if (this.searchText.length > 0) {
-      this.getAllByPage(this.searchText);
-    } else {
-      this.getAllByPage();
-    }
+    });
   }
 
-  onClearOrder() {
-    this.orderOutput = undefined;
-
-    type ObjectKey = keyof typeof this.orderNamesClear;
-    for (let orderName of this.orderNames) {
-        this.orderNamesClear[orderName as ObjectKey] = !this.orderNamesClear[orderName as ObjectKey] ;
-    }
-
-    if (this.searchText.length > 0) {
-      this.getAllByPage(this.searchText);
-    } else {
-      this.getAllByPage();
-    }
+  onSearch({ searchText }: { searchText: string }): void {
+    this.page.set(1);
+    this.searchText.set(searchText);
   }
 
+  onChangePage(page: number): void {
+    this.page.set(page);
+  }
+
+  onChangeOrder(order: { fieldQuery: OrderableFieldInvitacion; order: string }): void {
+    this.page.set(1);
+    this.currentSort.set(order);
+  }
+
+  onClearOrder(): void {
+    this.currentSort.set(undefined);
+  }
+
+  private getAllByPage(): Subscription {
+    return this.productoService.getWithFilters(this.currentSort(), this.page(), this.searchText()).subscribe({
+      next: (data) => this.processData(data as Page<Producto>),
+      error: (err: HttpErrorResponse) => this.swalService.showError('Error', err.error?.message || 'No se pudieron obtener los productos')
+    });
+  }
+
+  private processData(data: Page<Producto>): void {
+    this.totalSize.set(data.totalElements);
+    this.listaProductos.set(data.content);
+  }
 }

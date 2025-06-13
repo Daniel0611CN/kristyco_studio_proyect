@@ -20,7 +20,7 @@ public class Producto {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(length = 15, unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String nombre;
 
     @Column(nullable = false)
@@ -31,6 +31,9 @@ public class Producto {
 
     @Column(nullable = false)
     private Long stock;
+
+    @Column(nullable = false)
+    private String imagen;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)

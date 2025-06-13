@@ -1,47 +1,32 @@
 import { NgClass, NgStyle } from '@angular/common';
-import { Component, input, output, SimpleChanges } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
+
+export type SortOrder = 'asc' | 'desc' | '';
 
 @Component({
   selector: 'app-column-sort',
+  standalone: true,
   imports: [NgClass, NgStyle],
   templateUrl: './column-sort.component.html'
 })
-export class ColumnSortComponent {
+export class ColumnSortComponent<T extends string> {
 
-  fieldInput = input<string>('');
-  fieldQueryInput = input<string>('fieldQuery');
-  clear = input<boolean>();
+  fieldInput = input('');
+  fieldQueryInput = input.required<T>();
+  activeSort = input<{ fieldQuery: T, order: string } | undefined>();
+  orderOuput = output<{ fieldQuery: T, order: string }>();
 
-  orderInput = input<string>('');
-  order: string = 'asc';
-  orderOuput = output<{fieldQuery: string, order: string}>();
+  private readonly isActive = computed(() => this.activeSort()?.fieldQuery === this.fieldQueryInput());
 
-  ngOnInit() {
-    this.order = this.orderInput();
+  readonly order = computed<SortOrder>(() => this.isActive() ? (this.activeSort()?.order as SortOrder) : '');
+
+  onChangeAscDesc(): void {
+    const currentOrder = this.order();
+    const nextOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+
+    this.orderOuput.emit({
+      fieldQuery: this.fieldQueryInput(),
+      order: nextOrder
+    });
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['clear']) {
-        this.order = '';
-      }
-  }
-
-  onChangeAscDesc() {
-
-    switch (this.order) {
-      case 'asc':
-        this.order = 'desc';
-        break;
-      case 'desc':
-        this.order = 'asc';
-        break;
-      default:
-        this.order = 'asc';
-        break;
-    }
-
-    this.orderOuput.emit({fieldQuery: this.fieldQueryInput(), order: this.order });
-
-  }
-
 }

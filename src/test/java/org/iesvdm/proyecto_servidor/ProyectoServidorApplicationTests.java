@@ -9,8 +9,6 @@ import org.iesvdm.proyecto_servidor.service.ProductoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
@@ -37,18 +35,8 @@ class ProyectoServidorApplicationTests {
                 .build();
 
         Categoria c3 = Categoria.builder()
-                .nombre("Colección Stella")
-                .descripcion("Colección de invitaciones relacionadas con elementos del universo.")
-                .build();
-
-        Categoria c4 = Categoria.builder()
-                .nombre("Colección Tierra")
+                .nombre("Colección Nature")
                 .descripcion("Colección de invitaciones relacionadas con elementos appassionati de la tierra.")
-                .build();
-
-        Categoria c5 = Categoria.builder()
-                .nombre("Colección Fuego")
-                .descripcion("Colección de invitaciones relacionadas con elementos de fuego.")
                 .build();
 
         Proveedor pv1 = Proveedor.builder()
@@ -76,10 +64,11 @@ class ProyectoServidorApplicationTests {
                 .build();
 
         Producto pt1 = Producto.builder()
-                .nombre("Invitación 1")
-                .descripcion("Estilo 1 de Invitaciones - Colección Aire")
+                .nombre("Alas de Cristal - 1")
+                .descripcion("Invitación Alas de Cristal - Colección Aire")
                 .precio(BigDecimal.valueOf(5))
                 .stock(20L)
+                .imagen("img/coleccion-aire/alas-de-cristal/1.webp")
                 .categoria(c1)
                 .proveedor(pv1)
                 .build();
@@ -87,21 +76,23 @@ class ProyectoServidorApplicationTests {
         productoService.saveOrGetIfExists(pt1);
 
         Producto pt2 = Producto.builder()
-                .nombre("Invitación 2")
-                .descripcion("Estilo 2 de Invitaciones - Colección Aqua")
+                .nombre("Alas de Cristal - 2")
+                .descripcion("Invitación Alas de Cristal - Colección Aire")
                 .precio(BigDecimal.valueOf(3.5))
                 .stock(10L)
-                .categoria(c2)
+                .imagen("img/coleccion-aire/alas-de-cristal/2.webp")
+                .categoria(c1)
                 .proveedor(pv2)
                 .build();
 
         productoService.saveOrGetIfExists(pt2);
 
         Producto pt3 = Producto.builder()
-                .nombre("Invitación 3")
-                .descripcion("Estilo 3 de Invitaciones - Colección Stella")
+                .nombre("Brisa de Fiesta - 1")
+                .descripcion("Invitación Brisa de Fiesta - Colección Aire")
                 .precio(BigDecimal.valueOf(4))
                 .stock(15L)
+                .imagen("img/coleccion-aire/brisa-de-fiesta/1.webp")
                 .categoria(c1)
                 .proveedor(pv3)
                 .build();
@@ -109,32 +100,35 @@ class ProyectoServidorApplicationTests {
         productoService.saveOrGetIfExists(pt3);
 
         Producto pt4 = Producto.builder()
-                .nombre("Invitación 4")
-                .descripcion("Estilo 4 de Invitaciones - Colección Fuego")
+                .nombre("Brisa de Fiesta - 2")
+                .descripcion("Invitación Brisa de Fiesta - Colección Aire")
                 .precio(BigDecimal.valueOf(6))
                 .stock(8L)
-                .categoria(c4)
+                .imagen("img/coleccion-aire/brisa-de-fiesta/2.webp")
+                .categoria(c1)
                 .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt4);
 
         Producto pt5 = Producto.builder()
-                .nombre("Invitación 5")
-                .descripcion("Estilo 5 de Invitaciones - Colección Éter")
+                .nombre("Caricia de Pluma - 1")
+                .descripcion("Invitación Caricia de Pluma - Colección Aire")
                 .precio(BigDecimal.valueOf(7))
                 .stock(12L)
-                .categoria(c5)
+                .imagen("img/coleccion-aire/caricia-de-pluma/1.webp")
+                .categoria(c1)
                 .proveedor(pv2)
                 .build();
 
         productoService.saveOrGetIfExists(pt5);
 
         Producto pt6 = Producto.builder()
-                .nombre("Invitación 6")
-                .descripcion("Estilo 6 de Invitaciones - Colección Floral")
+                .nombre("Caricia de Pluma - 2")
+                .descripcion("Invitación Caricia de Pluma - Colección Aire")
                 .precio(BigDecimal.valueOf(5.5))
                 .stock(14L)
+                .imagen("img/coleccion-aire/caricia-de-pluma/2.webp")
                 .categoria(c1)
                 .proveedor(pv4)
                 .build();
@@ -142,54 +136,59 @@ class ProyectoServidorApplicationTests {
         productoService.saveOrGetIfExists(pt6);
 
         Producto pt7 = Producto.builder()
-                .nombre("Invitación 7")
-                .descripcion("Estilo 7 de Invitaciones - Colección Vintage")
+                .nombre("Sueños al Viento - 1")
+                .descripcion("Invitación Sueños al Viento - Colección Aire")
                 .precio(BigDecimal.valueOf(4.5))
                 .stock(9L)
-                .categoria(c3)
+                .imagen("img/coleccion-aire/sueños-al-viento/1.webp")
+                .categoria(c1)
                 .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt7);
 
         Producto pt8 = Producto.builder()
-                .nombre("Invitación 8")
-                .descripcion("Estilo 8 de Invitaciones - Colección Moderna")
+                .nombre("Sueños al Viento - 2")
+                .descripcion("Invitación Sueños al Viento - Colección Aire")
                 .precio(BigDecimal.valueOf(6.5))
                 .stock(11L)
-                .categoria(c2)
+                .imagen("img/coleccion-aire/sueños-al-viento/2.webp")
+                .categoria(c1)
                 .proveedor(pv2)
                 .build();
 
         productoService.saveOrGetIfExists(pt8);
 
         Producto pt9 = Producto.builder()
-                .nombre("Invitación 9")
-                .descripcion("Estilo 9 de Invitaciones - Colección Clásica")
+                .nombre("Sueños al Viento - 3")
+                .descripcion("Invitación Sueños al Viento - Colección Aire")
                 .precio(BigDecimal.valueOf(3.8))
                 .stock(13L)
-                .categoria(c4)
+                .imagen("img/coleccion-aire/sueños-al-viento/3.webp")
+                .categoria(c1)
                 .proveedor(pv1)
                 .build();
 
         productoService.saveOrGetIfExists(pt9);
 
         Producto pt10 = Producto.builder()
-                .nombre("Invitación 10")
-                .descripcion("Estilo 10 de Invitaciones - Colección Rústica")
+                .nombre("Susurro de Mariposa - 1")
+                .descripcion("Invitación Susurro de Mariposa - Colección Aire")
                 .precio(BigDecimal.valueOf(5.2))
                 .stock(7L)
-                .categoria(c5)
+                .imagen("img/coleccion-aire/susurro-de-mariposa/1.webp")
+                .categoria(c1)
                 .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt10);
 
         Producto pt11 = Producto.builder()
-                .nombre("Invitación 11")
-                .descripcion("Estilo 11 de Invitaciones - Colección Elegante")
+                .nombre("Susurro de Mariposa - 2")
+                .descripcion("Invitación Susurro de Mariposa - Colección Aire")
                 .precio(BigDecimal.valueOf(8))
                 .stock(6L)
+                .imagen("img/coleccion-aire/susurro-de-mariposa/2.webp")
                 .categoria(c1)
                 .proveedor(pv2)
                 .build();
@@ -197,54 +196,59 @@ class ProyectoServidorApplicationTests {
         productoService.saveOrGetIfExists(pt11);
 
         Producto pt12 = Producto.builder()
-                .nombre("Invitación 12")
-                .descripcion("Estilo 12 de Invitaciones - Colección Urbana")
+                .nombre("Vuelo de Amor - 1")
+                .descripcion("Invitación Vuelo de Amor - Colección Aire")
                 .precio(BigDecimal.valueOf(4.2))
                 .stock(10L)
-                .categoria(c3)
+                .imagen("img/coleccion-aire/vuelo-de-amor/1.webp")
+                .categoria(c1)
                 .proveedor(pv4)
                 .build();
 
         productoService.saveOrGetIfExists(pt12);
 
         Producto pt13 = Producto.builder()
-                .nombre("Invitación 13")
-                .descripcion("Estilo 1 de Invitaciones - Colección Bohemia")
+                .nombre("Vuelo de Amor - 2")
+                .descripcion("Invitación Vuelo de Amor - Colección Aire")
                 .precio(BigDecimal.valueOf(6.8))
                 .stock(12L)
-                .categoria(c2)
+                .imagen("img/coleccion-aire/vuelo-de-amor/2.webp")
+                .categoria(c1)
                 .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt13);
 
         Producto pt14 = Producto.builder()
-                .nombre("Invitación 14")
-                .descripcion("Estilo 14 de Invitaciones - Colección Minimalista")
-                .precio(BigDecimal.valueOf(5.9))
-                .stock(15L)
-                .categoria(c4)
-                .proveedor(pv4)
+                .nombre("Caracola")
+                .descripcion("Invitación Caracola - Colección Aqua")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-aqua/caracola/1.webp")
+                .categoria(c2)
+                .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt14);
 
         Producto pt15 = Producto.builder()
-                .nombre("Invitación 15")
-                .descripcion("Estilo 15 de Invitaciones - Colección Fantasía")
-                .precio(BigDecimal.valueOf(7.5))
-                .stock(8L)
-                .categoria(c5)
-                .proveedor(pv2)
+                .nombre("Coral")
+                .descripcion("Invitación Coral - Colección Aqua")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-aqua/coral/1.webp")
+                .categoria(c2)
+                .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt15);
 
         Producto pt16 = Producto.builder()
-                .nombre("Invitación 16")
-                .descripcion("Estilo 16 de Invitaciones - Colección Abstracta")
-                .precio(BigDecimal.valueOf(3.9))
+                .nombre("Espuma de Mar")
+                .descripcion("Invitación Espuma de Mar - Colección Aqua")
+                .precio(BigDecimal.valueOf(6.8))
                 .stock(12L)
+                .imagen("img/coleccion-aqua/espuma-de-mar/1.webp")
                 .categoria(c2)
                 .proveedor(pv3)
                 .build();
@@ -252,26 +256,76 @@ class ProyectoServidorApplicationTests {
         productoService.saveOrGetIfExists(pt16);
 
         Producto pt17 = Producto.builder()
-                .nombre("Invitación 17")
-                .descripcion("Estilo 17 de Invitaciones - Colección Naturaleza")
-                .precio(BigDecimal.valueOf(4.7))
-                .stock(9L)
+                .nombre("Estrella de Mar")
+                .descripcion("Invitación Estrella de Mar - Colección Aqua")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-aqua/estrella-de-mar/1.webp")
                 .categoria(c2)
-                .proveedor(pv1)
+                .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt17);
 
         Producto pt18 = Producto.builder()
-                .nombre("Invitación 18")
-                .descripcion("Estilo 18 de Invitaciones - Colección Inspiración")
-                .precio(BigDecimal.valueOf(6.3))
-                .stock(11L)
-                .categoria(c3)
-                .proveedor(pv2)
+                .nombre("Océano")
+                .descripcion("Invitación Océano - Colección Aqua")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-aqua/oceano/1.webp")
+                .categoria(c2)
+                .proveedor(pv3)
                 .build();
 
         productoService.saveOrGetIfExists(pt18);
+
+        Producto pt19 = Producto.builder()
+                .nombre("Aria")
+                .descripcion("Invitación Aria - Colección Nature")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-nature/aria/1.webp")
+                .categoria(c3)
+                .proveedor(pv3)
+                .build();
+
+        productoService.saveOrGetIfExists(pt19);
+
+        Producto pt20 = Producto.builder()
+                .nombre("Indie")
+                .descripcion("Invitación Indie - Colección Nature")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-nature/indie/1.webp")
+                .categoria(c3)
+                .proveedor(pv3)
+                .build();
+
+        productoService.saveOrGetIfExists(pt20);
+
+        Producto pt21 = Producto.builder()
+                .nombre("Kaia")
+                .descripcion("Invitación Kaia - Colección Nature")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-nature/kaia/1.webp")
+                .categoria(c3)
+                .proveedor(pv3)
+                .build();
+
+        productoService.saveOrGetIfExists(pt21);
+
+        Producto pt22 = Producto.builder()
+                .nombre("Zoe")
+                .descripcion("Invitación Zoe - Colección Nature")
+                .precio(BigDecimal.valueOf(6.8))
+                .stock(12L)
+                .imagen("img/coleccion-nature/zoe/1.webp")
+                .categoria(c3)
+                .proveedor(pv3)
+                .build();
+
+        productoService.saveOrGetIfExists(pt22);
 
         Usuario u1 = Usuario.builder()
                 .nombre("María")
@@ -344,7 +398,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.COMPLETADO)
                         .build())
                 .usuario(u2)
-                .productos(new HashSet<>(List.of(pt1, pt12, pt16)))
+                .productos(new HashSet<>(List.of(pt1, pt12, pt13)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p1);
@@ -376,7 +430,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.PENDIENTE)
                         .build())
                 .usuario(u4)
-                .productos(new HashSet<>(List.of(pt3, pt14)))
+                .productos(new HashSet<>(List.of(pt3, pt11)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p3);
@@ -392,7 +446,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.COMPLETADO)
                         .build())
                 .usuario(u2)
-                .productos(new HashSet<>(List.of(pt6, pt10, pt15)))
+                .productos(new HashSet<>(List.of(pt6, pt10, pt12)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p4);
@@ -408,7 +462,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.COMPLETADO)
                         .build())
                 .usuario(u2)
-                .productos(new HashSet<>(List.of(pt1, pt7, pt16)))
+                .productos(new HashSet<>(List.of(pt1, pt7, pt13)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p5);
@@ -488,7 +542,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.COMPLETADO)
                         .build())
                 .usuario(u4)
-                .productos(new HashSet<>(List.of(pt18)))
+                .productos(new HashSet<>(List.of(pt11)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p10);
@@ -504,7 +558,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.PENDIENTE)
                         .build())
                 .usuario(u5)
-                .productos(new HashSet<>(List.of(pt9, pt17)))
+                .productos(new HashSet<>(List.of(pt9, pt12)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p11);
@@ -552,7 +606,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.CANCELADO)
                         .build())
                 .usuario(u4)
-                .productos(new HashSet<>(List.of(pt14)))
+                .productos(new HashSet<>(List.of(pt13)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p14);
@@ -600,7 +654,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.PENDIENTE)
                         .build())
                 .usuario(u6)
-                .productos(new HashSet<>(List.of(pt3, pt17)))
+                .productos(new HashSet<>(List.of(pt3, pt10)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p17);
@@ -616,7 +670,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.COMPLETADO)
                         .build())
                 .usuario(u1)
-                .productos(new HashSet<>(List.of(pt16)))
+                .productos(new HashSet<>(List.of(pt9)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p18);
@@ -632,7 +686,7 @@ class ProyectoServidorApplicationTests {
                         .estado(EstadoPago.PENDIENTE)
                         .build())
                 .usuario(u3)
-                .productos(new HashSet<>(List.of(pt11, pt14)))
+                .productos(new HashSet<>(List.of(pt11, pt12)))
                 .build();
 
         pedidoService.saveOrGetIfExists(p19);
