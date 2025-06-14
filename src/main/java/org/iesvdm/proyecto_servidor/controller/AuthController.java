@@ -33,8 +33,8 @@ import java.util.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class AuthController {
 
     private final ConfirmationTokenService confirmationTokenService;

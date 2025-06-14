@@ -16,8 +16,8 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/usuarios")
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;

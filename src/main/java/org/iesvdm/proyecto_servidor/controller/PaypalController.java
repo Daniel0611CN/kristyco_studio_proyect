@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class PaypalController {
     // Cambiar endpoint;
     private final PaypalService paypalService;
@@ -19,11 +19,11 @@ public class PaypalController {
     @PostMapping("/payment/create")
     public PaypalResponse createPayment(@RequestBody PaypalRequest paypalRequest) throws JsonProcessingException {
 
-//        String cancelUrl = "https://kristyco-studio.vercel.app/payment/cancel";
-//        String successUrl = "https://kristyco-studio.vercel.app/payment/success";
+        String cancelUrl = "https://kristyco-studio.vercel.app/payment/cancel";
+        String successUrl = "https://kristyco-studio.vercel.app/payment/success";
 
-        String cancelUrl = "http://localhost:4200/payment/cancel";
-        String successUrl = "http://localhost:4200/payment/success";
+//        String cancelUrl = "http://localhost:4200/payment/cancel";
+//        String successUrl = "http://localhost:4200/payment/success";
 
         return paypalService.createOrder("CAPTURE",
                 paypalRequest.currency(),

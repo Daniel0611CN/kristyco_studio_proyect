@@ -18,8 +18,8 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/pedidos")
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class PedidoController {
 
     private final PedidoService pedidoService;

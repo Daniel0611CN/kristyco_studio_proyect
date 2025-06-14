@@ -10,8 +10,8 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/categorias")
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://kristyco-studio.vercel.app")
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
