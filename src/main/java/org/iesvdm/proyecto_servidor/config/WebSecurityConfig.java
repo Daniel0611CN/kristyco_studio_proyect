@@ -60,9 +60,12 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/v1/confirmation_token/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/confirmation_token/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/confirmation_token/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/productos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/pedidos/**").hasAuthority("ROL_USER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority("ROL_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority("ROL_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/usuarios/**").hasAuthority("ROL_USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ROL_ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
                     .anyRequest().authenticated();

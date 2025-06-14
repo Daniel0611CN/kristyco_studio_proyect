@@ -74,9 +74,9 @@ public class UsuarioService implements BasicServiceInterface<Usuario> {
         return usuarioRepository.findByEmail(email);
     }
 
-    public void changePassword(Long id, String pswd) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Usuario no encontrado con id %s", id)));
+    public void changePassword(String username, String pswd) {
+        Usuario usuario = usuarioRepository.findByNombre(username)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Usuario no encontrado con nombre %s", username)));
         usuario.setPassword(passwordEncoder.encode(pswd));
         usuarioRepository.save(usuario);
     }

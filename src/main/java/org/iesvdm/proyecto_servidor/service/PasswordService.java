@@ -1,6 +1,8 @@
 package org.iesvdm.proyecto_servidor.service;
 
+import org.iesvdm.proyecto_servidor.repository.UsuarioRepository;
 import org.iesvdm.proyecto_servidor.security.token.ConfirmationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.iesvdm.proyecto_servidor.dto.DTOMessageResponse;
 import org.iesvdm.proyecto_servidor.model.enums.TokenType;
@@ -22,6 +24,7 @@ public class PasswordService {
     private final MailService mailService;
     private final ConfirmationTokenService confirmationTokenService;
     private final PasswordEncoder passwordEncoder;
+    private final UsuarioRepository usuarioRepository;
 
     public ResponseEntity<Map<String, Object>> requestReset(String email) {
         Optional<Usuario> usuarioOpt = usuarioService.findByEmail(email);
@@ -47,7 +50,7 @@ public class PasswordService {
 
     public ResponseEntity<Map<String, Object>> resetPassword(String token, String newPassword) {
         ConfirmationToken tokenEntity = tokenService.validateTokenOrThrow(token, TokenType.RESET_PASSWORD);
-        usuarioService.changePassword(tokenEntity.getUsuario().getId(), newPassword);
+        usuarioService.changePassword(tokenEntity.getUsuario().getNombre(), newPassword);
         tokenService.markAsUsed(tokenEntity);
 
         Map<String, Object> response = new HashMap<>();
@@ -55,9 +58,12 @@ public class PasswordService {
         return ResponseEntity.ok(response);
     }
 
-    public boolean isOldPasswordCorrect(String token, String oldPassword) {
-        Usuario usuario = confirmationTokenService.getUserByResetToken(token);
+    public boolean isOldPasswordCorrect(String username, String oldPassword) {
+        Usuario usuario = usuarioRepository.findByNombre(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + username));
         return passwordEncoder.matches(oldPassword, usuario.getPassword());
     }
+
+
 
 }

@@ -25,4 +25,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query("UPDATE Usuario a " +
             "SET a.enabled = TRUE WHERE a.email = ?1")
     void enableUsuario(String email);
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM user_roles WHERE user_id = :id", nativeQuery = true)
+    void deleteRolesByUsuarioId(@Param("id") Long id);
 }
