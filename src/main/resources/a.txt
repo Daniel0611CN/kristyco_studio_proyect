@@ -1,0 +1,3 @@
+Se repite mucho "en este caso",
+Cambiar colores de botones en swal,
+En linvitación, poner en crear modal, placeholder Url de Imagen
