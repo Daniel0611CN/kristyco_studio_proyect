@@ -1,5 +1,6 @@
 package org.iesvdm.proyecto_servidor.controller;
 
+import org.iesvdm.proyecto_servidor.model.domain.Producto;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
 import org.iesvdm.proyecto_servidor.model.domain.Pedido;
@@ -28,6 +29,9 @@ public class PedidoController {
     public Page<Pedido> all(@RequestParam(name="direccion", required = false) Optional<String> optDireccion,
                             @RequestParam(name="estado", required = false) Optional<EstadoPedido> optEstado,
                             @PageableDefault Pageable pageable) { return this.pedidoService.all(optDireccion, optEstado, pageable); }
+
+    @GetMapping( "/list")
+    public List<Pedido> all() { return this.pedidoService.all(); }
 
     @PostMapping({"", "/"})
     public Pedido newPedido(@RequestBody Pedido pedido) { return this.pedidoService.saveOrGetIfExists(pedido); }
