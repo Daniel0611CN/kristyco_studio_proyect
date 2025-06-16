@@ -31,7 +31,7 @@ public class PedidoService implements BasicServiceInterface<Pedido> {
 
     @Override
     public List<Pedido> all() {
-        return List.of();
+        return this.pedidoRepository.findAll();
     }
 
     @Override
