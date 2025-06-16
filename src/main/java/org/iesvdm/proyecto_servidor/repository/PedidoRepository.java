@@ -23,4 +23,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> findByIdOrDireccionOrEstadoOrFechaOrCosteEnvioOrderById(Long id, String direccion, EstadoPedido estado, LocalDateTime fecha, BigDecimal costeEnvio);
     Page<Pedido> findByDireccionContaining(String direccion, Pageable pageable);
     Page<Pedido> findByEstado(EstadoPedido estado, Pageable pageable);
+    List<Pedido> findAllByUsuario_Id(Long usuarioId);
 }

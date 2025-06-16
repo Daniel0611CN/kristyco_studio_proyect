@@ -2,6 +2,7 @@ package org.iesvdm.proyecto_servidor.controller;
 
 import org.iesvdm.proyecto_servidor.model.domain.Producto;
 import org.iesvdm.proyecto_servidor.model.enums.EstadoPedido;
+import org.iesvdm.proyecto_servidor.repository.PedidoRepository;
 import org.iesvdm.proyecto_servidor.service.PedidoService;
 import org.iesvdm.proyecto_servidor.model.domain.Pedido;
 import org.springframework.data.web.PageableDefault;
@@ -24,6 +25,7 @@ import java.util.Set;
 public class PedidoController {
 
     private final PedidoService pedidoService;
+    private final PedidoRepository pedidoRepository;
 
     @GetMapping({"", "/"})
     public Page<Pedido> all(@RequestParam(name="direccion", required = false) Optional<String> optDireccion,
@@ -52,6 +54,11 @@ public class PedidoController {
     @DeleteMapping("/{id}")
     public void deletePedido(@PathVariable("id") Long id) {
         this.pedidoService.delete(id);
+    }
+
+    @GetMapping("${id}/pedidosPorUsuario")
+    public List<Pedido> pedidosGroupByUser(@PathVariable("id") Long id) {
+        return this.pedidoRepository.findAllByUsuario_Id(id);
     }
 
     @GetMapping("{id}/pedidosByCategoria")

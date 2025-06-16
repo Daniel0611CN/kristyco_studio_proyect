@@ -113,11 +113,6 @@ public class PedidoService implements BasicServiceInterface<Pedido> {
                 .orElseThrow(() -> new EntityNotFoundException(id, Pedido.class));
     }
 
-    public Set<Pedido> sortListPedidos(Usuario usuario) {
-//        return this.pedidoRepository.getAllByUsuarioOrderById(usuario);
-        return null;
-    }
-
     public Set<Pedido> getPedidosByCategoriaId(Long id) {
         return categoriaRepository.getPedidosHasProductoByCategoriaId(id);
     }
