@@ -56,7 +56,7 @@ public class PedidoController {
         this.pedidoService.delete(id);
     }
 
-    @GetMapping("${id}/pedidosPorUsuario")
+    @GetMapping("{id}/pedidosPorUsuario")
     public List<Pedido> pedidosGroupByUser(@PathVariable("id") Long id) {
         return this.pedidoRepository.findAllByUsuario_Id(id);
     }
