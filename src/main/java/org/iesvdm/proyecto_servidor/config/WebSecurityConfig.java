@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/pedidos/**").hasAuthority("ROL_USER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority("ROL_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority("ROL_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/usuarios/password").hasAuthority("ROL_USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/usuarios/**").hasAuthority("ROL_USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ROL_ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
