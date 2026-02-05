@@ -37,6 +37,12 @@ function buildExtension() {
     console.log(`Destination: ${destDir}`);
     
     try {
+        // Clean destination directory before building
+        if (fs.existsSync(destDir)) {
+            fs.rmSync(destDir, { recursive: true, force: true });
+            console.log('Cleaned previous build');
+        }
+        
         // Copy extension files
         copyDirectory(sourceDir, destDir);
         
