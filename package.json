@@ -5,6 +5,9 @@
   "scripts": {
     "build:ext": "node build-extension.js"
   },
+  "engines": {
+    "node": ">=14.14.0"
+  },
   "keywords": [
     "browser-extension",
     "kristyco-studio"
