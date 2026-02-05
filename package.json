@@ -1,0 +1,14 @@
+{
+  "name": "kristyco-studio-extension",
+  "version": "1.0.0",
+  "description": "Browser extension for Kristyco Studio",
+  "scripts": {
+    "build:ext": "node build-extension.js"
+  },
+  "keywords": [
+    "browser-extension",
+    "kristyco-studio"
+  ],
+  "author": "",
+  "license": "ISC"
+}
